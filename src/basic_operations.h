@@ -12,7 +12,7 @@
  * @return The logarithm of the number with the given base.
 */
 
-double logarithm(double num, double base)
+static inline double logarithm(double num, double base)
 {
   if (num <= 0 || base <= 0 || base == 1)
     return NAN;
@@ -29,7 +29,7 @@ double logarithm(double num, double base)
  * @return The nth root of the radicand.
 */
 
-double nthRoot(double radicand, double degree)
+static inline double nthRoot(double radicand, double degree)
 {
   if (degree == 0)
     return NAN;
@@ -47,7 +47,7 @@ double nthRoot(double radicand, double degree)
  * @return The rounded number.
 */
 
-double roundTo(double num, unsigned decimalPlaces)
+static inline double roundTo(double num, unsigned decimalPlaces)
 {
   double result, base10 = pow(10, decimalPlaces);
   result = round(num * base10) / base10;

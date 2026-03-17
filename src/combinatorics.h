@@ -17,7 +17,7 @@
  * floating-point approximation in exponential form.
  */
 
-long long permutation(int num)
+static inline long long permutation(int num)
 {
   if (num < 0 || num > 20)
   {
@@ -41,7 +41,7 @@ long long permutation(int num)
  * floating-point approximation in exponential form.
  */
 
-long long cyclePermutation(int num)
+static inline long long cyclePermutation(int num)
 {
   if (num < 0 || num > 20)
   {
@@ -66,7 +66,7 @@ long long cyclePermutation(int num)
  * floating-point approximation in exponential form.
  */
 
-long long arrangement(int total, int selected)
+static inline long long arrangement(int total, int selected)
 {
   if (total <= 0 || total > 20 || selected < 0 || selected > total)
   {
@@ -91,7 +91,7 @@ long long arrangement(int total, int selected)
  * floating-point approximation in exponential form.
  */
 
-long long combination(int total, int selected)
+static inline long long combination(int total, int selected)
 {
   if (total <= 0 || total > 20 || selected < 0 || selected > total)
   {
@@ -111,7 +111,7 @@ long long combination(int total, int selected)
  * @return The permutation of the number (double precision).
  */
 
-double permutationlf(int num)
+static inline double permutationlf(int num)
 {
   if (num < 0)
     return NAN;
@@ -128,7 +128,7 @@ double permutationlf(int num)
  * @return The cycle permutation of the number (double precision).
  */
 
-double cyclePermutationlf(int num)
+static inline double cyclePermutationlf(int num)
 {
   if (num < 1)
     return NAN;
@@ -146,7 +146,7 @@ double cyclePermutationlf(int num)
  * @return The arrangement of selecting 'selected' items from 'total' items (double precision).
  */
 
-double arrangementlf(int total, int selected)
+static inline double arrangementlf(int total, int selected)
 {
   if (total <= 0 || selected < 0 || selected > total)
     return NAN;
@@ -164,7 +164,7 @@ double arrangementlf(int total, int selected)
  * @return The combination of selecting 'selected' items from 'total' items (double precision).
  */
 
-double combinationlf(int total, int selected)
+static inline double combinationlf(int total, int selected)
 {
   if (total <= 0 || selected < 0 || selected > total)
     return NAN;

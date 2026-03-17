@@ -14,7 +14,7 @@
  * @return The angle converted to radians.
  */
 
-double degrees2radians(double degrees)
+static inline double degrees2radians(double degrees)
 {
   double result = degrees / 180 * M_PI;
   return result;
@@ -28,7 +28,7 @@ double degrees2radians(double degrees)
  * @return The angle converted to degrees.
  */
 
-double radians2degrees(double radians)
+static inline double radians2degrees(double radians)
 {
   double result = radians / M_PI * 180;
   return result;
@@ -45,7 +45,7 @@ double radians2degrees(double radians)
  * @return The distance between the two points.
  */
 
-double distancePoints(double ax, double ay, double bx, double by)
+static inline double distancePoints(double ax, double ay, double bx, double by)
 {
   double result = sqrt(pow((bx - ax), 2) + pow((by - ay), 2));
   return result;
@@ -64,7 +64,7 @@ double distancePoints(double ax, double ay, double bx, double by)
  * @note It is the caller's responsibility to free the memory allocated for the array.
  */
 
-double *midpointPoints(double ax, double ay, double bx, double by)
+static inline double *midpointPoints(double ax, double ay, double bx, double by)
 {
   double *result = (double *)malloc(sizeof(*result) * 2),
          x[2] = {ax, bx},
@@ -85,7 +85,7 @@ double *midpointPoints(double ax, double ay, double bx, double by)
  * @return The slope of the line.
  */
 
-double slopeOfLine(double x1, double y1, double x2, double y2)
+static inline double slopeOfLine(double x1, double y1, double x2, double y2)
 {
   if (x1 == x2)
     return NAN;
@@ -105,7 +105,7 @@ double slopeOfLine(double x1, double y1, double x2, double y2)
  * @return The angle of incline of the line in radians.
  */
 
-double angleOfInclineLine(double x1, double y1, double x2, double y2)
+static inline double angleOfInclineLine(double x1, double y1, double x2, double y2)
 {
   if (x1 == x2)
     return NAN;
@@ -126,7 +126,7 @@ double angleOfInclineLine(double x1, double y1, double x2, double y2)
  * @note It is the caller's responsibility to free the memory allocated for the array.
  */
 
-double *equationOfLine(double x1, double y1, double x2, double y2)
+static inline double *equationOfLine(double x1, double y1, double x2, double y2)
 {
   if (x1 == x2)
     return NULL;
@@ -147,7 +147,7 @@ double *equationOfLine(double x1, double y1, double x2, double y2)
  * @return The distance between the point and the line.
  */
 
-double distancePointLine(double inclinationLine, double yInterceptLine, double xPoint, double yPoint)
+static inline double distancePointLine(double inclinationLine, double yInterceptLine, double xPoint, double yPoint)
 {
   double result = fabs(inclinationLine * xPoint - yPoint + yInterceptLine) /
                   sqrt(pow(inclinationLine, 2) + 1);
@@ -162,7 +162,7 @@ double distancePointLine(double inclinationLine, double yInterceptLine, double x
  * @return The perimeter of the circle.
  */
 
-double circlePerimeter(double radius)
+static inline double circlePerimeter(double radius)
 {
   if (radius < 0)
     return NAN;

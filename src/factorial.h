@@ -16,7 +16,7 @@
  * floating-point approximation in exponential form.
  */
 
-long long factorial(int num)
+static inline long long factorial(int num)
 {
   if (num < 0 || num > 20)
   {
@@ -39,7 +39,7 @@ long long factorial(int num)
  * @return The factorial of the number.
  */
 
-double factoriallf(int num)
+static inline double factoriallf(int num)
 {
   if (num < 0)
     return NAN;

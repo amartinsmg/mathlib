@@ -17,7 +17,7 @@
  * @note It is the caller's responsibility to free the memory allocated for the array.
 */
 
-double *sort(double *arr, unsigned length)
+static inline double *sort(double *arr, unsigned length)
 {
   if (length == 0)
     return NULL;

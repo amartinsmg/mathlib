@@ -12,7 +12,7 @@
  * @return The volume of the cube.
  */
 
-double cubeVol(double side)
+static inline double cubeVol(double side)
 {
   if (side < 0)
     return NAN;
@@ -31,7 +31,7 @@ double cubeVol(double side)
  * @return The volume of the cuboid.
  */
 
-double cuboidVol(double length, double width, double height)
+static inline double cuboidVol(double length, double width, double height)
 {
   if (width < 0 || length < 0 || height < 0)
     return NAN;
@@ -49,7 +49,7 @@ double cuboidVol(double length, double width, double height)
  * @return The volume of the prism.
  */
 
-double prismVol(double baseArea, double height)
+static inline double prismVol(double baseArea, double height)
 {
   if (baseArea < 0 || height < 0)
     return NAN;
@@ -68,7 +68,7 @@ double prismVol(double baseArea, double height)
  * @return The volume of the regular prism.
  */
 
-double regularPrismVol(double baseSide, int nOfBaseSides, double height)
+static inline double regularPrismVol(double baseSide, int nOfBaseSides, double height)
 {
   double baseArea = regularPolygonArea(baseSide, nOfBaseSides);
   return prismVol(baseArea, height);
@@ -83,7 +83,7 @@ double regularPrismVol(double baseSide, int nOfBaseSides, double height)
  * @return The volume of the pyramid.
  */
 
-double pyramidVol(double baseArea, double height)
+static inline double pyramidVol(double baseArea, double height)
 {
   if (baseArea < 0 || height < 0)
     return NAN;
@@ -102,7 +102,7 @@ double pyramidVol(double baseArea, double height)
  * @return The volume of the regular pyramid.
  */
 
-double regularPyramidVol(double baseSide, int nOfBaseSides, double height)
+static inline double regularPyramidVol(double baseSide, int nOfBaseSides, double height)
 {
   double baseArea = regularPolygonArea(baseSide, nOfBaseSides);
   return pyramidVol(baseArea, height);
@@ -117,7 +117,7 @@ double regularPyramidVol(double baseSide, int nOfBaseSides, double height)
  * @return The volume of the cylinder.
  */
 
-double cylinderVol(double baseRadius, double height)
+static inline double cylinderVol(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
@@ -135,7 +135,7 @@ double cylinderVol(double baseRadius, double height)
  * @return The volume of the cone.
  */
 
-double coneVol(double baseRadius, double height)
+static inline double coneVol(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
@@ -150,7 +150,7 @@ double coneVol(double baseRadius, double height)
  * @return The volume of the sphere.
  */
 
-double sphereVol(double radius)
+static inline double sphereVol(double radius)
 {
   if (radius < 0)
     return NAN;

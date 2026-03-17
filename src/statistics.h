@@ -2,7 +2,7 @@
 #define STATISTICS_H
 
 #include <math.h>
-#include "include/sort.h"
+#include "sort.h"
 #include "percentage.h"
 #include "basic_operations.h"
 
@@ -15,7 +15,7 @@
  * @return The calculated mean.
  */
 
-double mean(double *arr, unsigned length)
+static inline double mean(double *arr, unsigned length)
 {
   if (length == 0)
     return NAN;
@@ -38,7 +38,7 @@ double mean(double *arr, unsigned length)
  * @return The weighted mean of the arr.
 */
 
-double weightedMean(double **valuesWeightsPairs, unsigned length)
+static inline double weightedMean(double **valuesWeightsPairs, unsigned length)
 {
   if (length == 0)
     return NAN;
@@ -68,7 +68,7 @@ double weightedMean(double **valuesWeightsPairs, unsigned length)
  * @return The trimmed mean of the arr.
  */
 
-double trimmedMean(double *arr, unsigned length, double trimmedMeanPercentage)
+static inline double trimmedMean(double *arr, unsigned length, double trimmedMeanPercentage)
 {
   if (length == 0)
     return NAN;
@@ -92,7 +92,7 @@ double trimmedMean(double *arr, unsigned length, double trimmedMeanPercentage)
  * @return The calculated geometric mean.
  */
 
-double geometricMean(double *arr, unsigned length)
+static inline double geometricMean(double *arr, unsigned length)
 {
   if (length == 0)
     return NAN;
@@ -118,7 +118,7 @@ double geometricMean(double *arr, unsigned length)
  * @return The calculated harmonic mean.
  */
 
-double harmonicMean(double *arr, unsigned length)
+static inline double harmonicMean(double *arr, unsigned length)
 {
   if (length == 0)
     return NAN;
@@ -144,7 +144,7 @@ double harmonicMean(double *arr, unsigned length)
  * @return The calculated median.
  */
 
-double median(double *arr, unsigned length)
+static inline double median(double *arr, unsigned length)
 {
   if (length <= 0)
     return NAN;
@@ -170,7 +170,7 @@ double median(double *arr, unsigned length)
  * @note The number of modes is stored in ptrNOfModes.
  */
 
-double *mode(double *arr, unsigned length, unsigned *ptrNOfModes)
+static inline double *mode(double *arr, unsigned length, unsigned *ptrNOfModes)
 {
   if (length == 0)
   {
@@ -229,7 +229,7 @@ double *mode(double *arr, unsigned length, unsigned *ptrNOfModes)
  * @return The minimum value.
  */
 
-double min(double *arr, unsigned length)
+static inline double min(double *arr, unsigned length)
 {
   if (length == 0)
     return NAN;
@@ -249,7 +249,7 @@ double min(double *arr, unsigned length)
  * @return The maximum value.
  */
 
-double max(double *arr, unsigned length)
+static inline double max(double *arr, unsigned length)
 {
   if (length == 0)
     return NAN;
@@ -269,7 +269,7 @@ double max(double *arr, unsigned length)
  * @return The calculated range.
  */
 
-double range(double *arr, unsigned length)
+static inline double range(double *arr, unsigned length)
 {
   if (length == 0)
     return NAN;
@@ -288,7 +288,7 @@ double range(double *arr, unsigned length)
  * @return The calculated midrange.
  */
 
-double midrange(double *arr, unsigned length)
+static inline double midrange(double *arr, unsigned length)
 {
   double result = range(arr, length) / 2;
   return result;
@@ -303,7 +303,7 @@ double midrange(double *arr, unsigned length)
  * @return The calculated variance.
  */
 
-double variance(double *arr, unsigned length)
+static inline double variance(double *arr, unsigned length)
 {
   if (length == 0)
     return NAN;
@@ -326,7 +326,7 @@ double variance(double *arr, unsigned length)
  * @return The calculated standard deviation.
  */
 
-double standardDeviation(double *arr, unsigned length)
+static inline double standardDeviation(double *arr, unsigned length)
 {
   if (length == 0)
     return NAN;
@@ -343,7 +343,7 @@ double standardDeviation(double *arr, unsigned length)
  * @return The calculated sample variance.
  */
 
-double sampleVariance(double *arr, unsigned length)
+static inline double sampleVariance(double *arr, unsigned length)
 {
   if (length < 1)
     return NAN;
@@ -366,7 +366,7 @@ double sampleVariance(double *arr, unsigned length)
  * @return The calculated sample standard deviation.
  */
 
-double sampleStandardDeviation(double *arr, unsigned length)
+static inline double sampleStandardDeviation(double *arr, unsigned length)
 {
   if (length < 1)
     return NAN;

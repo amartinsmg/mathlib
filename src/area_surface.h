@@ -12,7 +12,7 @@
  * @return The surface area of the cube.
  */
 
-double cubeArea(double side)
+static inline double cubeArea(double side)
 {
   if (side < 0)
     return NAN;
@@ -31,7 +31,7 @@ double cubeArea(double side)
  * @return The surface area of the cuboid.
  */
 
-double cuboidArea(double width, double length, double height)
+static inline double cuboidArea(double width, double length, double height)
 {
   if (width < 0 || length < 0 || height < 0)
     return NAN;
@@ -50,7 +50,7 @@ double cuboidArea(double width, double length, double height)
  * @return The surface area of the prism.
  */
 
-double prismArea(double baseArea, double basePerimeter, double height)
+static inline double prismArea(double baseArea, double basePerimeter, double height)
 {
   if (baseArea < 0 || basePerimeter < 0 || height < 0)
     return NAN;
@@ -69,7 +69,7 @@ double prismArea(double baseArea, double basePerimeter, double height)
  * @return The surface area of the prism.
  */
 
-double regularPrismArea(double baseSide, int nOfBaseSides, double height)
+static inline double regularPrismArea(double baseSide, int nOfBaseSides, double height)
 {
   if (baseSide < 0 || nOfBaseSides < 0 || height < 0)
     return NAN;
@@ -88,7 +88,7 @@ double regularPrismArea(double baseSide, int nOfBaseSides, double height)
  * @return The surface area of the pyramid.
  */
 
-double pyramidArea(double baseArea, double basePerimeter, double slantHeight)
+static inline double pyramidArea(double baseArea, double basePerimeter, double slantHeight)
 {
   if (baseArea < 0 || basePerimeter < 0 || slantHeight < 0)
     return NAN;
@@ -107,7 +107,7 @@ double pyramidArea(double baseArea, double basePerimeter, double slantHeight)
  * @return The surface area of the pyramid.
  */
 
-double regularPyramidArea(double baseSide, int nOfBaseSides, double heigth)
+static inline double regularPyramidArea(double baseSide, int nOfBaseSides, double heigth)
 {
   if (baseSide < 0 || nOfBaseSides < 0 || heigth < 0)
     return NAN;
@@ -127,7 +127,7 @@ double regularPyramidArea(double baseSide, int nOfBaseSides, double heigth)
  * @return The surface area of the cylinder.
  */
 
-double cylinderArea(double baseRadius, double height)
+static inline double cylinderArea(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
@@ -145,7 +145,7 @@ double cylinderArea(double baseRadius, double height)
  * @return The surface area of the cone.
  */
 
-double coneArea(double baseRadius, double height)
+static inline double coneArea(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
@@ -162,7 +162,7 @@ double coneArea(double baseRadius, double height)
  * @return The surface area of the sphere.
  */
 
-double sphereArea(double radius)
+static inline double sphereArea(double radius)
 {
   if (radius < 0)
     return NAN;

@@ -12,7 +12,7 @@
  * @return True if the number is a happy number, false otherwise.
 */
 
-bool isHappy(long long num)
+static inline bool isHappy(long long num)
 {
   long long sum,
       *numSet = (long long *)malloc(sizeof(*numSet));

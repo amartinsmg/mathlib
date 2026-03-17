@@ -13,7 +13,7 @@
  * @note It is the caller's responsibility to free the memory allocated for the array.
  */
 
-long long *primeFactors(long long num)
+static inline long long *primeFactors(long long num)
 {
   if (num <= 1)
     return NULL;

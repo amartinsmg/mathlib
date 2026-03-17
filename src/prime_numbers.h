@@ -1,7 +1,7 @@
-#include <stdbool.h>
-
 #ifndef PRIME_NUMBERS_H
 #define PRIME_NUMBERS_H
+
+#include <stdbool.h>
 
 /**
   @brief Checks whether the given number is a prime number.
@@ -9,7 +9,7 @@
   @return True if the number is a prime number, false otherwise.
 */
 
-bool isPrime(long long num)
+static inline bool isPrime(long long num)
 {
   int i;
   if (!(num % 2))

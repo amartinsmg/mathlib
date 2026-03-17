@@ -14,7 +14,7 @@
  * @return The calculated value after simple growth.
  */
 
-double simpleGrowth(double initial, double rate, double interval)
+static inline double simpleGrowth(double initial, double rate, double interval)
 {
   if (interval < 0)
     return NAN;
@@ -33,7 +33,7 @@ double simpleGrowth(double initial, double rate, double interval)
  * @return The calculated simple growth rate.
  */
 
-double simpleGrowthRate(double initial, double final, double interval)
+static inline double simpleGrowthRate(double initial, double final, double interval)
 {
   if (initial == 0 || interval <= 0)
     return NAN;
@@ -52,7 +52,7 @@ double simpleGrowthRate(double initial, double final, double interval)
  * @return The calculated value after compounded growth.
  */
 
-double compoundedGrowth(double initial, double rate, double interval)
+static inline double compoundedGrowth(double initial, double rate, double interval)
 {
   if (interval < 0)
     return NAN;
@@ -71,7 +71,7 @@ double compoundedGrowth(double initial, double rate, double interval)
  * @return The calculated compounded growth rate.
  */
 
-double compoundedGrowthRate(double initial, double final, double interval)
+static inline double compoundedGrowthRate(double initial, double final, double interval)
 {
   if (initial == 0 || interval <= 0)
     return NAN;

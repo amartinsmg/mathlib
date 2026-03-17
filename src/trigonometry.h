@@ -16,7 +16,7 @@
  * @return The length of the hypotenuse.
  */
 
-double hypotenuse(double sideA, double sideB)
+static inline double hypotenuse(double sideA, double sideB)
 {
   if (sideA <= 0 || sideB <= 0)
     return NAN;
@@ -34,7 +34,7 @@ double hypotenuse(double sideA, double sideB)
  * @return The length of the side.
  */
 
-double sideRightTriangle(double hypotenuse, double sideA)
+static inline double sideRightTriangle(double hypotenuse, double sideA)
 {
   if (sideA <= 0 || hypotenuse <= sideA)
     return NAN;
@@ -53,7 +53,7 @@ double sideRightTriangle(double hypotenuse, double sideA)
  * @return The length of the side.
  */
 
-double sideTriangleLC(double sideA, double sideB, double oppositeAngle)
+static inline double sideTriangleLC(double sideA, double sideB, double oppositeAngle)
 {
   if (sideA <= 0 || sideB <= 0 || oppositeAngle <= 0 || oppositeAngle >= M_PI)
     return NAN;
@@ -72,7 +72,7 @@ double sideTriangleLC(double sideA, double sideB, double oppositeAngle)
  * @return The measure of the angle in radians.
  */
 
-double angleTriangleLC(double oppositeSide, double sideA, double sideB)
+static inline double angleTriangleLC(double oppositeSide, double sideA, double sideB)
 {
   if (sideA <= 0 || sideB <= 0 || oppositeSide <= 0 ||
       oppositeSide >= sideA + sideB || oppositeSide <= fabs(sideA - sideB))
@@ -92,7 +92,7 @@ double angleTriangleLC(double oppositeSide, double sideA, double sideB)
  * @return The length of the side.
  */
 
-double sideTriangleLS(double oppositeAngle, double sideA, double oppositeAngle2A)
+static inline double sideTriangleLS(double oppositeAngle, double sideA, double oppositeAngle2A)
 {
   if (sideA <= 0 || oppositeAngle <= 0 || oppositeAngle >= M_PI ||
       oppositeAngle2A <= 0 || oppositeAngle2A >= M_PI)
@@ -112,7 +112,7 @@ double sideTriangleLS(double oppositeAngle, double sideA, double oppositeAngle2A
  * @return The measure of the angle in radians.
  */
 
-double angleTriangleLS(double oppositeSide, double sideA, double oppositeAngle2A)
+static inline double angleTriangleLS(double oppositeSide, double sideA, double oppositeAngle2A)
 {
   if (oppositeSide <= 0 || sideA <= 0 || oppositeAngle2A <= 0 || oppositeAngle2A >= M_PI ||
       oppositeSide > sideA / sin(oppositeAngle2A))
