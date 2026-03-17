@@ -1,23 +1,7 @@
 #include <stdio.h>
-#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
-#include <armstrong_numbers.h>
-#include <basic_operations.h>
-#include <combinatorics.h>
-#include <factorial.h>
-#include <gcd.h>
-#include <geometry.h>
-#include <growth.h>
-#include <happy_numbers.h>
-#include <lcm.h>
-#include <percentage.h>
-#include <perfect_numbers.h>
-#include <prime_factorization.h>
-#include <prime_numbers.h>
-#include <probability_distribution.h>
-#include <statistics.h>
-#include <trigonometry.h>
+#include <mathlib.h>
 #include "include/array_cmp.h"
 #include "include/test.h"
 
@@ -53,15 +37,15 @@ int main()
     matrix1[i] = malloc(sizeof(**matrix1) * 2);
   for (i = 0; i < SIZE_OF_ARR_2; i++)
     matrix2[i] = malloc(sizeof(**matrix2) * 2);
-  for (i = 0; i < 8; i++)
-    arr6[i] = matrix1[i][0] = matrix1[7 - i][1] = (double)arr1[i];
-  for (i = 0; i < 7; i++)
-    arr7[i] = matrix2[i][0] = matrix2[6 - i][1] = (double)arr2[i];
+  for (i = 0; i < SIZE_OF_ARR_1; i++)
+    arr6[i] = matrix1[i][0] = matrix1[SIZE_OF_ARR_1 - 1 - i][1] = (double)arr1[i];
+  for (i = 0; i < SIZE_OF_ARR_2; i++)
+    arr7[i] = matrix2[i][0] = matrix2[SIZE_OF_ARR_2 - 1 - i][1] = (double)arr2[i];
 
-  status = test(1, arrayCmp(arr1, arr3, 8));
+  status = test(1, arrayCmp(arr1, arr3, SIZE_OF_ARR_1));
   if (status != 0)
     goto cleanup;
-  status = test(2, arrayCmp(arr2, arr4, 7));
+  status = test(2, arrayCmp(arr2, arr4, SIZE_OF_ARR_2));
   if (status != 0)
     goto cleanup;
   status = test(3, roundTo(M_PI, 2) == 3.14);
