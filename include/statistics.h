@@ -50,7 +50,8 @@ static inline double weightedMean(double **valuesWeightsPairs, unsigned length)
   {
     value = valuesWeightsPairs[i][0];
     weight = valuesWeightsPairs[i][1];
-    assert(weight > 0);
+    if (weight <= 0)
+      return NAN;
     sum += value * weight;
     weightSum += weight;
   }
