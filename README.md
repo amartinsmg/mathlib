@@ -7,18 +7,18 @@ This project provides a collection of mathematical algorithms implemented in C. 
 The project includes implementations of the following mathematical algorithms:
 
 | File                                                           | Features                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| 
+| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [area_shape.h](./src/area_shape.h)                             | Area calculations for shapes such as triangles, squares, rectangles, diamonds, parallelograms, trapezoids, regular pentagons, circles, circular sectors, and ellipses                                                                                                                                                                                                                                                                         |
 | [area_surface.h](./src/area_surface.h)                         | Surface area calculations for objects such as cubes, cuboids, prisms, regular prisms, pyramids, regular pyramids, cylinders, cones, and spheres                                                                                                                                                                                                                                                                                               |
 | [armstrong_numbers.h](./src/armstrong_numbers.h)               | Armstrong number determination                                                                                                                                                                                                                                                                                                                                                                                                                |
 | [basic_operations.h](./src/basic_operations.h)                 | Basic operations, including rounding to a specified number of decimal places, nth root calculation, and logarithm calculation in a given base                                                                                                                                                                                                                                                                                                 |
 | [combinatorics.h](./src/combinatorics.h)                       | Combinatorial analysis, including permutation, circular permutation, arrangement, and combination                                                                                                                                                                                                                                                                                                                                             |
 | [factorial.h](./src/factorial.h)                               | Factorial calculation                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| [gcd.h](./src/gcd.h)                                           | Greatest common divisor calculation                                                                                                                                                                                                                                                                                                                                                                                                             |
+| [gcd.h](./src/gcd.h)                                           | Greatest common divisor calculation                                                                                                                                                                                                                                                                                                                                                                                                           |
 | [geometry.h](./src/geometry.h)                                 | Geometry-related functions, such as conversion between degrees and radians, distance between two points, midpoint between two points, slope of a line, angle of incline of a line, equation of a line, distance between a point and a line, circle perimeter calculation, number of diagonals in a polygon, sum of internal angles of a convex polygon, each internal angle of a regular polygon, and each external angle of a convex polygon |
 | [growth.h](./src/growth.h)                                     | Growth calculations, including value after simple growth, rate of simple growth, value after compound growth, and rate of compound growth                                                                                                                                                                                                                                                                                                     |
 | [happy_numbers.h](./src/happy_numbers.h)                       | Happy numbers determination                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| [lcm.h](./src/lcm.h)                                           | Least common multiple calculation                                                                                                                                                                                                                                                                                                                                                                                                           |
+| [lcm.h](./src/lcm.h)                                           | Least common multiple calculation                                                                                                                                                                                                                                                                                                                                                                                                             |
 | [percentage.h](./src/percentage.h)                             | Percentage calculations, such as finding x percent of a number and determining what percentage one number represents of another                                                                                                                                                                                                                                                                                                               |
 | [perfect_numbers.h](./src/perfect_numbers.h)                   | Perfect numbers determination                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | [prime_factorization.h](./src/prime_factorization.h)           | Prime factorization of numbers                                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -34,33 +34,28 @@ The project aims to provide a comprehensive and efficient set of mathematical fu
 
 To compile and run the test file, follow these steps:
 
-1. Clone the repository:
+1. **Clone the repository:**
 
 ```sh
 git clone https://github.com/amartinsmg/MathAlgorithms.git
 ```
 
-2. Change to the project directory:
+2. **Change to the project directory:**
 
 ```sh
 cd MathAlgorithms
 ```
 
-3. Build the test executable using the provided Makefile:
+3. **Build and run the tests:**
+   The following command uses the Makefile to compile the code and automatically execute the test suite:
 
 ```sh
 make test
 ```
 
-4. Execute the test program:
-
-```sh
-./debug/test
-```
-
 ## Usage
 
-The test program provided allows you to evaluate the performance and correctness of the implemented mathematical algorithms. It calls each function and compares the results with pre-calculated values to validate the accuracy of the algorithms. By running the test program, you can ensure that the functions are functioning correctly and producing expected results.
+The test program provided allows you to evaluate the correctness of the implemented mathematical algorithms. It calls each function and compares the results with pre-calculated values to validate the accuracy of the algorithms. By running the test program, you can ensure that the functions are functioning correctly and producing expected results.
 
 ## Contributing
 
