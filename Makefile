@@ -1,15 +1,16 @@
-# Makefile for building the "test" target and creating the "debug" directory.
+test: test-c test-cpp
 
-#Targets
-# `test`: runs the test.
-# `test-bin`: compiles the main.c file in the tests directory.
-# `dir`: creates the "debug" directory if it doesn't already exist.
+test-c: c-bin
+	./debug/test_c
 
-test: test-bin
-	./debug/test
+test-cpp: cpp-bin
+	./debug/test_cpp
 
-test-bin: dir
-	gcc -o debug/test -Iinclude -fsanitize=address -g tests/main.c -lm
+c-bin: dir
+	gcc -o debug/test_c -Iinclude -Iinclude/utils -fsanitize=address -g tests/main.c -lm
+
+cpp-bin: dir
+	g++ -o debug/test_cpp -Iinclude -Iinclude/utils -fsanitize=address -g tests/main.cpp -lm
 
 dir:
 	mkdir -p debug
