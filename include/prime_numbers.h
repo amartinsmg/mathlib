@@ -11,12 +11,12 @@
 
 static inline bool isPrime(long long num)
 {
-  int i;
-  if (!(num % 2))
-    return num == 2 ? true : false;
-  for (i = 3; num % i && i <= num; i += 2)
+  long long i;
+  for (i = 2; num % i && i <= num; i++)
     if (i * i > num)
       return true;
+  if (i == num)
+    return true;
   return false;
 }
 
