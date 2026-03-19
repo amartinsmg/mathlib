@@ -14,7 +14,7 @@
  * @return The angle converted to radians.
  */
 
-static inline double math_degrees2radians(double degrees)
+static inline double math_deg2rad(double degrees)
 {
   double result = degrees / 180 * M_PI;
   return result;
@@ -28,111 +28,104 @@ static inline double math_degrees2radians(double degrees)
  * @return The angle converted to degrees.
  */
 
-static inline double math_radians2degrees(double radians)
+static inline double math_rad2deg(double radians)
 {
   double result = radians / M_PI * 180;
   return result;
 }
 
 /**
+ * @brief Structure representing a point in 2D space.
+ */
+
+typedef struct
+{
+  double x;
+  double y;
+} Point;
+
+/**
  * @brief Calculates the distance between two points.
  *
- * @param ax The x-coordinate of the first point.
- * @param ay The y-coordinate of the first point.
- * @param bx The x-coordinate of the second point.
- * @param by The y-coordinate of the second point
- * .
+ * @param a The first point.
+ * @param b The second point.
+ *
  * @return The distance between the two points.
  */
 
-static inline double math_distancePoints(double ax, double ay, double bx, double by)
+static inline double math_distancePoints(Point a, Point b)
 {
-  double result = sqrt(pow((bx - ax), 2) + pow((by - ay), 2));
+  double result = sqrt(pow((b.x - a.x), 2) + pow((b.y - a.y), 2));
   return result;
 }
 
 /**
  * @brief Calculates the midpoint between two points.
  *
- * @param ax The x-coordinate of the first point.
- * @param ay The y-coordinate of the first point.
- * @param bx The x-coordinate of the second point.
- * @param by The y-coordinate of the second point.
+ * @param a The first point.
+ * @param b The second point.
  *
- * @return A dynamically allocated array of size 2 containing the x-coordinate and y-coordinate of the midpoint.
- *
- * @note It is the caller's responsibility to free the memory allocated for the array.
+ * @return The midpoint between the two points.
  */
 
-static inline double *math_midpointPoints(double ax, double ay, double bx, double by)
+static inline Point math_midpointPoints(Point a, Point b)
 {
-  double *result = (double *)malloc(sizeof(*result) * 2),
-         x[2] = {ax, bx},
-         y[2] = {ay, by};
-  result[0] = math_mean(x, 2);
-  result[1] = math_mean(y, 2);
+  Point result;
+  double x[2] = {a.x, b.x},
+         y[2] = {a.y, b.y};
+  result.x = math_mean(x, 2);
+  result.y = math_mean(y, 2);
   return result;
 }
 
 /**
  * @brief Calculates the slope of a line.
  *
- * @param x1 The x-coordinate of the first point.
- * @param y1 The y-coordinate of the first point.
- * @param x2 The x-coordinate of the second point.
- * @param y2 The y-coordinate of the second point.
+ * @param a The first point.
+ * @param b The second point.
  *
  * @return The slope of the line.
  */
 
-static inline double math_slopeOfLine(double x1, double y1, double x2, double y2)
+static inline double math_slopeLine(Point a, Point b)
 {
-  if (x1 == x2)
+  if (a.x == b.x)
     return NAN;
   double result;
-  result = (y2 - y1) / (x2 - x1);
+  result = (b.y - a.y) / (b.x - a.x);
   return result;
 }
 
 /**
  * @brief Calculates the angle of incline of a line.
  *
- * @param x1 The x-coordinate of the first point.
- * @param y1 The y-coordinate of the first point.
- * @param x2 The x-coordinate of the second point.
- * @param y2 The y-coordinate of the second point.
+ * @param a The first point.
+ * @param b The second point.
  *
  * @return The angle of incline of the line in radians.
  */
 
-static inline double math_inclinationOfLine(double x1, double y1, double x2, double y2)
+static inline double math_inclinationLine(Point a, Point b)
 {
-  if (x1 == x2)
-    return NAN;
-  double result = atan(math_slopeOfLine(x1, y1, x2, y2));
+  double result = atan(math_slopeLine(a, b));
   return result;
 }
 
 /**
- * @brief Calculates the equation of a line.
+ * @brief Calculates the y-intercept of a line.
  *
- * @param x1 The x-coordinate of the first point.
- * @param y1 The y-coordinate of the first point.
- * @param x2 The x-coordinate of the second point.
- * @param y2 The y-coordinate of the second point.
+ * @param a The first point.
+ * @param b The second point.
  *
- * @return A dynamically allocated array of size 2 containing the slope and y-intercept of the line.
- *
- * @note It is the caller's responsibility to free the memory allocated for the array.
+ * @return The y-intercept of the line.
  */
 
-static inline double *math_equationOfLine(double x1, double y1, double x2, double y2)
+static inline double math_lineYIntercept(Point a, Point b)
 {
-  if (x1 == x2)
-    return NULL;
-  double *result = (double *)malloc(sizeof(*result) * 2);
-  result[0] = math_slopeOfLine(x1, y1, x2, y2);
-  result[1] = y1 - result[0] * x1;
+  if (a.x == b.x)
+    return NAN;
+  double result;
+  result = a.y - math_slopeLine(a, b) * a.x;
   return result;
 }
 
@@ -141,15 +134,14 @@ static inline double *math_equationOfLine(double x1, double y1, double x2, doubl
  *
  * @param inclinationLine The inclination (slope) of the line.
  * @param yInterceptLine The y-intercept of the line.
- * @param xPoint The x-coordinate of the point.
- * @param yPoint The y-coordinate of the point.
+ * @param p The point.
  *
  * @return The distance between the point and the line.
  */
 
-static inline double math_distancePointLine(double inclinationLine, double yInterceptLine, double xPoint, double yPoint)
+static inline double math_distancePointLine(double inclinationLine, double yInterceptLine, Point p)
 {
-  double result = fabs(inclinationLine * xPoint - yPoint + yInterceptLine) /
+  double result = fabs(inclinationLine * p.x - p.y + yInterceptLine) /
                   sqrt(pow(inclinationLine, 2) + 1);
   return result;
 }
@@ -206,9 +198,9 @@ static inline double math_convexPolySumIntAng(double nOfSides)
 
 /**
  * @brief Calculates the measure of each interior angle in a regular polygon.
- * 
+ *
  * @param nOfSides The number of sides of the polygon.
- * 
+ *
  * @return The measure of each interior angle in the regular polygon, in radians.
  */
 
@@ -223,9 +215,9 @@ static inline double math_regPolygonIAng(int nOfSides)
 
 /**
  * @brief Calculates the measure of each exterior angle in a convex polygon.
- * 
+ *
  * @param nOfSides The number of sides of the polygon.
- * 
+ *
  * @return The measure of each exterior angle in the convex polygon, in radians.
  */
 
