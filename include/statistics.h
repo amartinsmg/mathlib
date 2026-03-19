@@ -201,13 +201,14 @@ static inline double *math_mode(const double *arr, size_t length, size_t *ptrNOf
   }
   double *result = NULL,
          *sortedArr = sort(arr, length);
-  Freq *frequencies = malloc(sizeof(*frequencies) * length);
+  Freq *frequencies = (Freq *)malloc(sizeof(*frequencies) * length);
   size_t i,
       minFreq = __UINT32_MAX__,
       maxFreq = 0,
       resultLenght = 0,
       freq_len = 0;
 
+  *ptrNOfModes = 0;
   frequencies[freq_len++].value = sortedArr[0];
   frequencies[freq_len++].value = 1;
   for (i = 0; i < length; i++)
@@ -223,14 +224,16 @@ static inline double *math_mode(const double *arr, size_t length, size_t *ptrNOf
     minFreq = frequencies[i].frequency < minFreq ? frequencies[i].frequency : minFreq;
     maxFreq = frequencies[i].frequency > maxFreq ? frequencies[i].frequency : maxFreq;
   }
-  *ptrNOfModes = 0;
   if (minFreq < maxFreq)
     for (i = 0; i < freq_len; i++)
       if (frequencies[i].frequency == maxFreq)
-      {
-        result = (double *)realloc(result, sizeof(*result) * ++(*ptrNOfModes));
-        result[resultLenght++] = frequencies[i].value;
-      }
+        ++(*ptrNOfModes);
+
+  result = (double *)malloc(sizeof(*result) * (*ptrNOfModes));
+
+  for (i = 0; i < freq_len; i++)
+    if (frequencies[i].frequency == maxFreq)
+      result[resultLenght++] = frequencies[i].value;
 
   free(frequencies);
   free(sortedArr);
