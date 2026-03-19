@@ -346,7 +346,7 @@ static inline double standardDeviation(double *arr, unsigned length)
 
 static inline double sampleVariance(double *arr, unsigned length)
 {
-  if (length < 1)
+  if (length <= 1)
     return NAN;
   double mu = mean(arr, length),
          sum = 0,
@@ -369,7 +369,7 @@ static inline double sampleVariance(double *arr, unsigned length)
 
 static inline double sampleStandardDeviation(double *arr, unsigned length)
 {
-  if (length < 1)
+  if (length <= 1)
     return NAN;
   double result = sqrt(sampleVariance(arr, length));
   return result;
