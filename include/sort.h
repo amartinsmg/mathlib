@@ -2,6 +2,7 @@
 #define SORT_H
 
 #include <stdlib.h>
+#include <stddef.h>
 #include <math.h>
 
 /**
@@ -17,7 +18,7 @@
  * @note It is the caller's responsibility to free the memory allocated for the array.
 */
 
-static inline double *sort(double *arr, unsigned length)
+static inline double *sort(const double *arr, size_t length)
 {
   if (length == 0)
     return NULL;
@@ -25,8 +26,8 @@ static inline double *sort(double *arr, unsigned length)
   double *buffer1 = (double *)malloc(sizeof(*buffer1) * length),
          *buffer2 = (double *)malloc(sizeof(*buffer2) * length),
          *src, *target, *left, *right, *result, *unused;
-  unsigned i, j, k, half, targetIndex, leftIndex, rightIndex, log2_length, pow2_i;
-  log2_length = (unsigned)ceil(log2((double)length));
+  size_t i, j, k, half, targetIndex, leftIndex, rightIndex, log2_length, pow2_i;
+  log2_length = (size_t)ceil(log2((double)length));
 
   for (i = 0; i < length; i++)
     buffer1[i] = arr[i];
@@ -35,7 +36,7 @@ static inline double *sort(double *arr, unsigned length)
     src = i % 2 ? buffer1 : buffer2,
     target = !(i % 2) ? buffer1 : buffer2;
     targetIndex = 0;
-    pow2_i = (unsigned)pow(2, (double)i);
+    pow2_i = (size_t)pow(2, (double)i);
     half = pow2_i / 2;
     for (j = 0; j < length; j += pow2_i)
     {
