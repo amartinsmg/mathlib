@@ -2,8 +2,9 @@
 #define COMBINATORICS_H
 
 #include "factorial.h"
-#include <math.h>
 #include <errno.h>
+#include <stdio.h>
+#include <math.h>
 
 /**
  * @brief Calculate the cycle permutation of a number.
@@ -17,14 +18,9 @@
  * floating-point approximation in exponential form.
  */
 
-static inline long long permutation(int num)
+static inline unsigned long long permutation(unsigned num)
 {
-  if (num < 0 || num > 20)
-  {
-    errno = ERANGE;
-    return 0;
-  }
-  long long result;
+  unsigned long long result;
   result = factorial(num);
   return result;
 }
@@ -41,13 +37,10 @@ static inline long long permutation(int num)
  * floating-point approximation in exponential form.
  */
 
-static inline long long cyclePermutation(int num)
+static inline unsigned long long cyclePermutation(unsigned num)
 {
-  if (num < 0 || num > 20)
-  {
-    errno = ERANGE;
-    return 0;
-  }
+  if (num <= 1)
+    return 1;
   long long result;
   result = factorial(num - 1);
   return result;
@@ -66,11 +59,12 @@ static inline long long cyclePermutation(int num)
  * floating-point approximation in exponential form.
  */
 
-static inline long long arrangement(int total, int selected)
+static inline unsigned long long arrangement(unsigned total, unsigned selected)
 {
-  if (total <= 0 || total > 20 || selected < 0 || selected > total)
+  if (total == 0 || selected > total)
   {
-    errno = ERANGE;
+    errno = EDOM;
+    perror("Error calculating arrangement");
     return 0;
   }
   long long result;
@@ -91,11 +85,12 @@ static inline long long arrangement(int total, int selected)
  * floating-point approximation in exponential form.
  */
 
-static inline long long combination(int total, int selected)
+static inline long long combination(unsigned total, unsigned selected)
 {
-  if (total <= 0 || total > 20 || selected < 0 || selected > total)
+  if (total == 0 || selected > total)
   {
-    errno = ERANGE;
+    errno = EDOM;
+    perror("Error calculating combination");
     return 0;
   }
   long long result;
@@ -111,10 +106,8 @@ static inline long long combination(int total, int selected)
  * @return The permutation of the number (double precision).
  */
 
-static inline double permutationlf(int num)
+static inline double permutationlf(unsigned num)
 {
-  if (num < 0)
-    return NAN;
   double result;
   result = factoriallf(num);
   return result;
@@ -128,10 +121,10 @@ static inline double permutationlf(int num)
  * @return The cycle permutation of the number (double precision).
  */
 
-static inline double cyclePermutationlf(int num)
+static inline double cyclePermutationlf(unsigned num)
 {
-  if (num < 1)
-    return NAN;
+  if (num <= 1)
+    return 1;
   double result;
   result = factoriallf(num - 1);
   return result;
@@ -146,9 +139,9 @@ static inline double cyclePermutationlf(int num)
  * @return The arrangement of selecting 'selected' items from 'total' items (double precision).
  */
 
-static inline double arrangementlf(int total, int selected)
+static inline double arrangementlf(unsigned total, unsigned selected)
 {
-  if (total <= 0 || selected < 0 || selected > total)
+  if (total == 0 || selected > total)
     return NAN;
   double result;
   result = factoriallf(total) / factoriallf(total - selected);
@@ -164,9 +157,9 @@ static inline double arrangementlf(int total, int selected)
  * @return The combination of selecting 'selected' items from 'total' items (double precision).
  */
 
-static inline double combinationlf(int total, int selected)
+static inline double combinationlf(unsigned total, unsigned selected)
 {
-  if (total <= 0 || selected < 0 || selected > total)
+  if (total == 0 || selected > total)
     return NAN;
   double result;
   result = factoriallf(total) / (factoriallf(selected) * factoriallf(total - selected));
