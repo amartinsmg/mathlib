@@ -2,6 +2,7 @@
 #define FACTORIAL_H
 
 #include <errno.h>
+#include <stdio.h>
 #include <math.h>
 
 /**
@@ -16,16 +17,17 @@
  * floating-point approximation in exponential form.
  */
 
-static inline long long factorial(int num)
+static inline unsigned long long factorial(unsigned num)
 {
-  if (num < 0 || num > 20)
+  if (num > 20)
   {
     errno = ERANGE;
+    perror("Error calculating factorial");
     return 0;
   }
 
-  long long result = 1;
-  int i;
+  unsigned long long result = 1;
+  unsigned i;
   for (i = 1; i <= num; i++)
     result *= i;
   return result;
@@ -39,12 +41,10 @@ static inline long long factorial(int num)
  * @return The factorial of the number.
  */
 
-static inline double factoriallf(int num)
+static inline double factoriallf(unsigned num)
 {
-  if (num < 0)
-    return NAN;
   double result = 1;
-  int i;
+  unsigned i;
   for (i = 1; i <= num; i++)
     result *= i;
   return result;
