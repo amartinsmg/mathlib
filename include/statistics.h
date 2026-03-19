@@ -1,10 +1,11 @@
 #ifndef STATISTICS_H
 #define STATISTICS_H
 
+#include <stddef.h>
 #include <math.h>
-#include "sort.h"
-#include "percentage.h"
 #include "basic_operations.h"
+#include "percentage.h"
+#include "sort.h"
 
 /**
  * @brief Calculate the arithmetic mean of an array of values.
@@ -15,13 +16,13 @@
  * @return The calculated mean.
  */
 
-static inline double mean(double *arr, unsigned length)
+static inline double mean(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
   double result,
       sum = 0;
-  unsigned i;
+  size_t i;
   for (i = 0; i < length; i++)
     sum += arr[i];
   result = sum / length;
@@ -29,27 +30,37 @@ static inline double mean(double *arr, unsigned length)
 }
 
 /**
+ * @brief Structure representing a value and its weight.
+ */
+
+typedef struct
+{
+  double value;
+  double weight;
+} ValueWeight;
+
+/**
  * @brief Calculate the weighted mean of a set of values.
  *
- * @param valuesWeightsPairs The array of value-weight pairs. Each pair is represented
+ * @param values_weights The array of value-weight pairs. Each pair is represented
   as a double array with two elements: [value, weight].
- * @param length The length of the valuesWeightsPairs array.
+ * @param length The length of the values_weights array.
  *
  * @return The weighted mean of the arr.
 */
 
-static inline double weightedMean(double **valuesWeightsPairs, unsigned length)
+static inline double weightedMean(const ValueWeight *values_weights, size_t length)
 {
   if (length == 0)
     return NAN;
   double result, value, weight,
       sum = 0,
       weightSum = 0;
-  unsigned i;
+  size_t i;
   for (i = 0; i < length; i++)
   {
-    value = valuesWeightsPairs[i][0];
-    weight = valuesWeightsPairs[i][1];
+    value = values_weights[i].value;
+    weight = values_weights[i].weight;
     if (weight <= 0)
       return NAN;
     sum += value * weight;
@@ -69,11 +80,11 @@ static inline double weightedMean(double **valuesWeightsPairs, unsigned length)
  * @return The trimmed mean of the arr.
  */
 
-static inline double trimmedMean(double *arr, unsigned length, double trimmedMeanPercentage)
+static inline double trimmedMean(const double *arr, size_t length, double trimmedMeanPercentage)
 {
   if (length == 0)
     return NAN;
-  unsigned nElementsToTrim = (unsigned)round(nPercentOfX(length, trimmedMeanPercentage));
+  size_t nElementsToTrim = (size_t)round(nPercentOfX(length, trimmedMeanPercentage));
   if (2 * nElementsToTrim >= length)
     return NAN;
   double result, *sortedArr = sort(arr, length);
@@ -93,13 +104,13 @@ static inline double trimmedMean(double *arr, unsigned length, double trimmedMea
  * @return The calculated geometric mean.
  */
 
-static inline double geometricMean(double *arr, unsigned length)
+static inline double geometricMean(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
   double result,
       product = 1;
-  unsigned i;
+  size_t i;
   for (i = 0; i < length; i++)
   {
     if (arr[i] <= 0)
@@ -119,13 +130,13 @@ static inline double geometricMean(double *arr, unsigned length)
  * @return The calculated harmonic mean.
  */
 
-static inline double harmonicMean(double *arr, unsigned length)
+static inline double harmonicMean(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
   double result,
       sum = 0;
-  unsigned i;
+  size_t i;
   for (i = 0; i < length; i++)
   {
     if (arr[i] <= 0)
@@ -145,7 +156,7 @@ static inline double harmonicMean(double *arr, unsigned length)
  * @return The calculated median.
  */
 
-static inline double median(double *arr, unsigned length)
+static inline double median(const double *arr, size_t length)
 {
   if (length <= 0)
     return NAN;
@@ -160,6 +171,16 @@ static inline double median(double *arr, unsigned length)
 }
 
 /**
+ * @brief Structure representing a value and its frequency.
+ */
+
+typedef struct
+{
+  double value;
+  size_t frequency;
+} Freq;
+
+/**
  * @brief Calculate the mode(s) of an array of values.
  *
  * @param arr The array of values.
@@ -171,51 +192,47 @@ static inline double median(double *arr, unsigned length)
  * @note The number of modes is stored in ptrNOfModes.
  */
 
-static inline double *mode(double *arr, unsigned length, unsigned *ptrNOfModes)
+static inline double *mode(const double *arr, size_t length, size_t *ptrNOfModes)
 {
   if (length == 0)
   {
     *ptrNOfModes = 0;
     return NULL;
   }
-  double **frequency, *result,
-      *sortedArr = sort(arr, length);
-  unsigned i,
+  double *result = NULL,
+         *sortedArr = sort(arr, length);
+  Freq *frequencies = malloc(sizeof(*frequencies) * length);
+  size_t i,
       minFreq = __UINT32_MAX__,
       maxFreq = 0,
       resultLenght = 0,
-      frequencyLength = 0;
-  result = NULL;
-  frequency = (double **)malloc(sizeof(*frequency) * length);
+      freq_len = 0;
+
+  frequencies[freq_len++].value = sortedArr[0];
+  frequencies[freq_len++].value = 1;
   for (i = 0; i < length; i++)
-    frequency[i] = (double *)calloc(sizeof(**frequency), 2);
-  frequency[frequencyLength++][0] = sortedArr[0];
-  for (i = 0; i < length; i++)
-    if (sortedArr[i] == frequency[frequencyLength - 1][0])
-      frequency[frequencyLength - 1][1] += 1;
+    if (sortedArr[i] == frequencies[freq_len - 1].value)
+      frequencies[freq_len - 1].frequency++;
     else
     {
-      frequency[frequencyLength][0] = sortedArr[i];
-      frequency[frequencyLength++][1] += 1;
+      frequencies[freq_len].value = sortedArr[i];
+      frequencies[freq_len++].frequency++;
     }
-  for (i = 0; i < frequencyLength; i++)
+  for (i = 0; i < freq_len; i++)
   {
-    minFreq = frequency[i][1] < minFreq ? frequency[i][1] : minFreq;
-    maxFreq = frequency[i][1] > maxFreq ? frequency[i][1] : maxFreq;
+    minFreq = frequencies[i].frequency < minFreq ? frequencies[i].frequency : minFreq;
+    maxFreq = frequencies[i].frequency > maxFreq ? frequencies[i].frequency : maxFreq;
   }
   *ptrNOfModes = 0;
   if (minFreq < maxFreq)
-    for (i = 0; i < frequencyLength; i++)
-      if (frequency[i][1] == maxFreq)
+    for (i = 0; i < freq_len; i++)
+      if (frequencies[i].frequency == maxFreq)
       {
         result = (double *)realloc(result, sizeof(*result) * ++(*ptrNOfModes));
-        result[resultLenght++] = frequency[i][0];
+        result[resultLenght++] = frequencies[i].value;
       }
 
-  for (i = 0; i < length; i++)
-    free(frequency[i]);
-
-  free(frequency);
+  free(frequencies);
   free(sortedArr);
 
   return result;
@@ -230,12 +247,12 @@ static inline double *mode(double *arr, unsigned length, unsigned *ptrNOfModes)
  * @return The minimum value.
  */
 
-static inline double min(double *arr, unsigned length)
+static inline double min(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
   double result = __DBL_MAX__;
-  unsigned i;
+  size_t i;
   for (i = 0; i < length; i++)
     result = arr[i] < result ? arr[i] : result;
   return result;
@@ -250,12 +267,12 @@ static inline double min(double *arr, unsigned length)
  * @return The maximum value.
  */
 
-static inline double max(double *arr, unsigned length)
+static inline double max(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
   double result = -__DBL_MAX__;
-  unsigned i;
+  size_t i;
   for (i = 0; i < length; i++)
     result = arr[i] > result ? arr[i] : result;
   return result;
@@ -270,7 +287,7 @@ static inline double max(double *arr, unsigned length)
  * @return The calculated range.
  */
 
-static inline double range(double *arr, unsigned length)
+static inline double range(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
@@ -289,7 +306,7 @@ static inline double range(double *arr, unsigned length)
  * @return The calculated midrange.
  */
 
-static inline double midrange(double *arr, unsigned length)
+static inline double midrange(const double *arr, size_t length)
 {
   double result = range(arr, length) / 2;
   return result;
@@ -304,14 +321,14 @@ static inline double midrange(double *arr, unsigned length)
  * @return The calculated variance.
  */
 
-static inline double variance(double *arr, unsigned length)
+static inline double variance(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
   double mu = mean(arr, length),
          sum = 0,
          result;
-  unsigned i;
+  size_t i;
   for (i = 0; i < length; i++)
     sum += pow((arr[i] - mu), 2);
   result = sum / length;
@@ -327,7 +344,7 @@ static inline double variance(double *arr, unsigned length)
  * @return The calculated standard deviation.
  */
 
-static inline double standardDeviation(double *arr, unsigned length)
+static inline double standardDeviation(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
@@ -344,14 +361,14 @@ static inline double standardDeviation(double *arr, unsigned length)
  * @return The calculated sample variance.
  */
 
-static inline double sampleVariance(double *arr, unsigned length)
+static inline double sampleVariance(const double *arr, size_t length)
 {
   if (length <= 1)
     return NAN;
   double mu = mean(arr, length),
          sum = 0,
          result;
-  unsigned i;
+  size_t i;
   for (i = 0; i < length; i++)
     sum += pow((arr[i] - mu), 2);
   result = sum / (length - 1);
@@ -367,7 +384,7 @@ static inline double sampleVariance(double *arr, unsigned length)
  * @return The calculated sample standard deviation.
  */
 
-static inline double sampleStandardDeviation(double *arr, unsigned length)
+static inline double sampleStandardDeviation(const double *arr, size_t length)
 {
   if (length <= 1)
     return NAN;
