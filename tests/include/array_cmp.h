@@ -2,6 +2,7 @@
 #define ARRAY_CMP_H
 
 #include <stdbool.h>
+#include <stddef.h>
 
 /**
   @brief Compare two arrays element by element.
@@ -13,9 +14,9 @@
   @return True if the arrays are equal, false otherwise.
 */
 
-static inline bool arrayCmp(long long *arr1, long long *arr2, unsigned length)
+static inline bool arrayCmp(long long *arr1, long long *arr2, size_t length)
 {
-  unsigned i;
+  size_t i;
   for (i = 0; arr1[i] == arr2[i]; i++)
     if (i == length - 1)
       return true;
