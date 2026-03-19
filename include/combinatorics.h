@@ -41,7 +41,7 @@ static inline unsigned long long math_cyclePermutation(unsigned num)
 {
   if (num <= 1)
     return 1;
-  long long result;
+  unsigned long long result;
   result = math_factorial(num - 1);
   return result;
 }
@@ -67,7 +67,7 @@ static inline unsigned long long math_arrangement(unsigned total, unsigned selec
     perror("Error calculating arrangement");
     return 0;
   }
-  long long result;
+  unsigned long long result;
   result = math_factorial(total) / math_factorial(total - selected);
   return result;
 }
@@ -85,7 +85,7 @@ static inline unsigned long long math_arrangement(unsigned total, unsigned selec
  * floating-point approximation in exponential form.
  */
 
-static inline long long math_combination(unsigned total, unsigned selected)
+static inline unsigned long long math_combination(unsigned total, unsigned selected)
 {
   if (total == 0 || selected > total)
   {
@@ -93,7 +93,7 @@ static inline long long math_combination(unsigned total, unsigned selected)
     perror("Error calculating combination");
     return 0;
   }
-  long long result;
+  unsigned long long result;
   result = math_factorial(total) / (math_factorial(selected) * math_factorial(total - selected));
   return result;
 }
