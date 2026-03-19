@@ -12,7 +12,7 @@
  * @return The surface area of the cube.
  */
 
-static inline double cubeArea(double side)
+static inline double math_cubeArea(double side)
 {
   if (side < 0)
     return NAN;
@@ -31,7 +31,7 @@ static inline double cubeArea(double side)
  * @return The surface area of the cuboid.
  */
 
-static inline double cuboidArea(double width, double length, double height)
+static inline double math_cuboidArea(double width, double length, double height)
 {
   if (width < 0 || length < 0 || height < 0)
     return NAN;
@@ -50,7 +50,7 @@ static inline double cuboidArea(double width, double length, double height)
  * @return The surface area of the prism.
  */
 
-static inline double prismArea(double baseArea, double basePerimeter, double height)
+static inline double math_prismArea(double baseArea, double basePerimeter, double height)
 {
   if (baseArea < 0 || basePerimeter < 0 || height < 0)
     return NAN;
@@ -69,13 +69,13 @@ static inline double prismArea(double baseArea, double basePerimeter, double hei
  * @return The surface area of the prism.
  */
 
-static inline double regularPrismArea(double baseSide, int nOfBaseSides, double height)
+static inline double math_regularPrismArea(double baseSide, int nOfBaseSides, double height)
 {
   if (baseSide < 0 || nOfBaseSides < 0 || height < 0)
     return NAN;
-  double baseArea = regularPolygonArea(baseSide, nOfBaseSides),
+  double baseArea = math_regPolygonArea(baseSide, nOfBaseSides),
          basePerimeter = baseSide * nOfBaseSides;
-  return prismArea(baseArea, basePerimeter, height);
+  return math_prismArea(baseArea, basePerimeter, height);
 }
 
 /**
@@ -88,7 +88,7 @@ static inline double regularPrismArea(double baseSide, int nOfBaseSides, double 
  * @return The surface area of the pyramid.
  */
 
-static inline double pyramidArea(double baseArea, double basePerimeter, double slantHeight)
+static inline double math_pyramidArea(double baseArea, double basePerimeter, double slantHeight)
 {
   if (baseArea < 0 || basePerimeter < 0 || slantHeight < 0)
     return NAN;
@@ -107,15 +107,15 @@ static inline double pyramidArea(double baseArea, double basePerimeter, double s
  * @return The surface area of the pyramid.
  */
 
-static inline double regularPyramidArea(double baseSide, int nOfBaseSides, double heigth)
+static inline double math_regPyramidArea(double baseSide, int nOfBaseSides, double heigth)
 {
   if (baseSide < 0 || nOfBaseSides < 0 || heigth < 0)
     return NAN;
-  double baseArea = regularPolygonArea(baseSide, nOfBaseSides),
+  double baseArea = math_regPolygonArea(baseSide, nOfBaseSides),
          basePerimeter = baseSide * nOfBaseSides,
          apothen = baseSide / (2 * tan(M_PI / nOfBaseSides)),
-         slantHeight = hypotenuse(apothen, heigth);
-  return pyramidArea(baseArea, basePerimeter, slantHeight);
+         slantHeight = math_hypotenuse(apothen, heigth);
+  return math_pyramidArea(baseArea, basePerimeter, slantHeight);
 }
 
 /**
@@ -127,7 +127,7 @@ static inline double regularPyramidArea(double baseSide, int nOfBaseSides, doubl
  * @return The surface area of the cylinder.
  */
 
-static inline double cylinderArea(double baseRadius, double height)
+static inline double math_cylinderArea(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
@@ -145,12 +145,12 @@ static inline double cylinderArea(double baseRadius, double height)
  * @return The surface area of the cone.
  */
 
-static inline double coneArea(double baseRadius, double height)
+static inline double math_coneArea(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
   double result;
-  result = circleArea(baseRadius) + M_PI * baseRadius * hypotenuse(height, baseRadius);
+  result = math_circleArea(baseRadius) + M_PI * baseRadius * math_hypotenuse(height, baseRadius);
   return result;
 }
 
@@ -162,7 +162,7 @@ static inline double coneArea(double baseRadius, double height)
  * @return The surface area of the sphere.
  */
 
-static inline double sphereArea(double radius)
+static inline double math_sphereArea(double radius)
 {
   if (radius < 0)
     return NAN;

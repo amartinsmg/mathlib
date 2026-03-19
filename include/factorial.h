@@ -13,11 +13,11 @@
  * @return The factorial of the number.
  *
  * @note This function is suitable for numbers up to 20.
- * For larger values, use factoriallf(), which returns a double-precision
+ * For larger values, use math_factoriallf(), which returns a double-precision
  * floating-point approximation in exponential form.
  */
 
-static inline unsigned long long factorial(unsigned num)
+static inline unsigned long long math_factorial(unsigned num)
 {
   if (num > 20)
   {
@@ -41,7 +41,7 @@ static inline unsigned long long factorial(unsigned num)
  * @return The factorial of the number.
  */
 
-static inline double factoriallf(unsigned num)
+static inline double math_factoriallf(unsigned num)
 {
   double result = 1;
   unsigned i;

@@ -11,7 +11,7 @@
  * @return True if the number is a perfect number, false otherwise.
 */
 
-static inline bool isPerfect(long long num)
+static inline bool math_isPerfect(long long num)
 {
   long long sum = 0;
   int i;

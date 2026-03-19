@@ -12,7 +12,7 @@
  * @return The volume of the cube.
  */
 
-static inline double cubeVol(double side)
+static inline double math_cubeVol(double side)
 {
   if (side < 0)
     return NAN;
@@ -31,7 +31,7 @@ static inline double cubeVol(double side)
  * @return The volume of the cuboid.
  */
 
-static inline double cuboidVol(double length, double width, double height)
+static inline double math_cuboidVol(double length, double width, double height)
 {
   if (width < 0 || length < 0 || height < 0)
     return NAN;
@@ -49,7 +49,7 @@ static inline double cuboidVol(double length, double width, double height)
  * @return The volume of the prism.
  */
 
-static inline double prismVol(double baseArea, double height)
+static inline double math_prismVol(double baseArea, double height)
 {
   if (baseArea < 0 || height < 0)
     return NAN;
@@ -68,10 +68,10 @@ static inline double prismVol(double baseArea, double height)
  * @return The volume of the regular prism.
  */
 
-static inline double regularPrismVol(double baseSide, int nOfBaseSides, double height)
+static inline double math_regularPrismVol(double baseSide, int nOfBaseSides, double height)
 {
-  double baseArea = regularPolygonArea(baseSide, nOfBaseSides);
-  return prismVol(baseArea, height);
+  double baseArea = math_regPolygonArea(baseSide, nOfBaseSides);
+  return math_prismVol(baseArea, height);
 }
 
 /**
@@ -83,7 +83,7 @@ static inline double regularPrismVol(double baseSide, int nOfBaseSides, double h
  * @return The volume of the pyramid.
  */
 
-static inline double pyramidVol(double baseArea, double height)
+static inline double math_pyramidVol(double baseArea, double height)
 {
   if (baseArea < 0 || height < 0)
     return NAN;
@@ -102,10 +102,10 @@ static inline double pyramidVol(double baseArea, double height)
  * @return The volume of the regular pyramid.
  */
 
-static inline double regularPyramidVol(double baseSide, int nOfBaseSides, double height)
+static inline double math_regPyramidVol(double baseSide, int nOfBaseSides, double height)
 {
-  double baseArea = regularPolygonArea(baseSide, nOfBaseSides);
-  return pyramidVol(baseArea, height);
+  double baseArea = math_regPolygonArea(baseSide, nOfBaseSides);
+  return math_pyramidVol(baseArea, height);
 }
 
 /**
@@ -117,12 +117,12 @@ static inline double regularPyramidVol(double baseSide, int nOfBaseSides, double
  * @return The volume of the cylinder.
  */
 
-static inline double cylinderVol(double baseRadius, double height)
+static inline double math_cylinderVol(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
   double result;
-  result = circleArea(baseRadius) * height;
+  result = math_circleArea(baseRadius) * height;
   return result;
 }
 
@@ -135,12 +135,12 @@ static inline double cylinderVol(double baseRadius, double height)
  * @return The volume of the cone.
  */
 
-static inline double coneVol(double baseRadius, double height)
+static inline double math_coneVol(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
   double result;
-  result = circleArea(baseRadius) * height / 3;
+  result =  math_circleArea(baseRadius) * height / 3;
   return result;
 }
 
@@ -150,7 +150,7 @@ static inline double coneVol(double baseRadius, double height)
  * @return The volume of the sphere.
  */
 
-static inline double sphereVol(double radius)
+static inline double math_sphereVol(double radius)
 {
   if (radius < 0)
     return NAN;

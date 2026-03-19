@@ -18,13 +18,13 @@
  * @return The probability of exactly `success` successes in `trials` Bernoulli trials.
  */
 
-static inline double binominal(int trials, double successProb, int success)
+static inline double math_binominal(int trials, double successProb, int success)
 {
   if (trials < 0 || success < 0 || success > trials ||
       successProb < 0 || successProb > 1)
     return NAN;
   double result;
-  result = combinationlf(trials, success) *
+  result = math_combinationlf(trials, success) *
            pow(successProb, success) *
            pow((1 - successProb), (trials - success));
   return result;
@@ -39,12 +39,12 @@ static inline double binominal(int trials, double successProb, int success)
  * @return The Poisson probability.
  */
 
-static inline double poisson(double lambda, unsigned x)
+static inline double math_poisson(double lambda, unsigned x)
 {
   if (lambda < 0)
     return NAN;
   double result;
-  result = exp(-lambda) * pow(lambda, x) / factoriallf(x);
+  result = exp(-lambda) * pow(lambda, x) / math_factoriallf(x);
   return result;
 }
 
@@ -58,7 +58,7 @@ static inline double poisson(double lambda, unsigned x)
  * @return The cumulative distribution function (CDF) value.
  */
 
-static inline double gaussianCDF(double mu, double standardDev, double x)
+static inline double math_gaussianCDF(double mu, double standardDev, double x)
 {
   if (standardDev < 0)
     return NAN;

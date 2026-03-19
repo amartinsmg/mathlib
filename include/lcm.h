@@ -14,12 +14,12 @@
  * @return The LCM of 'x' and 'y'.
  */
 
-static inline long long lcm(int x, int y)
+static inline long long math_lcm(int x, int y)
 {
   if (x == 0 || y == 0)
     return 0;
   long long product = (long long) x * (long long) y;
-  long long result = llabs(product / gcd(x, y));
+  long long result = llabs(product / math_gcd(x, y));
   return result;
 }
 

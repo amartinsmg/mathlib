@@ -9,7 +9,7 @@
   @return True if the number is a prime number, false otherwise.
 */
 
-static inline bool isPrime(long long num)
+static inline bool math_isPrime(long long num)
 {
   long long i;
   for (i = 2; num % i && i <= num; i++)

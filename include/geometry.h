@@ -14,7 +14,7 @@
  * @return The angle converted to radians.
  */
 
-static inline double degrees2radians(double degrees)
+static inline double math_degrees2radians(double degrees)
 {
   double result = degrees / 180 * M_PI;
   return result;
@@ -28,7 +28,7 @@ static inline double degrees2radians(double degrees)
  * @return The angle converted to degrees.
  */
 
-static inline double radians2degrees(double radians)
+static inline double math_radians2degrees(double radians)
 {
   double result = radians / M_PI * 180;
   return result;
@@ -45,7 +45,7 @@ static inline double radians2degrees(double radians)
  * @return The distance between the two points.
  */
 
-static inline double distancePoints(double ax, double ay, double bx, double by)
+static inline double math_distancePoints(double ax, double ay, double bx, double by)
 {
   double result = sqrt(pow((bx - ax), 2) + pow((by - ay), 2));
   return result;
@@ -64,13 +64,13 @@ static inline double distancePoints(double ax, double ay, double bx, double by)
  * @note It is the caller's responsibility to free the memory allocated for the array.
  */
 
-static inline double *midpointPoints(double ax, double ay, double bx, double by)
+static inline double *math_midpointPoints(double ax, double ay, double bx, double by)
 {
   double *result = (double *)malloc(sizeof(*result) * 2),
          x[2] = {ax, bx},
          y[2] = {ay, by};
-  result[0] = mean(x, 2);
-  result[1] = mean(y, 2);
+  result[0] = math_mean(x, 2);
+  result[1] = math_mean(y, 2);
   return result;
 }
 
@@ -85,7 +85,7 @@ static inline double *midpointPoints(double ax, double ay, double bx, double by)
  * @return The slope of the line.
  */
 
-static inline double slopeOfLine(double x1, double y1, double x2, double y2)
+static inline double math_slopeOfLine(double x1, double y1, double x2, double y2)
 {
   if (x1 == x2)
     return NAN;
@@ -105,11 +105,11 @@ static inline double slopeOfLine(double x1, double y1, double x2, double y2)
  * @return The angle of incline of the line in radians.
  */
 
-static inline double angleOfInclineLine(double x1, double y1, double x2, double y2)
+static inline double math_inclinationOfLine(double x1, double y1, double x2, double y2)
 {
   if (x1 == x2)
     return NAN;
-  double result = atan(slopeOfLine(x1, y1, x2, y2));
+  double result = atan(math_slopeOfLine(x1, y1, x2, y2));
   return result;
 }
 
@@ -126,12 +126,12 @@ static inline double angleOfInclineLine(double x1, double y1, double x2, double 
  * @note It is the caller's responsibility to free the memory allocated for the array.
  */
 
-static inline double *equationOfLine(double x1, double y1, double x2, double y2)
+static inline double *math_equationOfLine(double x1, double y1, double x2, double y2)
 {
   if (x1 == x2)
     return NULL;
   double *result = (double *)malloc(sizeof(*result) * 2);
-  result[0] = slopeOfLine(x1, y1, x2, y2);
+  result[0] = math_slopeOfLine(x1, y1, x2, y2);
   result[1] = y1 - result[0] * x1;
   return result;
 }
@@ -147,7 +147,7 @@ static inline double *equationOfLine(double x1, double y1, double x2, double y2)
  * @return The distance between the point and the line.
  */
 
-static inline double distancePointLine(double inclinationLine, double yInterceptLine, double xPoint, double yPoint)
+static inline double math_distancePointLine(double inclinationLine, double yInterceptLine, double xPoint, double yPoint)
 {
   double result = fabs(inclinationLine * xPoint - yPoint + yInterceptLine) /
                   sqrt(pow(inclinationLine, 2) + 1);
@@ -162,7 +162,7 @@ static inline double distancePointLine(double inclinationLine, double yIntercept
  * @return The perimeter of the circle.
  */
 
-static inline double circlePerimeter(double radius)
+static inline double math_circlePerimeter(double radius)
 {
   if (radius < 0)
     return NAN;
@@ -178,7 +178,7 @@ static inline double circlePerimeter(double radius)
  * @return The number of diagonals in the polygon.
  */
 
-int nOfDiagnonalsPolygon(int nOfSides)
+static inline int math_polygonDiagonals(int nOfSides)
 {
   if (nOfSides < 3)
     return 0;
@@ -195,7 +195,7 @@ int nOfDiagnonalsPolygon(int nOfSides)
  * @return The sum of interior angles in the convex polygon, in radians.
  */
 
-double convexPolygonSumInteriorAngles(double nOfSides)
+static inline double math_convexPolySumIntAng(double nOfSides)
 {
   if (nOfSides < 3)
     return NAN;
@@ -212,12 +212,12 @@ double convexPolygonSumInteriorAngles(double nOfSides)
  * @return The measure of each interior angle in the regular polygon, in radians.
  */
 
-double regularPolygonInteriorAngle(int nOfSides)
+static inline double math_regPolygonIAng(int nOfSides)
 {
   if (nOfSides < 3)
     return NAN;
   double result;
-  result = convexPolygonSumInteriorAngles(nOfSides) / nOfSides;
+  result = math_convexPolySumIntAng(nOfSides) / nOfSides;
   return result;
 }
 
@@ -229,7 +229,7 @@ double regularPolygonInteriorAngle(int nOfSides)
  * @return The measure of each exterior angle in the convex polygon, in radians.
  */
 
-double convexPolygonExteriorAngle(int nOfSides)
+static inline double math_convexPolyExtAngle(int nOfSides)
 {
   if (nOfSides < 3)
     return NAN;

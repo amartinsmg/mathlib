@@ -16,7 +16,7 @@
  * @return The calculated mean.
  */
 
-static inline double mean(const double *arr, size_t length)
+static inline double math_mean(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
@@ -49,7 +49,7 @@ typedef struct
  * @return The weighted mean of the arr.
 */
 
-static inline double weightedMean(const ValueWeight *values_weights, size_t length)
+static inline double math_weightedMean(const ValueWeight *values_weights, size_t length)
 {
   if (length == 0)
     return NAN;
@@ -80,17 +80,17 @@ static inline double weightedMean(const ValueWeight *values_weights, size_t leng
  * @return The trimmed mean of the arr.
  */
 
-static inline double trimmedMean(const double *arr, size_t length, double trimmedMeanPercentage)
+static inline double math_trimmedMean(const double *arr, size_t length, double trimmedMeanPercentage)
 {
   if (length == 0)
     return NAN;
-  size_t nElementsToTrim = (size_t)round(nPercentOfX(length, trimmedMeanPercentage));
+  size_t nElementsToTrim = (size_t)round(math_nPercentOfX(length, trimmedMeanPercentage));
   if (2 * nElementsToTrim >= length)
     return NAN;
   double result, *sortedArr = sort(arr, length);
   arr += nElementsToTrim;
   length -= 2 * nElementsToTrim;
-  result = mean(arr, length);
+  result = math_mean(arr, length);
   free(sortedArr);
   return result;
 }
@@ -104,7 +104,7 @@ static inline double trimmedMean(const double *arr, size_t length, double trimme
  * @return The calculated geometric mean.
  */
 
-static inline double geometricMean(const double *arr, size_t length)
+static inline double math_geometricMean(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
@@ -117,7 +117,7 @@ static inline double geometricMean(const double *arr, size_t length)
       return NAN;
     product *= arr[i];
   }
-  result = nthRoot(product, length);
+  result = math_nthRoot(product, length);
   return result;
 }
 
@@ -130,7 +130,7 @@ static inline double geometricMean(const double *arr, size_t length)
  * @return The calculated harmonic mean.
  */
 
-static inline double harmonicMean(const double *arr, size_t length)
+static inline double math_harmonicMean(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
@@ -156,7 +156,7 @@ static inline double harmonicMean(const double *arr, size_t length)
  * @return The calculated median.
  */
 
-static inline double median(const double *arr, size_t length)
+static inline double math_median(const double *arr, size_t length)
 {
   if (length <= 0)
     return NAN;
@@ -192,7 +192,7 @@ typedef struct
  * @note The number of modes is stored in ptrNOfModes.
  */
 
-static inline double *mode(const double *arr, size_t length, size_t *ptrNOfModes)
+static inline double *math_mode(const double *arr, size_t length, size_t *ptrNOfModes)
 {
   if (length == 0)
   {
@@ -247,7 +247,7 @@ static inline double *mode(const double *arr, size_t length, size_t *ptrNOfModes
  * @return The minimum value.
  */
 
-static inline double min(const double *arr, size_t length)
+static inline double math_min(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
@@ -267,7 +267,7 @@ static inline double min(const double *arr, size_t length)
  * @return The maximum value.
  */
 
-static inline double max(const double *arr, size_t length)
+static inline double math_max(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
@@ -287,12 +287,12 @@ static inline double max(const double *arr, size_t length)
  * @return The calculated range.
  */
 
-static inline double range(const double *arr, size_t length)
+static inline double math_range(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
-  double minValue = min(arr, length),
-         maxValue = max(arr, length),
+  double minValue = math_min(arr, length),
+         maxValue = math_max(arr, length),
          result = maxValue - minValue;
   return result;
 }
@@ -306,9 +306,9 @@ static inline double range(const double *arr, size_t length)
  * @return The calculated midrange.
  */
 
-static inline double midrange(const double *arr, size_t length)
+static inline double math_midrange(const double *arr, size_t length)
 {
-  double result = range(arr, length) / 2;
+  double result = math_range(arr, length) / 2;
   return result;
 }
 
@@ -321,11 +321,11 @@ static inline double midrange(const double *arr, size_t length)
  * @return The calculated variance.
  */
 
-static inline double variance(const double *arr, size_t length)
+static inline double math_variance(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
-  double mu = mean(arr, length),
+  double mu = math_mean(arr, length),
          sum = 0,
          result;
   size_t i;
@@ -344,11 +344,11 @@ static inline double variance(const double *arr, size_t length)
  * @return The calculated standard deviation.
  */
 
-static inline double standardDeviation(const double *arr, size_t length)
+static inline double math_standardDeviation(const double *arr, size_t length)
 {
   if (length == 0)
     return NAN;
-  double result = sqrt(variance(arr, length));
+  double result = sqrt(math_variance(arr, length));
   return result;
 }
 
@@ -361,11 +361,11 @@ static inline double standardDeviation(const double *arr, size_t length)
  * @return The calculated sample variance.
  */
 
-static inline double sampleVariance(const double *arr, size_t length)
+static inline double math_sampleVariance(const double *arr, size_t length)
 {
   if (length <= 1)
     return NAN;
-  double mu = mean(arr, length),
+  double mu = math_mean(arr, length),
          sum = 0,
          result;
   size_t i;
@@ -384,11 +384,11 @@ static inline double sampleVariance(const double *arr, size_t length)
  * @return The calculated sample standard deviation.
  */
 
-static inline double sampleStandardDeviation(const double *arr, size_t length)
+static inline double math_sampleStandardDeviation(const double *arr, size_t length)
 {
   if (length <= 1)
     return NAN;
-  double result = sqrt(sampleVariance(arr, length));
+  double result = sqrt(math_sampleVariance(arr, length));
   return result;
 }
 

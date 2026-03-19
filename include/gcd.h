@@ -13,7 +13,7 @@
  * @pre x and y cannot both be 0.
 */
 
-static inline int gcd(int x, int y)
+static inline int math_gcd(int x, int y)
 {
   int result, remainder;
   if (x == 0)

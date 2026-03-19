@@ -14,14 +14,14 @@
  * @return The permutation of the number.
  *
  * @note This function is suitable for numbers up to 20.
- * For larger values, use permutationlf(), which returns a double-precision
+ * For larger values, use math_permutationlf(), which returns a double-precision
  * floating-point approximation in exponential form.
  */
 
-static inline unsigned long long permutation(unsigned num)
+static inline unsigned long long math_permutation(unsigned num)
 {
   unsigned long long result;
-  result = factorial(num);
+  result = math_factorial(num);
   return result;
 }
 
@@ -33,16 +33,16 @@ static inline unsigned long long permutation(unsigned num)
  * @return The cycle permutation of the number.
  *
  * @note This function is suitable for numbers up to 20.
- * For larger values, use cyclePermutaionlf(), which returns a double-precision
+ * For larger values, use math_cyclePermutaionlf(), which returns a double-precision
  * floating-point approximation in exponential form.
  */
 
-static inline unsigned long long cyclePermutation(unsigned num)
+static inline unsigned long long math_cyclePermutation(unsigned num)
 {
   if (num <= 1)
     return 1;
   long long result;
-  result = factorial(num - 1);
+  result = math_factorial(num - 1);
   return result;
 }
 
@@ -55,11 +55,11 @@ static inline unsigned long long cyclePermutation(unsigned num)
  * @return The arrangement of selecting 'selected' items from 'total' items.
  *
  * @note This function is suitable for numbers up to 20.
- * For larger values, use arrangementlf(), which returns a double-precision
+ * For larger values, use math_arrangementlf(), which returns a double-precision
  * floating-point approximation in exponential form.
  */
 
-static inline unsigned long long arrangement(unsigned total, unsigned selected)
+static inline unsigned long long math_arrangement(unsigned total, unsigned selected)
 {
   if (total == 0 || selected > total)
   {
@@ -68,7 +68,7 @@ static inline unsigned long long arrangement(unsigned total, unsigned selected)
     return 0;
   }
   long long result;
-  result = factorial(total) / factorial(total - selected);
+  result = math_factorial(total) / math_factorial(total - selected);
   return result;
 }
 
@@ -81,11 +81,11 @@ static inline unsigned long long arrangement(unsigned total, unsigned selected)
  * @return The combination of selecting 'selected' items from 'total' items.
  *
  * @note This function is suitable for numbers up to 20.
- * For larger values, use combinationlf(), which returns a double-precision
+ * For larger values, use math_combinationlf(), which returns a double-precision
  * floating-point approximation in exponential form.
  */
 
-static inline long long combination(unsigned total, unsigned selected)
+static inline long long math_combination(unsigned total, unsigned selected)
 {
   if (total == 0 || selected > total)
   {
@@ -94,7 +94,7 @@ static inline long long combination(unsigned total, unsigned selected)
     return 0;
   }
   long long result;
-  result = factorial(total) / (factorial(selected) * factorial(total - selected));
+  result = math_factorial(total) / (math_factorial(selected) * math_factorial(total - selected));
   return result;
 }
 
@@ -106,10 +106,10 @@ static inline long long combination(unsigned total, unsigned selected)
  * @return The permutation of the number (double precision).
  */
 
-static inline double permutationlf(unsigned num)
+static inline double math_permutationlf(unsigned num)
 {
   double result;
-  result = factoriallf(num);
+  result = math_factoriallf(num);
   return result;
 }
 
@@ -121,12 +121,12 @@ static inline double permutationlf(unsigned num)
  * @return The cycle permutation of the number (double precision).
  */
 
-static inline double cyclePermutationlf(unsigned num)
+static inline double math_cyclePermutationlf(unsigned num)
 {
   if (num <= 1)
     return 1;
   double result;
-  result = factoriallf(num - 1);
+  result = math_factoriallf(num - 1);
   return result;
 }
 
@@ -139,12 +139,12 @@ static inline double cyclePermutationlf(unsigned num)
  * @return The arrangement of selecting 'selected' items from 'total' items (double precision).
  */
 
-static inline double arrangementlf(unsigned total, unsigned selected)
+static inline double math_arrangementlf(unsigned total, unsigned selected)
 {
   if (total == 0 || selected > total)
     return NAN;
   double result;
-  result = factoriallf(total) / factoriallf(total - selected);
+  result = math_factoriallf(total) / math_factoriallf(total - selected);
   return result;
 }
 
@@ -157,12 +157,12 @@ static inline double arrangementlf(unsigned total, unsigned selected)
  * @return The combination of selecting 'selected' items from 'total' items (double precision).
  */
 
-static inline double combinationlf(unsigned total, unsigned selected)
+static inline double math_combinationlf(unsigned total, unsigned selected)
 {
   if (total == 0 || selected > total)
     return NAN;
   double result;
-  result = factoriallf(total) / (factoriallf(selected) * factoriallf(total - selected));
+  result = math_factoriallf(total) / (math_factoriallf(selected) * math_factoriallf(total - selected));
   return result;
 }
 

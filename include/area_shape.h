@@ -17,7 +17,7 @@
  * @return The area of the triangle.
  */
 
-static inline double triangleArea1(double base, double height)
+static inline double math_triangleArea1(double base, double height)
 {
   if (base < 0 || height <= 0)
     return NAN;
@@ -36,7 +36,7 @@ static inline double triangleArea1(double base, double height)
  * @return The area of the triangle.
  */
 
-static inline double triangleArea2(double sideA, double sideB, double angleGama)
+static inline double math_triangleArea2(double sideA, double sideB, double angleGama)
 {
   if (sideA < 0 || sideB < 0 || angleGama < 0 || angleGama > M_PI)
     return NAN;
@@ -55,7 +55,7 @@ static inline double triangleArea2(double sideA, double sideB, double angleGama)
  * @return The area of the triangle.
  */
 
-static inline double triangleArea3(double sideA, double sideB, double sideC)
+static inline double math_triangleArea3(double sideA, double sideB, double sideC)
 {
   if (sideA < 0 || sideB < 0 || sideC < 0)
     return NAN;
@@ -73,7 +73,7 @@ static inline double triangleArea3(double sideA, double sideB, double sideC)
  * @return The area of the square.
  */
 
-static inline double squareArea(double side)
+static inline double math_squareArea(double side)
 {
   if (side < 0)
     return NAN;
@@ -91,7 +91,7 @@ static inline double squareArea(double side)
  * @return The area of the rectangle.
  */
 
-static inline double retangleArea(double width, double length)
+static inline double math_retangleArea(double width, double length)
 {
   if (width < 0 || length < 0)
     return NAN;
@@ -109,7 +109,7 @@ static inline double retangleArea(double width, double length)
  * @return The area of the rhombus.
  */
 
-static inline double rhombusArea(double largerDiagonal, double smallerDiagonal)
+static inline double math_rhombusArea(double largerDiagonal, double smallerDiagonal)
 {
   if (largerDiagonal < 0 || smallerDiagonal < 0)
     return NAN;
@@ -127,7 +127,7 @@ static inline double rhombusArea(double largerDiagonal, double smallerDiagonal)
  *  @return The area of the parallelogram.
  */
 
-static inline double parallelogramArea1(double base, double height)
+static inline double math_parallelogramArea1(double base, double height)
 {
   if (base < 0 || height < 0)
     return NAN;
@@ -146,7 +146,7 @@ static inline double parallelogramArea1(double base, double height)
  * @return The area of the parallelogram.
  */
 
-static inline double parallelogramArea2(double sideA, double sideB, double angleBeetweenAB)
+static inline double math_parallelogramArea2(double sideA, double sideB, double angleBeetweenAB)
 {
   if (sideA < 0 || sideB < 0 || angleBeetweenAB < 0 || angleBeetweenAB > M_PI)
     return NAN;
@@ -165,7 +165,7 @@ static inline double parallelogramArea2(double sideA, double sideB, double angle
  * @return The area of the trapezoid.
  */
 
-static inline double trapezoidArea(double largerBase, double smallerBase, double height)
+static inline double math_trapezoidArea(double largerBase, double smallerBase, double height)
 {
   if (largerBase < 0 || smallerBase < 0 || height < 0)
     return NAN;
@@ -183,7 +183,7 @@ static inline double trapezoidArea(double largerBase, double smallerBase, double
  *  @return The area of the regular polygon.
  */
 
-static inline double regularPolygonArea(double side, int nOfSides)
+static inline double math_regPolygonArea(double side, int nOfSides)
 {
   if (side < 0 || nOfSides < 3)
     return NAN;
@@ -202,7 +202,7 @@ static inline double regularPolygonArea(double side, int nOfSides)
  * @return The area of the circle.
  */
 
-static inline double circleArea(double radius)
+static inline double math_circleArea(double radius)
 {
   if (radius < 0)
     return NAN;
@@ -220,7 +220,7 @@ static inline double circleArea(double radius)
  * @return The area of the circular sector.
  */
 
-static inline double circularSectorArea1(double angle, double radius)
+static inline double math_circularSectorArea1(double angle, double radius)
 {
   if (radius < 0 || angle < 0)
     return NAN;
@@ -238,7 +238,7 @@ static inline double circularSectorArea1(double angle, double radius)
  * @return The area of the circular sector.
  */
 
-static inline double circularSectorArea2(double arc, double radius)
+static inline double math_circularSectorArea2(double arc, double radius)
 {
   if (radius < 0 || arc < 0)
     return NAN;
@@ -256,7 +256,7 @@ static inline double circularSectorArea2(double arc, double radius)
  * @return The area of the ellipse.
  */
 
-static inline double ellipseArea(double semiMajorAxis, double semiMinorAxis)
+static inline double math_ellipseArea(double semiMajorAxis, double semiMinorAxis)
 {
   if (semiMajorAxis < 0 || semiMinorAxis < 0)
     return NAN;
