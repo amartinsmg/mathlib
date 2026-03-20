@@ -1,6 +1,6 @@
 # Mathematical Algorithms
 
-This project provides a collection of mathematical algorithms implemented in C. It covers various mathematical calculations and operations, as well as geometric and statistical analyses. The goal of this project is to offer a comprehensive set of functions for performing common mathematical tasks.
+This project consists of a small mathematical library developed in C, with support for C++. It provides a set of functions for basic calculations and some more advanced operations, including simple geometry and statistical routines. The goal is to offer a lightweight and practical solution for performing common mathematical tasks efficiently.
 
 ## Features
 
