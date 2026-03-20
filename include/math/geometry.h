@@ -91,8 +91,7 @@ static inline double math_slopeLine(Point a, Point b)
 {
   if (a.x == b.x)
     return NAN;
-  double result;
-  result = (b.y - a.y) / (b.x - a.x);
+  double result = (b.y - a.y) / (b.x - a.x);
   return result;
 }
 
@@ -124,25 +123,24 @@ static inline double math_lineYIntercept(Point a, Point b)
 {
   if (a.x == b.x)
     return NAN;
-  double result;
-  result = a.y - math_slopeLine(a, b) * a.x;
+  double result = a.y - math_slopeLine(a, b) * a.x;
   return result;
 }
 
 /**
  * @brief Calculates the distance between a point and a line.
  *
- * @param inclinationLine The inclination (slope) of the line.
- * @param yInterceptLine The y-intercept of the line.
+ * @param inclination The inclination (slope) of the line.
+ * @param yIntercept The y-intercept of the line.
  * @param p The point.
  *
  * @return The distance between the point and the line.
  */
 
-static inline double math_distancePointLine(double inclinationLine, double yInterceptLine, Point p)
+static inline double math_distancePointLine(double inclination, double yIntercept, Point p)
 {
-  double result = fabs(inclinationLine * p.x - p.y + yInterceptLine) /
-                  sqrt(pow(inclinationLine, 2) + 1);
+  double result = fabs(inclination * p.x - p.y + yIntercept) /
+           sqrt(pow(inclination, 2) + 1);
   return result;
 }
 
@@ -191,8 +189,7 @@ static inline double math_convexPolySumIntAng(double nOfSides)
 {
   if (nOfSides < 3)
     return NAN;
-  double result;
-  result = (nOfSides - 2) * M_PI;
+  double result = (nOfSides - 2) * M_PI;
   return result;
 }
 
@@ -208,8 +205,7 @@ static inline double math_regPolygonIAng(int nOfSides)
 {
   if (nOfSides < 3)
     return NAN;
-  double result;
-  result = math_convexPolySumIntAng(nOfSides) / nOfSides;
+  double result = math_convexPolySumIntAng(nOfSides) / nOfSides;
   return result;
 }
 
@@ -225,8 +221,7 @@ static inline double math_convexPolyExtAngle(int nOfSides)
 {
   if (nOfSides < 3)
     return NAN;
-  double result;
-  result = 2 * M_PI / nOfSides;
+  double result = 2 * M_PI / nOfSides;
   return result;
 }
 

@@ -21,8 +21,7 @@ static inline double math_triangleArea1(double base, double height)
 {
   if (base < 0 || height <= 0)
     return NAN;
-  double result;
-  result = base * height / 2;
+  double result = base * height / 2;
   return result;
 }
 
@@ -40,8 +39,7 @@ static inline double math_triangleArea2(double sideA, double sideB, double angle
 {
   if (sideA < 0 || sideB < 0 || angleGama < 0 || angleGama > M_PI)
     return NAN;
-  double result;
-  result = sideA * sideB * sin(angleGama) / 2;
+  double result = sideA * sideB * sin(angleGama) / 2;
   return result;
 }
 
@@ -77,8 +75,7 @@ static inline double math_squareArea(double side)
 {
   if (side < 0)
     return NAN;
-  double result;
-  result = pow(side, 2);
+  double result = pow(side, 2);
   return result;
 }
 
@@ -95,8 +92,7 @@ static inline double math_retangleArea(double width, double length)
 {
   if (width < 0 || length < 0)
     return NAN;
-  double result;
-  result = width * length;
+  double result = width * length;
   return result;
 }
 
@@ -113,8 +109,7 @@ static inline double math_rhombusArea(double largerDiagonal, double smallerDiago
 {
   if (largerDiagonal < 0 || smallerDiagonal < 0)
     return NAN;
-  double result;
-  result = largerDiagonal * smallerDiagonal / 2;
+  double result = largerDiagonal * smallerDiagonal / 2;
   return result;
 }
 
@@ -131,8 +126,7 @@ static inline double math_parallelogramArea1(double base, double height)
 {
   if (base < 0 || height < 0)
     return NAN;
-  double result;
-  result = base * height;
+  double result = base * height;
   return result;
 }
 
@@ -150,8 +144,7 @@ static inline double math_parallelogramArea2(double sideA, double sideB, double 
 {
   if (sideA < 0 || sideB < 0 || angleBeetweenAB < 0 || angleBeetweenAB > M_PI)
     return NAN;
-  double result;
-  result = sideA * sideB * sin(angleBeetweenAB);
+  double result = sideA * sideB * sin(angleBeetweenAB);
   return result;
 }
 
@@ -169,8 +162,7 @@ static inline double math_trapezoidArea(double largerBase, double smallerBase, d
 {
   if (largerBase < 0 || smallerBase < 0 || height < 0)
     return NAN;
-  double result;
-  result = (largerBase + smallerBase) * height / 2;
+  double result = (largerBase + smallerBase) * height / 2;
   return result;
 }
 
@@ -206,8 +198,7 @@ static inline double math_circleArea(double radius)
 {
   if (radius < 0)
     return NAN;
-  double result;
-  result = M_PI * pow(radius, 2);
+  double result = M_PI * pow(radius, 2);
   return result;
 }
 
@@ -224,8 +215,7 @@ static inline double math_circularSectorArea1(double angle, double radius)
 {
   if (radius < 0 || angle < 0)
     return NAN;
-  double result;
-  result = angle * pow(radius, 2) / 2;
+  double result = angle * pow(radius, 2) / 2;
   return result;
 }
 
@@ -242,8 +232,7 @@ static inline double math_circularSectorArea2(double arc, double radius)
 {
   if (radius < 0 || arc < 0)
     return NAN;
-  double result;
-  result = arc * radius / 2;
+  double result = arc * radius / 2;
   return result;
 }
 
@@ -260,8 +249,7 @@ static inline double math_ellipseArea(double semiMajorAxis, double semiMinorAxis
 {
   if (semiMajorAxis < 0 || semiMinorAxis < 0)
     return NAN;
-  double result;
-  result = M_PI * semiMajorAxis * semiMinorAxis;
+  double result = M_PI * semiMajorAxis * semiMinorAxis;
   return result;
 }
 

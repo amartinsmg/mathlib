@@ -18,8 +18,7 @@ static inline double math_simpGrowth(double initial, double rate, double interva
 {
   if (interval < 0)
     return NAN;
-  double result;
-  result = initial * (1 + rate * interval);
+  double result = initial * (1 + rate * interval);
   return result;
 }
 
@@ -37,8 +36,7 @@ static inline double math_simpGrowthRate(double initial, double final, double in
 {
   if (initial == 0 || interval <= 0)
     return NAN;
-  double result;
-  result = (final / initial - 1) / interval;
+  double result = (final / initial - 1) / interval;
   return result;
 }
 
@@ -56,8 +54,7 @@ static inline double math_compGrowth(double initial, double rate, double interva
 {
   if (interval < 0)
     return NAN;
-  double result;
-  result = initial * pow((1 + rate), interval);
+  double result = initial * pow((1 + rate), interval);
   return result;
 }
 
@@ -75,8 +72,7 @@ static inline double math_compGrowthRate(double initial, double final, double in
 {
   if (initial == 0 || interval <= 0)
     return NAN;
-  double result;
-  result = math_nthRoot((final / initial), interval) - 1;
+  double result = math_nthRoot((final / initial), interval) - 1;
   return result;
 }
 

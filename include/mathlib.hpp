@@ -248,9 +248,9 @@ namespace Math
     return math_lineYIntercept(a, b);
   }
 
-  static inline double distancePointLine(double inclinationLine, double yInterceptLine, Point p)
+  static inline double distancePointLine(double inclination, double yIntercept, Point p)
   {
-    return math_distancePointLine(inclinationLine, yInterceptLine, p);
+    return math_distancePointLine(inclination, yIntercept, p);
   }
 
   static inline double circlePerimeter(double radius)
@@ -343,9 +343,9 @@ namespace Math
     return math_poisson(lambda, x);
   }
 
-  static inline double gaussianCDF(double mu, double standardDev, double x)
+  static inline double gaussianCDF(double mu, double stdDev, double x)
   {
-    return math_gaussianCDF(mu, standardDev, x);
+    return math_gaussianCDF(mu, stdDev, x);
   }
 
   static inline double mean(const double *arr, size_t length)

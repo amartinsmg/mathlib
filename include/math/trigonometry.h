@@ -20,8 +20,7 @@ static inline double math_hypotenuse(double sideA, double sideB)
 {
   if (sideA <= 0 || sideB <= 0)
     return NAN;
-  double result;
-  result = sqrt(pow(sideA, 2) + pow(sideB, 2));
+  double result = sqrt(pow(sideA, 2) + pow(sideB, 2));
   return result;
 }
 
@@ -38,8 +37,7 @@ static inline double math_sideRTriangle(double hypotenuse, double sideA)
 {
   if (sideA <= 0 || hypotenuse <= sideA)
     return NAN;
-  double result;
-  result = sqrt(pow(hypotenuse, 2) - pow(sideA, 2));
+  double result = sqrt(pow(hypotenuse, 2) - pow(sideA, 2));
   return result;
 }
 
@@ -57,8 +55,7 @@ static inline double math_sideTriangleLC(double sideA, double sideB, double oppo
 {
   if (sideA <= 0 || sideB <= 0 || oppositeAng <= 0 || oppositeAng >= M_PI)
     return NAN;
-  double result;
-  result = sqrt(pow(sideA, 2) + pow(sideB, 2) - (2 * sideA * sideB * cos(oppositeAng)));
+  double result = sqrt(pow(sideA, 2) + pow(sideB, 2) - (2 * sideA * sideB * cos(oppositeAng)));
   return result;
 }
 
@@ -77,8 +74,7 @@ static inline double math_angTriangleLC(double oppositeSide, double sideA, doubl
   if (sideA <= 0 || sideB <= 0 || oppositeSide <= 0 ||
       oppositeSide >= sideA + sideB || oppositeSide <= fabs(sideA - sideB))
     return NAN;
-  double result;
-  result = acos((pow(sideA, 2) + pow(sideB, 2) - pow(oppositeSide, 2)) / (2 * sideA * sideB));
+  double result = acos((pow(sideA, 2) + pow(sideB, 2) - pow(oppositeSide, 2)) / (2 * sideA * sideB));
   return result;
 }
 
@@ -97,8 +93,7 @@ static inline double math_sideTriangleLS(double oppositeAng, double sideA, doubl
   if (sideA <= 0 || oppositeAng <= 0 || oppositeAng >= M_PI ||
       oppositeAng2A <= 0 || oppositeAng2A >= M_PI)
     return NAN;
-  double result;
-  result = sideA / sin(oppositeAng2A) * sin(oppositeAng);
+  double result = sideA / sin(oppositeAng2A) * sin(oppositeAng);
   return result;
 }
 
@@ -117,8 +112,7 @@ static inline double math_angTriangleLS(double oppositeSide, double sideA, doubl
   if (oppositeSide <= 0 || sideA <= 0 || oppositeAng2A <= 0 || oppositeAng2A >= M_PI ||
       oppositeSide > sideA / sin(oppositeAng2A))
     return NAN;
-  double result;
-  result = asin(oppositeSide / (sideA / sin(oppositeAng2A)));
+  double result = asin(oppositeSide / (sideA / sin(oppositeAng2A)));
   return result;
 }
 

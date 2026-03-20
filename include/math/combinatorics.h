@@ -108,8 +108,7 @@ static inline unsigned long long math_combination(unsigned total, unsigned selec
 
 static inline double math_permutationlf(unsigned num)
 {
-  double result;
-  result = math_factoriallf(num);
+  double result = math_factoriallf(num);
   return result;
 }
 
@@ -125,8 +124,7 @@ static inline double math_cyclePermutationlf(unsigned num)
 {
   if (num <= 1)
     return 1;
-  double result;
-  result = math_factoriallf(num - 1);
+  double result = math_factoriallf(num - 1);
   return result;
 }
 
@@ -143,8 +141,7 @@ static inline double math_arrangementlf(unsigned total, unsigned selected)
 {
   if (total == 0 || selected > total)
     return NAN;
-  double result;
-  result = math_factoriallf(total) / math_factoriallf(total - selected);
+  double result = math_factoriallf(total) / math_factoriallf(total - selected);
   return result;
 }
 
@@ -161,8 +158,7 @@ static inline double math_combinationlf(unsigned total, unsigned selected)
 {
   if (total == 0 || selected > total)
     return NAN;
-  double result;
-  result = math_factoriallf(total) / (math_factoriallf(selected) * math_factoriallf(total - selected));
+  double result = math_factoriallf(total) / (math_factoriallf(selected) * math_factoriallf(total - selected));
   return result;
 }
 

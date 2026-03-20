@@ -16,8 +16,7 @@ static inline double math_cubeArea(double side)
 {
   if (side < 0)
     return NAN;
-  double result;
-  result = 6 * pow(side, 2);
+  double result = 6 * pow(side, 2);
   return result;
 }
 
@@ -35,8 +34,7 @@ static inline double math_cuboidArea(double width, double length, double height)
 {
   if (width < 0 || length < 0 || height < 0)
     return NAN;
-  double result;
-  result = 2 * ((width * length) + (length * height) + (width * height));
+  double result = 2 * ((width * length) + (length * height) + (width * height));
   return result;
 }
 
@@ -54,8 +52,7 @@ static inline double math_prismArea(double baseArea, double basePerimeter, doubl
 {
   if (baseArea < 0 || basePerimeter < 0 || height < 0)
     return NAN;
-  double result;
-  result = 2 * baseArea + basePerimeter * height;
+  double result = 2 * baseArea + basePerimeter * height;
   return result;
 }
 
@@ -74,8 +71,9 @@ static inline double math_regularPrismArea(double baseSide, int nOfBaseSides, do
   if (baseSide < 0 || nOfBaseSides < 0 || height < 0)
     return NAN;
   double baseArea = math_regPolygonArea(baseSide, nOfBaseSides),
-         basePerimeter = baseSide * nOfBaseSides;
-  return math_prismArea(baseArea, basePerimeter, height);
+         basePerimeter = baseSide * nOfBaseSides,
+         result = math_prismArea(baseArea, basePerimeter, height);
+  return result;
 }
 
 /**
@@ -92,8 +90,7 @@ static inline double math_pyramidArea(double baseArea, double basePerimeter, dou
 {
   if (baseArea < 0 || basePerimeter < 0 || slantHeight < 0)
     return NAN;
-  double result;
-  result = baseArea + basePerimeter * slantHeight / 2;
+  double result = baseArea + basePerimeter * slantHeight / 2;
   return result;
 }
 
@@ -114,16 +111,17 @@ static inline double math_regPyramidArea(double baseSide, int nOfBaseSides, doub
   double baseArea = math_regPolygonArea(baseSide, nOfBaseSides),
          basePerimeter = baseSide * nOfBaseSides,
          apothen = baseSide / (2 * tan(M_PI / nOfBaseSides)),
-         slantHeight = math_hypotenuse(apothen, heigth);
-  return math_pyramidArea(baseArea, basePerimeter, slantHeight);
+         slantHeight = math_hypotenuse(apothen, heigth),
+         result = math_pyramidArea(baseArea, basePerimeter, slantHeight);
+  return result;
 }
 
 /**
  * @brief Calculates the surface area of a cylinder.
- * 
+ *
  * @param baseRadius The radius of the cylinder's base.
  * @param height The height of the cylinder.
- * 
+ *
  * @return The surface area of the cylinder.
  */
 
@@ -131,17 +129,16 @@ static inline double math_cylinderArea(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
-  double result;
-  result = 2 * M_PI * baseRadius * (baseRadius + height);
+  double result = 2 * M_PI * baseRadius * (baseRadius + height);
   return result;
 }
 
 /**
  * @brief Calculates the surface area of a cone.
- * 
+ *
  * @param baseRadius The radius of the cone's base.
  * @param height The height of the cone.
- * 
+ *
  * @return The surface area of the cone.
  */
 
@@ -149,16 +146,15 @@ static inline double math_coneArea(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
-  double result;
-  result = math_circleArea(baseRadius) + M_PI * baseRadius * math_hypotenuse(height, baseRadius);
+  double result = math_circleArea(baseRadius) + M_PI * baseRadius * math_hypotenuse(height, baseRadius);
   return result;
 }
 
 /**
  * @brief Calculates the surface area of a sphere.
- * 
+ *
  * @param radius The radius of the sphere.
- * 
+ *
  * @return The surface area of the sphere.
  */
 
@@ -166,8 +162,7 @@ static inline double math_sphereArea(double radius)
 {
   if (radius < 0)
     return NAN;
-  double result;
-  result = 4 * M_PI * pow(radius, 2);
+  double result = 4 * M_PI * pow(radius, 2);
   return result;
 }
 

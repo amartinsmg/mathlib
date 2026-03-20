@@ -16,8 +16,7 @@ static inline double math_cubeVol(double side)
 {
   if (side < 0)
     return NAN;
-  double result;
-  result = pow(side, 3);
+  double result = pow(side, 3);
   return result;
 }
 
@@ -35,8 +34,7 @@ static inline double math_cuboidVol(double length, double width, double height)
 {
   if (width < 0 || length < 0 || height < 0)
     return NAN;
-  double result;
-  result = length * width * height;
+  double result = length * width * height;
   return result;
 }
 
@@ -53,8 +51,7 @@ static inline double math_prismVol(double baseArea, double height)
 {
   if (baseArea < 0 || height < 0)
     return NAN;
-  double result;
-  result = baseArea * height;
+  double result = baseArea * height;
   return result;
 }
 
@@ -70,8 +67,9 @@ static inline double math_prismVol(double baseArea, double height)
 
 static inline double math_regularPrismVol(double baseSide, int nOfBaseSides, double height)
 {
-  double baseArea = math_regPolygonArea(baseSide, nOfBaseSides);
-  return math_prismVol(baseArea, height);
+  double baseArea = math_regPolygonArea(baseSide, nOfBaseSides),
+         result = math_prismVol(baseArea, height);
+  return result;
 }
 
 /**
@@ -87,8 +85,7 @@ static inline double math_pyramidVol(double baseArea, double height)
 {
   if (baseArea < 0 || height < 0)
     return NAN;
-  double result;
-  result = baseArea * height / 3;
+  double result = baseArea * height / 3;
   return result;
 }
 
@@ -104,8 +101,9 @@ static inline double math_pyramidVol(double baseArea, double height)
 
 static inline double math_regPyramidVol(double baseSide, int nOfBaseSides, double height)
 {
-  double baseArea = math_regPolygonArea(baseSide, nOfBaseSides);
-  return math_pyramidVol(baseArea, height);
+  double baseArea = math_regPolygonArea(baseSide, nOfBaseSides),
+         result = math_pyramidVol(baseArea, height);
+  return result;
 }
 
 /**
@@ -121,8 +119,7 @@ static inline double math_cylinderVol(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
-  double result;
-  result = math_circleArea(baseRadius) * height;
+  double result = math_circleArea(baseRadius) * height;
   return result;
 }
 
@@ -139,8 +136,7 @@ static inline double math_coneVol(double baseRadius, double height)
 {
   if (baseRadius < 0 || height < 0)
     return NAN;
-  double result;
-  result =  math_circleArea(baseRadius) * height / 3;
+  double result = math_circleArea(baseRadius) * height / 3;
   return result;
 }
 
@@ -154,8 +150,7 @@ static inline double math_sphereVol(double radius)
 {
   if (radius < 0)
     return NAN;
-  double result;
-  result = 4 * M_PI * pow(radius, 3) / 3;
+  double result = 4 * M_PI * pow(radius, 3) / 3;
   return result;
 }
 
