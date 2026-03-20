@@ -1,17 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <mathlib.h>
-#include "include/test.h"
 
 #define SIZE_OF_ARR 8
-/**
- * @brief Main function to test mathematical algorithms.
- * This is the main function used to test different mathematical algorithms
- * by comparing the results with pre-calculated values. It serves as a testing
- * ground for verifying the correctness of the algorithms.
- *
- * @return An integer representing the exit status of the program.
- */
+
+#define ASSERT_TRUE(condition)                   \
+  if (!(condition))                              \
+  {                                              \
+    printf("FAIL: %s:%d\n", __FILE__, __LINE__); \
+    return EXIT_FAILURE;                         \
+  }
 
 int main()
 {
