@@ -4,97 +4,87 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
- * @brief Structure representing a node in the vector's linked list.
+ * @brief Structure representing a dynamic vector.
  */
-
-typedef struct VectorNode_s
-{
-  uint64_t data;             /**< The data stored in the node. */
-  struct VectorNode_s *next; /**< Pointer to the next node. */
-} VectorNode;
-
-/**
- * @brief Structure representing a vector of values.
- */
-
 typedef struct
 {
-  VectorNode *tail; /**< Pointer to the tail of the linked list. */
-  size_t length;    /**< The number of elements in the vector. */
+  char *data;       /**< Pointer to the allocated memory buffer. */
+  size_t data_size; /**< Size of each element in bytes. */
+  size_t length;    /**< Number of elements currently in the vector. */
 } Vector;
+
+/**
+ * @brief Initializes a new vector.
+ *
+ * @param data_size The size of each element to be stored in the vector.
+ *
+ * @return An initialized Vector structure with zero length.
+ */
+static inline Vector vector_init(size_t data_size)
+{
+  Vector v = {0};
+  v.data_size = data_size;
+  return v;
+}
 
 /**
  * @brief Appends a value to the vector.
  *
- * Allocates a new node containing the value and adds it to the vector.
+ * Reallocates the vector's memory to accommodate the new value and copies it to the end.
  *
- * @param vector Pointer to the Vector structure.
- * @param value The value to append.
+ * @param v Pointer to the Vector structure.
+ * @param value Pointer to the value to be appended.
  *
- * @return 1 if the value was added, or -1 if memory allocation failed.
+ * @return 1 if the value was successfully added, or -1 if memory reallocation failed.
  */
 
-static inline int vector_append(Vector *vector, uint64_t value)
+static inline int vector_append(Vector *v, void *value)
 {
-  VectorNode *new_node = (VectorNode *)malloc(sizeof(*new_node));
-  if (!new_node)
+  char *tmp = (char *)realloc(v->data, (v->length + 1) * v->data_size);
+  if (!tmp)
     return -1;
+  v->data = tmp;
 
-  new_node->data = value;
-  new_node->next = vector->tail;
-  vector->tail = new_node;
-  vector->length++;
+  memcpy(v->data + v->length * v->data_size, value, v->data_size);
+
+  v->length++;
 
   return 1;
 }
 
 /**
- * @brief Frees the memory allocated for the vector's nodes.
+ * @brief Frees the memory allocated for the vector.
  *
- * Iterates through the linked list and frees each node.
+ * Releases the memory buffer used by the vector and resets its length.
  *
- * @param vector Pointer to the Vector structure.
+ * @param v Pointer to the Vector structure.
  */
 
-static inline void vector_free(Vector *vector)
+static inline void vector_free(Vector *v)
 {
-  VectorNode *current = vector->tail,
-             *next = NULL;
-
-  while (current != NULL)
-  {
-    next = current->next;
-    free(current);
-    current = next;
-  }
-  vector->tail = NULL;
-  vector->length = 0;
+  free(v->data);
+  v->length = 0;
 }
 
 /**
  * @brief Retrieves the values stored in the vector as an array.
  *
- * @param vector Pointer to the Vector structure.
+ * @param v Pointer to the Vector structure.
  *
- * @return A dynamically allocated array containing the values in the vector.
+ * @return A pointer to a dynamically allocated array containing the values.
  *
  * @note It is the caller's responsibility to free the allocated memory.
  */
 
-static inline uint64_t *vector_get_values(Vector *vector)
+static inline void *vector_get_values(Vector *v)
 {
-  size_t i;
-  VectorNode *current = vector->tail;
+  size_t i, j;
+  char *values = (char *)malloc(v->data_size * v->length);
 
-  uint64_t *values = (uint64_t *)malloc(sizeof(*values) * vector->length);
-
-  for (i = 0; i < vector->length; i++)
-  {
-    values[vector->length - 1 - i] = current->data;
-    current = current->next;
-  }
+  memcpy(values, v->data, v->length * v->data_size);
 
   return values;
 }
