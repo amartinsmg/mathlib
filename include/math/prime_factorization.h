@@ -2,6 +2,7 @@
 #define PRIME_FACTORIZATION_H
 
 #include <stdlib.h>
+#include "vector.h"
 
 /**
  * @brief Calculate the prime factors of a given number.
@@ -13,18 +14,15 @@
  * @note It is the caller's responsibility to free the memory allocated for the array.
  */
 
-static inline long long *math_primeFactors(long long num)
+static inline Vector math_primeFactors(long long num)
 {
-  if (num <= 1)
-    return NULL;
-  long long i,
-      *factors = (long long *)calloc(64, sizeof(*factors)),
-      length = 0;
+  long long i;
+  Vector factors = {0};
   while (num > 1)
     for (i = 2; i <= num; i++)
       if (!(num % i))
       {
-        factors[length++] = i;
+        vector_append(&factors, (uint64_t) i);
         num /= i;
         break;
       }
