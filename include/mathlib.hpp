@@ -323,7 +323,7 @@ namespace Math
     return math_isPerfect(num);
   }
 
-  static inline long long *primeFactors(long long num)
+  static inline Vector primeFactors(long long num)
   {
     return math_primeFactors(num);
   }
@@ -378,9 +378,9 @@ namespace Math
     return math_median(arr, length);
   }
 
-  static inline double *mode(const double *arr, size_t length, size_t *ptrNOfModes)
+  static inline Vector mode(const double *arr, size_t length)
   {
-    return math_mode(arr, length, ptrNOfModes);
+    return math_mode(arr, length);
   }
 
   static inline double min(const double *arr, size_t length)
@@ -408,9 +408,9 @@ namespace Math
     return math_variance(arr, length);
   }
 
-  static inline double standardDeviation(const double *arr, size_t length)
+  static inline double stdDev(const double *arr, size_t length)
   {
-    return math_standardDeviation(arr, length);
+    return math_stdDev(arr, length);
   }
 
   static inline double sampleVariance(const double *arr, size_t length)
@@ -418,9 +418,9 @@ namespace Math
     return math_sampleVariance(arr, length);
   }
 
-  static inline double sampleStandardDeviation(const double *arr, size_t length)
+  static inline double sampleStdDev(const double *arr, size_t length)
   {
-    return math_sampleStandardDeviation(arr, length);
+    return math_sampleStdDev(arr, length);
   }
 
   static inline double hypotenuse(double sideA, double sideB)
