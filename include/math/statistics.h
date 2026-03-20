@@ -76,16 +76,16 @@ static inline double math_weightedMean(const ValueWeight *values_weights, size_t
  *
  * @param arr The array of values.
  * @param length The length of the arr array.
- * @param trimmedMeanPercentage The percentage of elements to be trimmed from both ends.
+ * @param percentage The percentage of elements to be trimmed from both ends.
  *
  * @return The trimmed mean of the arr.
  */
 
-static inline double math_trimmedMean(const double *arr, size_t length, double trimmedMeanPercentage)
+static inline double math_trimmedMean(const double *arr, size_t length, double percentage)
 {
   if (length == 0 || arr == NULL)
     return NAN;
-  size_t nElementsToTrim = (size_t)round(math_nPercentOfX(length, trimmedMeanPercentage));
+  size_t nElementsToTrim = (size_t)round(math_nPercentOfX(length, percentage));
   if (2 * nElementsToTrim >= length)
     return NAN;
   double result, *sortedArr = sort(arr, length);

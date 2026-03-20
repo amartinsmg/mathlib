@@ -235,28 +235,28 @@ int main()
   status = test(55, math_nIsWhatPercentOfX(128, 16) == 12.5);
   if (status != 0)
     goto cleanup;
-  status = test(56, math_simpleGrowth(5, 0.05, 3) == 5.75);
+  status = test(56, math_simpGrowth(5, 0.05, 3) == 5.75);
   if (status != 0)
     goto cleanup;
-  status = test(57, math_simpleGrowth(140, 0.1, 4) == 196);
+  status = test(57, math_simpGrowth(140, 0.1, 4) == 196);
   if (status != 0)
     goto cleanup;
-  status = test(58, math_roundTo(math_simpleGrowthRate(5, 5.5, 4), 6) == 0.025);
+  status = test(58, math_roundTo(math_simpGrowthRate(5, 5.5, 4), 6) == 0.025);
   if (status != 0)
     goto cleanup;
-  status = test(59, math_roundTo(math_simpleGrowthRate(145, 153, 3), 6) == 0.018391);
+  status = test(59, math_roundTo(math_simpGrowthRate(145, 153, 3), 6) == 0.018391);
   if (status != 0)
     goto cleanup;
-  status = test(60, math_roundTo(math_compoundedGrowth(5, 0.2, 3), 6) == 8.64);
+  status = test(60, math_roundTo(math_compGrowth(5, 0.2, 3), 6) == 8.64);
   if (status != 0)
     goto cleanup;
-  status = test(61, math_roundTo(math_compoundedGrowth(2500, 0.17, 13), 6) == 19246.697092);
+  status = test(61, math_roundTo(math_compGrowth(2500, 0.17, 13), 6) == 19246.697092);
   if (status != 0)
     goto cleanup;
-  status = test(62, math_roundTo(math_compoundedGrowthRate(5, 8.64, 3), 6) == 0.2);
+  status = test(62, math_roundTo(math_compGrowthRate(5, 8.64, 3), 6) == 0.2);
   if (status != 0)
     goto cleanup;
-  status = test(63, math_roundTo(math_compoundedGrowthRate(5200, 7640.50, 5), 6) == 0.08);
+  status = test(63, math_roundTo(math_compGrowthRate(5200, 7640.50, 5), 6) == 0.08);
   if (status != 0)
     goto cleanup;
   status = test(64, math_gcd(40, 96) == 8);

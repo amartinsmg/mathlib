@@ -48,17 +48,17 @@ static inline double math_sideRTriangle(double hypotenuse, double sideA)
  *
  * @param sideA The length of side A of the triangle.
  * @param sideB The length of side B of the triangle.
- * @param oppositeAngle The measure of the angle opposite to the side whose length is being calculated.
+ * @param oppositeAng The measure of the angle opposite to the side whose length is being calculated.
  *
  * @return The length of the side.
  */
 
-static inline double math_sideTriangleLC(double sideA, double sideB, double oppositeAngle)
+static inline double math_sideTriangleLC(double sideA, double sideB, double oppositeAng)
 {
-  if (sideA <= 0 || sideB <= 0 || oppositeAngle <= 0 || oppositeAngle >= M_PI)
+  if (sideA <= 0 || sideB <= 0 || oppositeAng <= 0 || oppositeAng >= M_PI)
     return NAN;
   double result;
-  result = sqrt(pow(sideA, 2) + pow(sideB, 2) - (2 * sideA * sideB * cos(oppositeAngle)));
+  result = sqrt(pow(sideA, 2) + pow(sideB, 2) - (2 * sideA * sideB * cos(oppositeAng)));
   return result;
 }
 
@@ -85,20 +85,20 @@ static inline double math_angTriangleLC(double oppositeSide, double sideA, doubl
 /**
  * @brief Calculate the length of a side in a triangle using the Law of Sines.
  *
- * @param oppositeAngle The measure of the angle opposite to the side whose length is being calculated.
+ * @param oppositeAng The measure of the angle opposite to the side whose length is being calculated.
  * @param sideA The length of one of the other sides of the triangle.
- * @param oppositeAngle2A The measure of the other angle opposite to side A.
+ * @param oppositeAng2A The measure of the other angle opposite to side A.
  *
  * @return The length of the side.
  */
 
-static inline double math_sideTriangleLS(double oppositeAngle, double sideA, double oppositeAngle2A)
+static inline double math_sideTriangleLS(double oppositeAng, double sideA, double oppositeAng2A)
 {
-  if (sideA <= 0 || oppositeAngle <= 0 || oppositeAngle >= M_PI ||
-      oppositeAngle2A <= 0 || oppositeAngle2A >= M_PI)
+  if (sideA <= 0 || oppositeAng <= 0 || oppositeAng >= M_PI ||
+      oppositeAng2A <= 0 || oppositeAng2A >= M_PI)
     return NAN;
   double result;
-  result = sideA / sin(oppositeAngle2A) * sin(oppositeAngle);
+  result = sideA / sin(oppositeAng2A) * sin(oppositeAng);
   return result;
 }
 
@@ -107,18 +107,18 @@ static inline double math_sideTriangleLS(double oppositeAngle, double sideA, dou
  *
  * @param oppositeSide The length of the side opposite to the angle.
  * @param sideA The length of one of the other sides of the triangle.
- * @param oppositeAngle2A The measure of the other angle opposite to side A.
+ * @param oppositeAng2A The measure of the other angle opposite to side A.
  *
  * @return The measure of the angle in radians.
  */
 
-static inline double math_angTriangleLS(double oppositeSide, double sideA, double oppositeAngle2A)
+static inline double math_angTriangleLS(double oppositeSide, double sideA, double oppositeAng2A)
 {
-  if (oppositeSide <= 0 || sideA <= 0 || oppositeAngle2A <= 0 || oppositeAngle2A >= M_PI ||
-      oppositeSide > sideA / sin(oppositeAngle2A))
+  if (oppositeSide <= 0 || sideA <= 0 || oppositeAng2A <= 0 || oppositeAng2A >= M_PI ||
+      oppositeSide > sideA / sin(oppositeAng2A))
     return NAN;
   double result;
-  result = asin(oppositeSide / (sideA / sin(oppositeAngle2A)));
+  result = asin(oppositeSide / (sideA / sin(oppositeAng2A)));
   return result;
 }
 

@@ -278,24 +278,24 @@ namespace Math
     return math_convexPolyExtAngle(nOfSides);
   }
 
-  static inline double simpleGrowth(double initial, double rate, double interval)
+  static inline double simpGrowth(double initial, double rate, double interval)
   {
-    return math_simpleGrowth(initial, rate, interval);
+    return math_simpGrowth(initial, rate, interval);
   }
 
-  static inline double simpleGrowthRate(double initial, double final, double interval)
+  static inline double simpGrowthRate(double initial, double final, double interval)
   {
-    return math_simpleGrowthRate(initial, final, interval);
+    return math_simpGrowthRate(initial, final, interval);
   }
 
-  static inline double compoundedGrowth(double initial, double rate, double interval)
+  static inline double compGrowth(double initial, double rate, double interval)
   {
-    return math_compoundedGrowth(initial, rate, interval);
+    return math_compGrowth(initial, rate, interval);
   }
 
-  static inline double compoundedGrowthRate(double initial, double final, double interval)
+  static inline double compGrowthRate(double initial, double final, double interval)
   {
-    return math_compoundedGrowthRate(initial, final, interval);
+    return math_compGrowthRate(initial, final, interval);
   }
 
   static inline bool isHappy(long long num)
@@ -358,9 +358,9 @@ namespace Math
     return math_weightedMean(values_weights, length);
   }
 
-  static inline double trimmedMean(const double *arr, size_t length, double trimmedMeanPercentage)
+  static inline double trimmedMean(const double *arr, size_t length, double percentage)
   {
-    return math_trimmedMean(arr, length, trimmedMeanPercentage);
+    return math_trimmedMean(arr, length, percentage);
   }
 
   static inline double geometricMean(const double *arr, size_t length)
@@ -433,9 +433,9 @@ namespace Math
     return math_sideRTriangle(hypotenuse, sideA);
   }
 
-  static inline double sideTriangleLC(double sideA, double sideB, double oppositeAngle)
+  static inline double sideTriangleLC(double sideA, double sideB, double oppositeAng)
   {
-    return math_sideTriangleLC(sideA, sideB, oppositeAngle);
+    return math_sideTriangleLC(sideA, sideB, oppositeAng);
   }
 
   static inline double angTriangleLC(double oppositeSide, double sideA, double sideB)
@@ -443,14 +443,14 @@ namespace Math
     return math_angTriangleLC(oppositeSide, sideA, sideB);
   }
 
-  static inline double sideTriangleLS(double oppositeAngle, double sideA, double oppositeAngle2A)
+  static inline double sideTriangleLS(double oppositeAng, double sideA, double oppositeAng2A)
   {
-    return math_sideTriangleLS(oppositeAngle, sideA, oppositeAngle2A);
+    return math_sideTriangleLS(oppositeAng, sideA, oppositeAng2A);
   }
 
-  static inline double angTriangleLS(double oppositeSide, double sideA, double oppositeAngle2A)
+  static inline double angTriangleLS(double oppositeSide, double sideA, double oppositeAng2A)
   {
-    return math_angTriangleLS(oppositeSide, sideA, oppositeAngle2A);
+    return math_angTriangleLS(oppositeSide, sideA, oppositeAng2A);
   }
 
   static inline double cubeVol(double side)
