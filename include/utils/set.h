@@ -7,18 +7,18 @@
 /**
  * @brief Structure representing a node in the set's linked list.
  */
-typedef struct SetLink_s
+typedef struct SetNode_s
 {
   long long data;         /**< The data stored in the node. */
-  struct SetLink_s *next; /**< Pointer to the next node. */
-} SetLink;
+  struct SetNode_s *next; /**< Pointer to the next node. */
+} SetNode;
 
 /**
  * @brief Structure representing a set of unique values.
  */
 typedef struct
 {
-  SetLink *head; /**< Pointer to the head of the linked list. */
+  SetNode *head; /**< Pointer to the head of the linked list. */
   size_t length; /**< The number of elements in the set. */
 } Set;
 
@@ -38,7 +38,7 @@ static inline int set_add_value(Set *set, long long value)
 {
   long long *values = NULL;
   size_t i;
-  SetLink *current = set->head;
+  SetNode *current = set->head;
 
   while (current != NULL)
   {
@@ -47,7 +47,7 @@ static inline int set_add_value(Set *set, long long value)
     current = current->next;
   }
 
-  SetLink *new_node = (SetLink *)malloc(sizeof(*new_node));
+  SetNode *new_node = (SetNode *)malloc(sizeof(*new_node));
   if (!new_node)
     return -1;
   new_node->data = value;
@@ -68,7 +68,7 @@ static inline int set_add_value(Set *set, long long value)
  */
 static inline bool set_contains(Set *set, long long value)
 {
-  SetLink *current = set->head;
+  SetNode *current = set->head;
   while (current != NULL)
   {
     if (current->data == value)
@@ -87,10 +87,10 @@ static inline bool set_contains(Set *set, long long value)
  */
 static inline void set_free(Set *set)
 {
-  SetLink *current = set->head;
+  SetNode *current = set->head;
   while (current != NULL)
   {
-    SetLink *next = current->next;
+    SetNode *next = current->next;
     free(current);
     current = next;
   }
@@ -108,7 +108,7 @@ static inline void set_free(Set *set)
 static inline long long *set_get_values(Set *set)
 {
   size_t i;
-  SetLink *current = set->head;
+  SetNode *current = set->head;
   long long *values = (long long *)malloc(sizeof(*values) * set->length);
   for (i = 0; i < set->length; i++)
   {
