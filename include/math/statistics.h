@@ -6,6 +6,7 @@
 #include "basic_operations.h"
 #include "percentage.h"
 #include "sort.h"
+#include "vector.h"
 
 /**
  * @brief Calculate the arithmetic mean of an array of values.
@@ -18,7 +19,7 @@
 
 static inline double math_mean(const double *arr, size_t length)
 {
-  if (length == 0)
+  if (length == 0 || arr == NULL)
     return NAN;
   double result,
       sum = 0;
@@ -51,7 +52,7 @@ typedef struct
 
 static inline double math_weightedMean(const ValueWeight *values_weights, size_t length)
 {
-  if (length == 0)
+  if (length == 0 || values_weights == NULL)
     return NAN;
   double result, value, weight,
       sum = 0,
@@ -82,7 +83,7 @@ static inline double math_weightedMean(const ValueWeight *values_weights, size_t
 
 static inline double math_trimmedMean(const double *arr, size_t length, double trimmedMeanPercentage)
 {
-  if (length == 0)
+  if (length == 0 || arr == NULL)
     return NAN;
   size_t nElementsToTrim = (size_t)round(math_nPercentOfX(length, trimmedMeanPercentage));
   if (2 * nElementsToTrim >= length)
@@ -106,7 +107,7 @@ static inline double math_trimmedMean(const double *arr, size_t length, double t
 
 static inline double math_geometricMean(const double *arr, size_t length)
 {
-  if (length == 0)
+  if (length == 0 || arr == NULL)
     return NAN;
   double result,
       product = 1;
@@ -132,7 +133,7 @@ static inline double math_geometricMean(const double *arr, size_t length)
 
 static inline double math_harmonicMean(const double *arr, size_t length)
 {
-  if (length == 0)
+  if (length == 0 || arr == NULL)
     return NAN;
   double result,
       sum = 0;
@@ -158,7 +159,7 @@ static inline double math_harmonicMean(const double *arr, size_t length)
 
 static inline double math_median(const double *arr, size_t length)
 {
-  if (length <= 0)
+  if (length == 0 || arr == NULL)
     return NAN;
   double result,
       *sortedArr = sort(arr, length);
@@ -192,15 +193,13 @@ typedef struct
  * @note The number of modes is stored in ptrNOfModes.
  */
 
-static inline double *math_mode(const double *arr, size_t length, size_t *ptrNOfModes)
+static inline Vector math_mode(const double *arr, size_t length)
 {
-  if (length == 0)
-  {
-    *ptrNOfModes = 0;
-    return NULL;
-  }
-  double *result = NULL,
-         *sortedArr = sort(arr, length);
+  Vector modes = {0};
+  if (length == 0 || arr == NULL)
+    return modes;
+
+  double *sortedArr = sort(arr, length);
   Freq *frequencies = (Freq *)malloc(sizeof(*frequencies) * length);
   size_t i,
       minFreq = __UINT32_MAX__,
@@ -208,9 +207,9 @@ static inline double *math_mode(const double *arr, size_t length, size_t *ptrNOf
       resultLenght = 0,
       freq_len = 0;
 
-  *ptrNOfModes = 0;
   frequencies[freq_len++].value = sortedArr[0];
   frequencies[freq_len++].value = 1;
+
   for (i = 0; i < length; i++)
     if (sortedArr[i] == frequencies[freq_len - 1].value)
       frequencies[freq_len - 1].frequency++;
@@ -219,26 +218,22 @@ static inline double *math_mode(const double *arr, size_t length, size_t *ptrNOf
       frequencies[freq_len].value = sortedArr[i];
       frequencies[freq_len++].frequency++;
     }
+  free(sortedArr);
+
   for (i = 0; i < freq_len; i++)
   {
     minFreq = frequencies[i].frequency < minFreq ? frequencies[i].frequency : minFreq;
     maxFreq = frequencies[i].frequency > maxFreq ? frequencies[i].frequency : maxFreq;
   }
+
   if (minFreq < maxFreq)
     for (i = 0; i < freq_len; i++)
       if (frequencies[i].frequency == maxFreq)
-        ++(*ptrNOfModes);
-
-  result = (double *)malloc(sizeof(*result) * (*ptrNOfModes));
-
-  for (i = 0; i < freq_len; i++)
-    if (frequencies[i].frequency == maxFreq)
-      result[resultLenght++] = frequencies[i].value;
+        vector_append(&modes, *(uint64_t *)&frequencies[i].value);
 
   free(frequencies);
-  free(sortedArr);
 
-  return result;
+  return modes;
 }
 
 /**
@@ -252,7 +247,7 @@ static inline double *math_mode(const double *arr, size_t length, size_t *ptrNOf
 
 static inline double math_min(const double *arr, size_t length)
 {
-  if (length == 0)
+  if (length == 0 || arr == NULL)
     return NAN;
   double result = __DBL_MAX__;
   size_t i;
@@ -272,7 +267,7 @@ static inline double math_min(const double *arr, size_t length)
 
 static inline double math_max(const double *arr, size_t length)
 {
-  if (length == 0)
+  if (length == 0 || arr == NULL)
     return NAN;
   double result = -__DBL_MAX__;
   size_t i;
@@ -292,7 +287,7 @@ static inline double math_max(const double *arr, size_t length)
 
 static inline double math_range(const double *arr, size_t length)
 {
-  if (length == 0)
+  if (length == 0 || arr == NULL)
     return NAN;
   double minValue = math_min(arr, length),
          maxValue = math_max(arr, length),
@@ -326,7 +321,7 @@ static inline double math_midrange(const double *arr, size_t length)
 
 static inline double math_variance(const double *arr, size_t length)
 {
-  if (length == 0)
+  if (length == 0 || arr == NULL)
     return NAN;
   double mu = math_mean(arr, length),
          sum = 0,
@@ -347,9 +342,9 @@ static inline double math_variance(const double *arr, size_t length)
  * @return The calculated standard deviation.
  */
 
-static inline double math_standardDeviation(const double *arr, size_t length)
+static inline double math_stdDev(const double *arr, size_t length)
 {
-  if (length == 0)
+  if (length == 0 || arr == NULL)
     return NAN;
   double result = sqrt(math_variance(arr, length));
   return result;
@@ -387,7 +382,7 @@ static inline double math_sampleVariance(const double *arr, size_t length)
  * @return The calculated sample standard deviation.
  */
 
-static inline double math_sampleStandardDeviation(const double *arr, size_t length)
+static inline double math_sampleStdDev(const double *arr, size_t length)
 {
   if (length <= 1)
     return NAN;
