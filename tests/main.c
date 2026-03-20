@@ -20,21 +20,32 @@
 int main()
 {
   char str[100];
-  size_t nOfModes, i;
+  size_t i;
   int status;
   long long arr1[SIZE_OF_ARR_1] = {2, 2, 2, 2, 3, 3, 5, 11},
             arr2[SIZE_OF_ARR_2] = {2, 2, 3, 3, 3, 7, 73},
             *arr3 = NULL,
             *arr4 = NULL;
   Point out, a, b, c, d, p;
+  Vector v = math_primeFactors(7920);
   double *arr5 = NULL,
          *arr6 = malloc(sizeof(*arr6) * SIZE_OF_ARR_1),
          *arr7 = malloc(sizeof(*arr7) * SIZE_OF_ARR_2);
   ValueWeight *values_weights1 = malloc(sizeof(*values_weights1) * SIZE_OF_ARR_1),
               *values_weights2 = malloc(sizeof(*values_weights2) * SIZE_OF_ARR_2);
 
-  arr3 = math_primeFactors(7920);
-  arr4 = math_primeFactors(55188);
+  for (i = 0; i < SIZE_OF_ARR_1; i++)
+    arr6[i] = values_weights1[i].value = values_weights1[SIZE_OF_ARR_1 - 1 - i].weight = (double)arr1[i];
+  for (i = 0; i < SIZE_OF_ARR_2; i++)
+    arr7[i] = values_weights2[i].value = values_weights2[SIZE_OF_ARR_2 - 1 - i].weight = (double)arr2[i];
+
+  arr3 = (long long *)vector_get_values(&v);
+
+  vector_free(&v);
+
+  v = math_primeFactors(55188);
+
+  arr4 = (long long *)vector_get_values(&v);
 
   a.x = a.y = 1;
   b.x = 2;
@@ -44,13 +55,6 @@ int main()
   d.x = 5;
   d.y = 11;
   p.x = p.y = 0;
-
-  for (i = 0; i < SIZE_OF_ARR_1; i++)
-    arr6[i] = values_weights1[i].value = values_weights1[SIZE_OF_ARR_1 - 1 - i].weight = (double)arr1[i];
-  for (i = 0; i < SIZE_OF_ARR_2; i++)
-    arr7[i] = values_weights2[i].value = values_weights2[SIZE_OF_ARR_2 - 1 - i].weight = (double)arr2[i];
-
-  arr5 = math_mode(arr6, SIZE_OF_ARR_1, &nOfModes);
 
   status = test(1, arrayCmp(arr1, arr3, SIZE_OF_ARR_1));
   if (status != 0)
@@ -94,12 +98,17 @@ int main()
   status = test(14, math_median(arr7, SIZE_OF_ARR_2) == 3);
   if (status != 0)
     goto cleanup;
-  status = test(15, arr5[0] == 2 && nOfModes == 1);
+  vector_free(&v);
+  v = math_mode(arr6, SIZE_OF_ARR_1);
+  arr5 = (double *)vector_get_values(&v);
+  status = test(15, arr5[0] == 2 && v.length == 1);
   if (status != 0)
     goto cleanup;
+  vector_free(&v);
   free(arr5);
-  arr5 = math_mode(arr7, SIZE_OF_ARR_2, &nOfModes);
-  status = test(16, arr5[0] == 3 && nOfModes == 1);
+  v = math_mode(arr7, SIZE_OF_ARR_2);
+  arr5 = (double *)vector_get_values(&v);
+  status = test(16, arr5[0] == 3 && v.length == 1);
   if (status != 0)
     goto cleanup;
   status = test(17, math_min(arr6, SIZE_OF_ARR_1) == 2);
@@ -138,22 +147,24 @@ int main()
   status = test(28, math_roundTo(math_sampleVariance(arr7, SIZE_OF_ARR_2), 6) == 696.238095);
   if (status != 0)
     goto cleanup;
-  status = test(29, math_roundTo(math_standardDeviation(arr6, SIZE_OF_ARR_1), 6) == 2.904738);
+  status = test(29, math_roundTo(math_stdDev(arr6, SIZE_OF_ARR_1), 6) == 2.904738);
   if (status != 0)
     goto cleanup;
-  status = test(30, math_roundTo(math_standardDeviation(arr7, SIZE_OF_ARR_2), 6) == 24.428989);
+  status = test(30, math_roundTo(math_stdDev(arr7, SIZE_OF_ARR_2), 6) == 24.428989);
   if (status != 0)
     goto cleanup;
-  status = test(31, math_roundTo(math_sampleStandardDeviation(arr6, SIZE_OF_ARR_1), 6) == 3.105295);
+  status = test(31, math_roundTo(math_sampleStdDev(arr6, SIZE_OF_ARR_1), 6) == 3.105295);
   if (status != 0)
     goto cleanup;
-  status = test(32, math_roundTo(math_sampleStandardDeviation(arr7, SIZE_OF_ARR_2), 6) == 26.386324);
+  status = test(32, math_roundTo(math_sampleStdDev(arr7, SIZE_OF_ARR_2), 6) == 26.386324);
   if (status != 0)
     goto cleanup;
   arr6[3] = 3;
+  vector_free(&v);
   free(arr5);
-  arr5 = math_mode(arr6, SIZE_OF_ARR_1, &nOfModes);
-  status = test(33, arr5[0] == 2 && arr5[1] == 3 && nOfModes == 2);
+  v = math_mode(arr6, SIZE_OF_ARR_1);
+  arr5 = (double *)vector_get_values(&v);
+  status = test(33, arr5[0] == 2 && arr5[1] == 3 && v.length == 2);
   if (status != 0)
     goto cleanup;
   status = test(34, math_roundTo(math_weightedMean(values_weights1, SIZE_OF_ARR_1), 6) == 2.933333);
@@ -666,6 +677,7 @@ int main()
   puts("Passed all tests successfully!\n");
 
 cleanup:
+  vector_free(&v);
   free(arr3);
   free(arr4);
   free(arr5);
