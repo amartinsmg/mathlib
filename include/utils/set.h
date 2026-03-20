@@ -36,7 +36,6 @@ typedef struct
  */
 static inline int set_add_value(Set *set, long long value)
 {
-  long long *values = NULL;
   size_t i;
   SetNode *current = set->head;
 
@@ -66,6 +65,7 @@ static inline int set_add_value(Set *set, long long value)
  *
  * @return True if the value is found, false otherwise.
  */
+
 static inline bool set_contains(Set *set, long long value)
 {
   SetNode *current = set->head;
@@ -85,6 +85,7 @@ static inline bool set_contains(Set *set, long long value)
  *
  * @param set Pointer to the Set structure.
  */
+
 static inline void set_free(Set *set)
 {
   SetNode *current = set->head;
@@ -94,6 +95,8 @@ static inline void set_free(Set *set)
     free(current);
     current = next;
   }
+  set->head = NULL;
+  set->length = 0;
 }
 
 /**
@@ -105,6 +108,7 @@ static inline void set_free(Set *set)
  *
  * @note It is the caller's responsibility to free the allocated memory.
  */
+
 static inline long long *set_get_values(Set *set)
 {
   size_t i;
