@@ -2,23 +2,22 @@
 #define HAPPY_NUMBERS_H
 
 #include <stdbool.h>
-#include <stdlib.h>
+#include "set.h"
 
 /**
  * @brief Checks whether the given number is a happy number.
- * 
+ *
  * @param num The number to be checked.
- * 
+ *
  * @return True if the number is a happy number, false otherwise.
-*/
+ */
 
 static inline bool math_isHappy(long long num)
 {
-  long long sum,
-      *numSet = (long long *)malloc(sizeof(*numSet));
-  int i, lenNumSet, remainder;
-  numSet[0] = num;
-  lenNumSet = 1;
+  long long sum;
+  Set numSet = {0};
+  int i, remainder;
+  set_add_value(&numSet, num);
   while (true)
   {
     sum = 0;
@@ -30,17 +29,15 @@ static inline bool math_isHappy(long long num)
     }
     if (sum == 1)
     {
-      free(numSet);
+      set_free(&numSet);
       return true;
     }
-    for (i = 0; i < lenNumSet; i++)
-      if (numSet[i] == sum)
-      {
-        free(numSet);
-        return false;
-      }
-    numSet = (long long *)realloc(numSet, sizeof(*numSet) * ++lenNumSet);
-    numSet[lenNumSet - 1] = sum;
+    if (set_contains(&numSet, sum))
+    {
+      set_free(&numSet);
+      return false;
+    }
+    set_add_value(&numSet, sum);
     num = sum;
   }
 }
