@@ -17,12 +17,12 @@
 static inline Vector math_primeFactors(long long num)
 {
   long long i;
-  Vector factors = {0};
+  Vector factors = vector_init(sizeof(long long));
   while (num > 1)
     for (i = 2; i <= num; i++)
       if (!(num % i))
       {
-        vector_append(&factors, (uint64_t) i);
+        vector_append(&factors, &i);
         num /= i;
         break;
       }
