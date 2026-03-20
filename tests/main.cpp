@@ -24,13 +24,14 @@ extern "C"
 int main()
 {
   char str[100];
-  size_t nOfModes, i;
+  size_t i;
   int status = EXIT_FAILURE;
   long long arr1[SIZE_OF_ARR_1] = {2, 2, 2, 2, 3, 3, 5, 11},
             arr2[SIZE_OF_ARR_2] = {2, 2, 3, 3, 3, 7, 73},
             *arr3 = nullptr,
             *arr4 = nullptr;
   Point out, a, b, c, d, p;
+  Vector v = {0};
   double *arr5 = nullptr,
          *arr6 = (double *)malloc(sizeof(*arr6) * SIZE_OF_ARR_1),
          *arr7 = (double *)malloc(sizeof(*arr7) * SIZE_OF_ARR_2);
@@ -53,9 +54,19 @@ int main()
 
   try
   {
-    arr3 = Math::primeFactors(7920);
-    arr4 = Math::primeFactors(55188);
-    arr5 = Math::mode(arr6, SIZE_OF_ARR_1, &nOfModes);
+    v = Math::primeFactors(7920);
+
+    arr3 = (long long *)vector_get_values(&v);
+
+    vector_free(&v);
+
+    v = Math::primeFactors(55188);
+
+    arr4 = (long long *)vector_get_values(&v);
+
+    vector_free(&v);
+    v = Math::mode(arr6, SIZE_OF_ARR_1);
+    arr5 = (double *)vector_get_values(&v);
 
     test(1, arrayCmp(arr1, arr3, SIZE_OF_ARR_1));
     test(2, arrayCmp(arr2, arr4, SIZE_OF_ARR_2));
@@ -71,10 +82,12 @@ int main()
     test(12, Math::trimmedMean(arr7, SIZE_OF_ARR_2, 14) == 3.6);
     test(13, Math::median(arr6, SIZE_OF_ARR_1) == 2.5);
     test(14, Math::median(arr7, SIZE_OF_ARR_2) == 3);
-    test(15, arr5[0] == 2 && nOfModes == 1);
+    test(15, arr5[0] == 2 && v.length == 1);
+    vector_free(&v);
     free(arr5);
-    arr5 = Math::mode(arr7, SIZE_OF_ARR_2, &nOfModes);
-    test(16, arr5[0] == 3 && nOfModes == 1);
+    v = Math::mode(arr7, SIZE_OF_ARR_2);
+    arr5 = (double *)vector_get_values(&v);
+    test(16, arr5[0] == 3 && v.length == 1);
     test(17, Math::min(arr6, SIZE_OF_ARR_1) == 2);
     test(18, Math::min(arr7, SIZE_OF_ARR_2) == 2);
     test(19, Math::max(arr6, SIZE_OF_ARR_1) == 11);
@@ -87,14 +100,16 @@ int main()
     test(26, Math::roundTo(Math::variance(arr7, SIZE_OF_ARR_2), 6) == 596.775510);
     test(27, Math::roundTo(Math::sampleVariance(arr6, SIZE_OF_ARR_1), 6) == 9.642857);
     test(28, Math::roundTo(Math::sampleVariance(arr7, SIZE_OF_ARR_2), 6) == 696.238095);
-    test(29, Math::roundTo(Math::standardDeviation(arr6, SIZE_OF_ARR_1), 6) == 2.904738);
-    test(30, Math::roundTo(Math::standardDeviation(arr7, SIZE_OF_ARR_2), 6) == 24.428989);
-    test(31, Math::roundTo(Math::sampleStandardDeviation(arr6, SIZE_OF_ARR_1), 6) == 3.105295);
-    test(32, Math::roundTo(Math::sampleStandardDeviation(arr7, SIZE_OF_ARR_2), 6) == 26.386324);
+    test(29, Math::roundTo(Math::stdDev(arr6, SIZE_OF_ARR_1), 6) == 2.904738);
+    test(30, Math::roundTo(Math::stdDev(arr7, SIZE_OF_ARR_2), 6) == 24.428989);
+    test(31, Math::roundTo(Math::sampleStdDev(arr6, SIZE_OF_ARR_1), 6) == 3.105295);
+    test(32, Math::roundTo(Math::sampleStdDev(arr7, SIZE_OF_ARR_2), 6) == 26.386324);
     arr6[3] = 3;
+    vector_free(&v);
     free(arr5);
-    arr5 = Math::mode(arr6, SIZE_OF_ARR_1, &nOfModes);
-    test(33, arr5[0] == 2 && arr5[1] == 3 && nOfModes == 2);
+    v = Math::mode(arr6, SIZE_OF_ARR_1);
+    arr5 = (double *)vector_get_values(&v);
+    test(33, arr5[0] == 2 && arr5[1] == 3 && v.length == 2);
     test(34, Math::roundTo(Math::weightedMean(values_weights1, SIZE_OF_ARR_1), 6) == 2.933333);
     test(35, Math::roundTo(Math::weightedMean(values_weights2, SIZE_OF_ARR_2), 6) == 3.731183);
     test(36, Math::lineYIntercept(a, b) == -2);
@@ -287,6 +302,7 @@ int main()
     std::cerr << e.what() << '\n';
   }
 
+  vector_free(&v);
   free(arr3);
   free(arr4);
   free(arr5);
