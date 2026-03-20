@@ -44,8 +44,7 @@ int main()
   c.y = 7;
   d.x = 5;
   d.y = 11;
-  p.x = 0;
-  p.y = 0;
+  p.x = p.y = 0;
 
   for (i = 0; i < SIZE_OF_ARR_1; i++)
     arr6[i] = values_weights1[i].value = values_weights1[SIZE_OF_ARR_1 - 1 - i].weight = (double)arr1[i];
@@ -240,8 +239,7 @@ int main()
     test(167, Math::roundTo(Math::coneVol(3.5, 7), 6) == 89.79719);
     test(168, Math::roundTo(Math::sphereVol(4), 6) == 268.082573);
     test(169, Math::roundTo(Math::sphereVol(7), 6) == 1436.75504);
-    c.x = -1;
-    c.y = -1;
+    c.x = c.y = -1;
     d.x = 2;
     d.y = 3;
     test(170, Math::distancePoints(c, d) == 5);
