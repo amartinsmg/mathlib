@@ -196,6 +196,7 @@ typedef struct
 static inline Vector math_mode(const double *arr, size_t length)
 {
   Vector modes = vector_init(sizeof(double));
+
   if (length == 0 || arr == NULL)
     return modes;
 
@@ -207,16 +208,17 @@ static inline Vector math_mode(const double *arr, size_t length)
       resultLenght = 0,
       freq_len = 0;
 
-  frequencies[freq_len++].value = sortedArr[0];
-  frequencies[freq_len++].value = 1;
+  frequencies[0].value = sortedArr[0];
+  frequencies[0].frequency = 1;
+  freq_len++;
 
-  for (i = 0; i < length; i++)
+  for (i = 1; i < length; i++)
     if (sortedArr[i] == frequencies[freq_len - 1].value)
       frequencies[freq_len - 1].frequency++;
     else
     {
       frequencies[freq_len].value = sortedArr[i];
-      frequencies[freq_len++].frequency++;
+      frequencies[freq_len++].frequency = 1;
     }
   free(sortedArr);
 
@@ -226,7 +228,7 @@ static inline Vector math_mode(const double *arr, size_t length)
     maxFreq = frequencies[i].frequency > maxFreq ? frequencies[i].frequency : maxFreq;
   }
 
-  if (minFreq < maxFreq)
+  if (maxFreq > minFreq)
     for (i = 0; i < freq_len; i++)
       if (frequencies[i].frequency == maxFreq)
         vector_append(&modes, &frequencies[i].value);
