@@ -362,16 +362,6 @@ namespace Math
 
   static inline double weightedMean(const std::vector<ValueWeight> v)
   {
-    for (size_t i = 0; i < v.size(); i++)
-    {
-      std::cout << v[i].value << " ";
-    }
-    std::cout <<  "\n";
-    for (size_t i = 0; i < v.size(); i++)
-    {
-      std::cout << v[i].weight << " ";
-    }
-    
     return math_weightedMean(v.data(), v.size());
   }
 
