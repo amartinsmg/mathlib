@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
+#include <vector>
 #include <mathlib.hpp>
-#include "include/test.hpp"
 
 extern "C"
 {
@@ -12,106 +12,78 @@ extern "C"
 #define SIZE_OF_ARR_1 8
 #define SIZE_OF_ARR_2 7
 
-/**
- * @brief Main function to test mathematical algorithms.
- * This is the main function used to test different mathematical algorithms
- * by comparing the results with pre-calculated values. It serves as a testing
- * ground for verifying the correctness of the algorithms.
- *
- * @return An integer representing the exit status of the program.
- */
+void test(int code, bool condition)
+{
+  std::cout << "Test #" << code << ": ";
+  if (condition)
+    std::cout << "Passed!\n";
+  else
+  {
+    std::cout << "Failed!\n\n";
+    throw std::invalid_argument("Condition is false!");
+  }
+}
 
-int main()
+int main(void)
 {
   char str[100];
   size_t i;
   int status = EXIT_FAILURE;
-  long long arr1[SIZE_OF_ARR_1] = {2, 2, 2, 2, 3, 3, 5, 11},
-            arr2[SIZE_OF_ARR_2] = {2, 2, 3, 3, 3, 7, 73},
-            *arr3 = nullptr,
-            *arr4 = nullptr;
-  Point out, a, b, c, d, p;
-  Vector v = {0};
-  double *arr5 = nullptr,
-         *arr6 = (double *)malloc(sizeof(*arr6) * SIZE_OF_ARR_1),
-         *arr7 = (double *)malloc(sizeof(*arr7) * SIZE_OF_ARR_2);
-  ValueWeight *values_weights1 = (ValueWeight *)malloc(sizeof(*values_weights1) * SIZE_OF_ARR_1),
-              *values_weights2 = (ValueWeight *)malloc(sizeof(*values_weights2) * SIZE_OF_ARR_2);
-
-  a.x = a.y = 1;
-  b.x = 2;
-  b.y = 4;
-  c.x = 3;
-  c.y = 7;
-  d.x = 5;
-  d.y = 11;
-  p.x = p.y = 0;
-
-  for (i = 0; i < SIZE_OF_ARR_1; i++)
-    arr6[i] = values_weights1[i].value = values_weights1[SIZE_OF_ARR_1 - 1 - i].weight = (double)arr1[i];
-  for (i = 0; i < SIZE_OF_ARR_2; i++)
-    arr7[i] = values_weights2[i].value = values_weights2[SIZE_OF_ARR_2 - 1 - i].weight = (double)arr2[i];
+  Point out,
+      a = {1, 1},
+      b = {2, 4},
+      c = {3, 7},
+      d = {5, 11},
+      e = {-1, -1},
+      f = {2, 3},
+      g = {1, 2},
+      h = {7, 11},
+      j = {-4, 1},
+      k = {5, 7},
+      p = {0};
+  std::vector<double> vecLf1 = {2, 2, 2, 2, 3, 3, 5, 11},
+                      vecLf2 = {2, 2, 3, 3, 3, 7, 73};
+  std::vector<ValueWeight> vecWeights1 = {{2, 11}, {2, 5}, {2, 3}, {2, 3}, {3, 2}, {3, 2}, {5, 2}, {11, 2}},
+                           vecWeights2 = {{2, 73}, {2, 7}, {3, 3}, {3, 3}, {3, 3}, {7, 2}, {73, 2}};
 
   try
   {
-    v = Math::primeFactors(7920);
-
-    arr3 = (long long *)vector_get_values(&v);
-
-    vector_free(&v);
-
-    v = Math::primeFactors(55188);
-
-    arr4 = (long long *)vector_get_values(&v);
-
-    vector_free(&v);
-    v = Math::mode(arr6, SIZE_OF_ARR_1);
-    arr5 = (double *)vector_get_values(&v);
-
-    test(1, arrayCmp(arr1, arr3, SIZE_OF_ARR_1));
-    test(2, arrayCmp(arr2, arr4, SIZE_OF_ARR_2));
+    test(1, Math::primeFactors(7920) == std::vector<long long>{2, 2, 2, 2, 3, 3, 5, 11});
+    test(2, Math::primeFactors(55188) == std::vector<long long>{2, 2, 3, 3, 3, 7, 73});
     test(3, Math::roundTo(M_PI, 2) == 3.14);
     test(4, Math::roundTo(sqrt(2), 2) == 1.41);
-    test(5, Math::mean(arr6, SIZE_OF_ARR_1) == 3.75);
-    test(6, Math::roundTo(Math::mean(arr7, SIZE_OF_ARR_2), 6) == 13.285714);
-    test(7, Math::roundTo(Math::geometricMean(arr6, SIZE_OF_ARR_1), 6) == 3.07143);
-    test(8, Math::roundTo(Math::geometricMean(arr7, SIZE_OF_ARR_2), 6) == 4.757802);
-    test(9, Math::roundTo(Math::harmonicMean(arr6, SIZE_OF_ARR_1), 6) == 2.704918);
-    test(10, Math::roundTo(Math::harmonicMean(arr7, SIZE_OF_ARR_2), 6) == 3.245917);
-    test(11, Math::roundTo(Math::trimmedMean(arr6, SIZE_OF_ARR_1, 12), 6) == 2.833333);
-    test(12, Math::trimmedMean(arr7, SIZE_OF_ARR_2, 14) == 3.6);
-    test(13, Math::median(arr6, SIZE_OF_ARR_1) == 2.5);
-    test(14, Math::median(arr7, SIZE_OF_ARR_2) == 3);
-    test(15, arr5[0] == 2 && v.length == 1);
-    vector_free(&v);
-    free(arr5);
-    v = Math::mode(arr7, SIZE_OF_ARR_2);
-    arr5 = (double *)vector_get_values(&v);
-    test(16, arr5[0] == 3 && v.length == 1);
-    test(17, Math::min(arr6, SIZE_OF_ARR_1) == 2);
-    test(18, Math::min(arr7, SIZE_OF_ARR_2) == 2);
-    test(19, Math::max(arr6, SIZE_OF_ARR_1) == 11);
-    test(20, Math::max(arr7, SIZE_OF_ARR_2) == 73);
-    test(21, Math::range(arr6, SIZE_OF_ARR_1) == 9);
-    test(22, Math::range(arr7, SIZE_OF_ARR_2) == 71);
-    test(23, Math::midrange(arr6, SIZE_OF_ARR_1) == 4.5);
-    test(24, Math::midrange(arr7, SIZE_OF_ARR_2) == 35.5);
-    test(25, Math::roundTo(Math::variance(arr6, SIZE_OF_ARR_1), 6) == 8.4375);
-    test(26, Math::roundTo(Math::variance(arr7, SIZE_OF_ARR_2), 6) == 596.775510);
-    test(27, Math::roundTo(Math::sampleVariance(arr6, SIZE_OF_ARR_1), 6) == 9.642857);
-    test(28, Math::roundTo(Math::sampleVariance(arr7, SIZE_OF_ARR_2), 6) == 696.238095);
-    test(29, Math::roundTo(Math::stdDev(arr6, SIZE_OF_ARR_1), 6) == 2.904738);
-    test(30, Math::roundTo(Math::stdDev(arr7, SIZE_OF_ARR_2), 6) == 24.428989);
-    test(31, Math::roundTo(Math::sampleStdDev(arr6, SIZE_OF_ARR_1), 6) == 3.105295);
-    test(32, Math::roundTo(Math::sampleStdDev(arr7, SIZE_OF_ARR_2), 6) == 26.386324);
-    arr6[3] = 3;
-    vector_free(&v);
-    free(arr5);
-    v = Math::mode(arr6, SIZE_OF_ARR_1);
-    arr5 = (double *)vector_get_values(&v);
-    test(33, arr5[0] == 2 && arr5[1] == 3 && v.length == 2);
-    test(34, Math::roundTo(Math::weightedMean(values_weights1, SIZE_OF_ARR_1), 6) == 2.933333);
-    test(35, Math::roundTo(Math::weightedMean(values_weights2, SIZE_OF_ARR_2), 6) == 3.731183);
+    test(5, Math::mean(vecLf1) == 3.75);
+    test(6, Math::roundTo(Math::mean(vecLf2), 6) == 13.285714);
+    test(7, Math::roundTo(Math::geometricMean(vecLf1), 6) == 3.07143);
+    test(8, Math::roundTo(Math::geometricMean(vecLf2), 6) == 4.757802);
+    test(9, Math::roundTo(Math::harmonicMean(vecLf1), 6) == 2.704918);
+    test(10, Math::roundTo(Math::harmonicMean(vecLf2), 6) == 3.245917);
+    test(11, Math::roundTo(Math::trimmedMean(vecLf1, 12), 6) == 2.833333);
+    test(12, Math::trimmedMean(vecLf2, 14) == 3.6);
+    test(13, Math::median(vecLf1) == 2.5);
+    test(14, Math::median(vecLf2) == 3);
+    test(15, Math::mode(vecLf1) == std::vector<double>{2});
+    test(16, Math::mode(vecLf2) == std::vector<double>{3});
+    test(17, Math::min(vecLf1) == 2);
+    test(18, Math::min(vecLf2) == 2);
+    test(19, Math::max(vecLf1) == 11);
+    test(20, Math::max(vecLf2) == 73);
+    test(21, Math::range(vecLf1) == 9);
+    test(22, Math::range(vecLf2) == 71);
+    test(23, Math::midrange(vecLf1) == 4.5);
+    test(24, Math::midrange(vecLf2) == 35.5);
+    test(25, Math::roundTo(Math::variance(vecLf1), 6) == 8.4375);
+    test(26, Math::roundTo(Math::variance(vecLf2), 6) == 596.775510);
+    test(27, Math::roundTo(Math::sampleVariance(vecLf1), 6) == 9.642857);
+    test(28, Math::roundTo(Math::sampleVariance(vecLf2), 6) == 696.238095);
+    test(29, Math::roundTo(Math::stdDev(vecLf1), 6) == 2.904738);
+    test(30, Math::roundTo(Math::stdDev(vecLf2), 6) == 24.428989);
+    test(31, Math::roundTo(Math::sampleStdDev(vecLf1), 6) == 3.105295);
+    test(32, Math::roundTo(Math::sampleStdDev(vecLf2), 6) == 26.386324);
+    vecLf1[3] = 3;
+    test(33, Math::mode(vecLf1) == std::vector<double>{2, 3});
+    test(34, Math::roundTo(Math::weightedMean(vecWeights1), 6) == 2.933333);
+    test(35, Math::roundTo(Math::weightedMean(vecWeights2), 6) == 3.731183);
     test(36, Math::lineYIntercept(a, b) == -2);
     test(37, Math::lineYIntercept(c, d) == 1);
     out = Math::midpointPoints(a, b);
@@ -254,26 +226,15 @@ int main()
     test(167, Math::roundTo(Math::coneVol(3.5, 7), 6) == 89.79719);
     test(168, Math::roundTo(Math::sphereVol(4), 6) == 268.082573);
     test(169, Math::roundTo(Math::sphereVol(7), 6) == 1436.75504);
-    c.x = c.y = -1;
-    d.x = 2;
-    d.y = 3;
-    test(170, Math::distancePoints(c, d) == 5);
-    c.x = 1;
-    c.y = 2;
-    d.x = 7;
-    d.y = 11;
-    test(171, Math::roundTo(Math::distancePoints(c, d), 6) == 10.816654);
+    test(170, Math::distancePoints(e, f) == 5);
+    test(171, Math::roundTo(Math::distancePoints(g, h), 6) == 10.816654);
     test(172, Math::roundTo(Math::distancePointLine(3, -2, p), 6) == 0.632456);
     p.x = p.y = 2;
     test(173, Math::roundTo(Math::distancePointLine(1, -5, p), 6) == 3.535534);
     test(174, Math::slopeLine(a, b) == 3);
-    c.x = -4;
-    c.y = 1;
-    d.x = 5;
-    d.y = 7;
-    test(175, Math::slopeLine(c, d) == 2.0 / 3);
+    test(175, Math::slopeLine(j, k) == 2.0 / 3);
     test(176, Math::roundTo(Math::rad2deg(Math::inclinationLine(a, b)), 6) == 71.565051);
-    test(177, Math::roundTo(Math::rad2deg(Math::inclinationLine(c, d)), 6) == 33.690068);
+    test(177, Math::roundTo(Math::rad2deg(Math::inclinationLine(j, k)), 6) == 33.690068);
     test(178, Math::roundTo(Math::circlePerimeter(5), 6) == 31.415927);
     test(179, Math::roundTo(Math::circlePerimeter(7), 6) == 43.982297);
     test(180, Math::polygonDiagonals(6) == 9);
@@ -301,15 +262,6 @@ int main()
   {
     std::cerr << e.what() << '\n';
   }
-
-  vector_free(&v);
-  free(arr3);
-  free(arr4);
-  free(arr5);
-  free(arr6);
-  free(arr7);
-  free(values_weights1);
-  free(values_weights2);
 
   return status;
 }
