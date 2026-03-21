@@ -7,10 +7,10 @@ test-cpp: cpp-bin
 	./debug/test_cpp
 
 c-bin: dir
-	gcc -o debug/test_c -Iinclude -Iinclude/utils -fsanitize=address -g tests/main.c -lm
+	gcc -o debug/test_c -Iinclude -Iinclude/utils -fsanitize=address -g tests/test_c.c -lm
 
 cpp-bin: dir
-	g++ -o debug/test_cpp -Iinclude -Iinclude/utils -fsanitize=address -g tests/main.cpp -lm
+	g++ -o debug/test_cpp -Iinclude -Iinclude/utils -fsanitize=address -g tests/test_cpp.cpp -lm
 
 dir:
 	mkdir -p debug
