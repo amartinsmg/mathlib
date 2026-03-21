@@ -4,14 +4,6 @@
 #include <vector>
 #include <mathlib.hpp>
 
-extern "C"
-{
-#include "include/array_cmp.h"
-}
-
-#define SIZE_OF_ARR_1 8
-#define SIZE_OF_ARR_2 7
-
 void test(int code, bool condition)
 {
   std::cout << "Test #" << code << ": ";
