@@ -1,6 +1,8 @@
 #ifndef MATHLIB_HPP
 #define MATHLIB_HPP
 
+#include <vector>
+
 extern "C"
 {
 #include "math/area_shape.h"
@@ -323,9 +325,14 @@ namespace Math
     return math_isPerfect(num);
   }
 
-  static inline Vector primeFactors(long long num)
+  static inline std::vector<long long> primeFactors(long long num)
   {
-    return math_primeFactors(num);
+    Vector out = math_primeFactors(num);
+    long long *arr = (long long *)vector_get_values(&out);
+    std::vector<long long> result(arr, arr + out.length);
+    vector_free(&out);
+    free(arr);
+    return result;
   }
 
   static inline bool isPrime(long long num)
@@ -348,79 +355,94 @@ namespace Math
     return math_gaussianCDF(mu, stdDev, x);
   }
 
-  static inline double mean(const double *arr, size_t length)
+  static inline double mean(const std::vector<double> v)
   {
-    return math_mean(arr, length);
+    return math_mean(v.data(), v.size());
   }
 
-  static inline double weightedMean(const ValueWeight *values_weights, size_t length)
+  static inline double weightedMean(const std::vector<ValueWeight> v)
   {
-    return math_weightedMean(values_weights, length);
+    for (size_t i = 0; i < v.size(); i++)
+    {
+      std::cout << v[i].value << " ";
+    }
+    std::cout <<  "\n";
+    for (size_t i = 0; i < v.size(); i++)
+    {
+      std::cout << v[i].weight << " ";
+    }
+    
+    return math_weightedMean(v.data(), v.size());
   }
 
-  static inline double trimmedMean(const double *arr, size_t length, double percentage)
+  static inline double trimmedMean(const std::vector<double> v, double percentage)
   {
-    return math_trimmedMean(arr, length, percentage);
+    return math_trimmedMean(v.data(), v.size(), percentage);
   }
 
-  static inline double geometricMean(const double *arr, size_t length)
+  static inline double geometricMean(const std::vector<double> v)
   {
-    return math_geometricMean(arr, length);
+    return math_geometricMean(v.data(), v.size());
   }
 
-  static inline double harmonicMean(const double *arr, size_t length)
+  static inline double harmonicMean(const std::vector<double> v)
   {
-    return math_harmonicMean(arr, length);
+    return math_harmonicMean(v.data(), v.size());
   }
 
-  static inline double median(const double *arr, size_t length)
+  static inline double median(const std::vector<double> v)
   {
-    return math_median(arr, length);
+    return math_median(v.data(), v.size());
   }
 
-  static inline Vector mode(const double *arr, size_t length)
+  static inline std::vector<double> mode(const std::vector<double> v)
   {
-    return math_mode(arr, length);
+    Vector out = math_mode(v.data(), v.size());
+    double *arr = (double *)vector_get_values(&out);
+    std::vector<double> result(arr, arr + out.length);
+    vector_free(&out);
+    free(arr);
+    return result;
   }
 
-  static inline double min(const double *arr, size_t length)
+  static inline double min(const std::vector<double> v)
   {
-    return math_min(arr, length);
+    return math_min(v.data(), v.size());
   }
 
-  static inline double max(const double *arr, size_t length)
+  static inline double max(const std::vector<double> v)
   {
-    return math_max(arr, length);
+    return math_max(v.data(), v.size());
   }
 
-  static inline double range(const double *arr, size_t length)
+  static inline double range(const std::vector<double> v)
   {
-    return math_range(arr, length);
+    return math_range(v.data(), v.size());
   }
 
-  static inline double midrange(const double *arr, size_t length)
+  static inline double midrange(const std::vector<double> v)
   {
-    return math_midrange(arr, length);
+    return math_midrange(v.data(), v.size());
   }
 
-  static inline double variance(const double *arr, size_t length)
+  static inline double variance(const std::vector<double> v)
   {
-    return math_variance(arr, length);
+    return math_variance(v.data(), v.size());
   }
 
-  static inline double stdDev(const double *arr, size_t length)
+  static inline double stdDev(const std::vector<double> v)
   {
-    return math_stdDev(arr, length);
+    return math_stdDev(v.data(), v.size());
   }
 
-  static inline double sampleVariance(const double *arr, size_t length)
+  static inline double sampleVariance(const std::vector<double> v)
   {
-    return math_sampleVariance(arr, length);
+    return math_sampleVariance(v.data(), v.size());
   }
 
-  static inline double sampleStdDev(const double *arr, size_t length)
+  static inline double sampleStdDev(const std::vector<double> v)
   {
-    return math_sampleStdDev(arr, length);
+    return math_sampleStdDev(v.data(), v.size());
   }
 
   static inline double hypotenuse(double sideA, double sideB)
