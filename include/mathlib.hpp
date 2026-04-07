@@ -5,21 +5,7 @@
 
 extern "C"
 {
-#include "math/area_shape.h"
-#include "math/area_surface.h"
-#include "math/armstrong_numbers.h"
-#include "math/combinatorics.h"
-#include "math/geometry.h"
-#include "math/growth.h"
-#include "math/happy_numbers.h"
-#include "math/lcm.h"
-#include "math/percentage.h"
-#include "math/perfect_numbers.h"
-#include "math/prime_factorization.h"
-#include "math/prime_numbers.h"
-#include "math/probability_distribution.h"
-#include "math/statistics.h"
-#include "math/volume.h"
+#include "mathlib.h"
 }
 
 namespace Math
@@ -358,11 +344,6 @@ static inline double gaussianCDF(double mu, double stdDev, double x)
 static inline double mean(const std::vector<double> v)
 {
   return math_mean(v.data(), v.size());
-}
-
-static inline double weightedMean(const std::vector<ValueWeight> v)
-{
-  return math_weightedMean(v.data(), v.size());
 }
 
 static inline double trimmedMean(const std::vector<double> v, double percentage)
