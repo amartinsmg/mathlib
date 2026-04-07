@@ -31,47 +31,6 @@ static inline double math_mean(const double *arr, size_t length)
 }
 
 /**
- * @brief Structure representing a value and its weight.
- */
-
-typedef struct
-{
-  double value;
-  double weight;
-} ValueWeight;
-
-/**
- * @brief Calculate the weighted mean of a set of values.
- *
- * @param values_weights The array of value-weight pairs. Each pair is represented
-  as a double array with two elements: [value, weight].
- * @param length The length of the values_weights array.
- *
- * @return The weighted mean of the arr.
-*/
-
-static inline double math_weightedMean(const ValueWeight *values_weights, size_t length)
-{
-  if (length == 0 || values_weights == NULL)
-    return NAN;
-  double result, value, weight,
-      sum = 0,
-      weightSum = 0;
-  size_t i;
-  for (i = 0; i < length; i++)
-  {
-    value = values_weights[i].value;
-    weight = values_weights[i].weight;
-    if (weight <= 0)
-      return NAN;
-    sum += value * weight;
-    weightSum += weight;
-  }
-  result = sum / weightSum;
-  return result;
-}
-
-/**
  * @brief Calculate the trimmed mean of an array of values.
  *
  * @param arr The array of values.
