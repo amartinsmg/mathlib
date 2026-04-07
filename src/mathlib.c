@@ -245,8 +245,9 @@ double lineYIntercept(double a_x, double a_y, double b_x, double b_y)
   return math_lineYIntercept(a, b);
 }
 
-double distancePointLine(double inclination, double yIntercept, Point p)
+double distancePointLine(double inclination, double yIntercept, double p_x, double p_y)
 {
+  Point p = {p_x, p_y};
   return math_distancePointLine(inclination, yIntercept, p);
 }
 
