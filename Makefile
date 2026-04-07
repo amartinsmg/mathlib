@@ -1,6 +1,8 @@
 INCLUDE_FLAGS = -Iinclude -Iinclude/utils 
 DEBUG_FLAGS = -fsanitize=address -g
 
+all: lib
+
 # Library
 
 lib: lib-compile
