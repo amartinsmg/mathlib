@@ -1,3 +1,16 @@
+INCLUDE_FLAGS = -Iinclude -Iinclude/utils 
+DEBUG_FLAGS = -fsanitize=address -g
+
+# Library
+
+lib: lib-compile
+	gcc -shared -o lib/mathlib.so lib/mathlib.o 
+
+lib-compile: dir-lib
+	gcc -c -fPIC -o lib/mathlib.o $(INCLUDE_FLAGS) src/mathlib.c  
+
+# Tests
+
 test: test-c test-cpp
 
 test-c: c-bin
@@ -6,14 +19,21 @@ test-c: c-bin
 test-cpp: cpp-bin
 	./debug/test_cpp
 
-c-bin: dir
-	gcc -o debug/test_c -Iinclude -Iinclude/utils -fsanitize=address -g tests/test_c.c -lm
+c-bin: dir-debug
+	gcc -o debug/test_c $(INCLUDE_FLAGS) $(DEBUG_FLAGS) tests/test_c.c -lm
 
-cpp-bin: dir
-	g++ -o debug/test_cpp -Iinclude -Iinclude/utils -fsanitize=address -g tests/test_cpp.cpp -lm
+cpp-bin: dir-debug
+	g++ -o debug/test_cpp $(INCLUDE_FLAGS) $(DEBUG_FLAGS) tests/test_cpp.cpp -lm
 
-dir:
+# Directories
+
+dir-lib:
+	mkdir -p lib
+
+dir-debug:
 	mkdir -p debug
 
+# Cleanup
+
 clean:
-	rm -f debug/*
+	rm -f debug/* && rm -f lib/* 
