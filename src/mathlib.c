@@ -355,9 +355,19 @@ double mean(const double *arr, size_t length)
   return math_mean(arr, length);
 }
 
-double weightedMean(const ValueWeight *values_weights, size_t length)
+double weightedMean(const double **values_weights, size_t length)
 {
-  return math_weightedMean(values_weights, length);
+  size_t i;
+  double result;
+  ValueWeight *values_weight_arr = malloc(sizeof(*values_weight_arr) * length);
+  for (i = 0; i < length; i++)
+  {
+    values_weight_arr[i].value = values_weights[i][0];
+    values_weight_arr[i].weight = values_weights[i][1];
+  }
+  result = math_weightedMean(values_weight_arr, length);
+  free(values_weight_arr);
+  return result;
 }
 
 double trimmedMean(const double *arr, size_t length, double percentage)
