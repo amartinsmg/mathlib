@@ -1,7 +1,7 @@
 #ifndef GCD_H
 #define GCD_H
 
-#include <math.h>
+#include <stdlib.h>
 
 /**
  * @brief Calculate the greatest common divisor (GCD) of two integers.
