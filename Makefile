@@ -4,7 +4,7 @@ DEBUG_FLAGS = -fsanitize=address -g
 # Library
 
 lib: lib-compile
-	gcc -shared -o lib/mathlib.so lib/mathlib.o 
+	gcc -shared -o lib/libmathlib.so lib/mathlib.o 
 
 lib-compile: dir-lib
 	gcc -c -fPIC -o lib/mathlib.o $(INCLUDE_FLAGS) src/mathlib.c  
