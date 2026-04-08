@@ -196,7 +196,7 @@ static inline double factoriallf(unsigned num)
   return math_factoriallf(num);
 }
 
-static inline int gcd(int x, int y)
+static inline long long gcd(long long x, long long y)
 {
   return math_gcd(x, y);
 }
@@ -291,7 +291,7 @@ static inline bool isHappy(long long num)
   return math_isHappy(num);
 }
 
-static inline long long lcm(int x, int y)
+static inline long long lcm(long long x, long long y)
 {
   return math_lcm(x, y);
 }

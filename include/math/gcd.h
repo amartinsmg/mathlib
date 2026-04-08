@@ -13,9 +13,9 @@
  * @pre x and y cannot both be 0.
 */
 
-static inline int math_gcd(int x, int y)
+static inline long long math_gcd(long long x, long long y)
 {
-  int result, remainder;
+  long long result, remainder;
   if (x == 0)
     return abs(y);
   if (y == 0)

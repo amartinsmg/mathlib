@@ -14,7 +14,7 @@
  * @return The LCM of 'x' and 'y'.
  */
 
-static inline long long math_lcm(int x, int y)
+static inline long long math_lcm(long long x, long long y)
 {
   if (x == 0 || y == 0)
     return 0;
