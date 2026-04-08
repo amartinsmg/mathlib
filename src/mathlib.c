@@ -219,8 +219,11 @@ double *midpointPoints(double a_x, double a_y, double b_x, double b_y)
         b = {b_x, b_y},
         out = math_midpointPoints(a, b);
   double *result = malloc(sizeof(double) * 2);
-  result[0] = out.x;
-  result[1] = out.y;
+  if (result != NULL)
+  {
+    result[0] = out.x;
+    result[1] = out.y;
+  }
   return result;
 }
 
