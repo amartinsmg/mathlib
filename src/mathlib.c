@@ -206,17 +206,17 @@ double rad2deg(double radians)
   return math_rad2deg(radians);
 }
 
-double distancePoints(double a_x, double a_y, double b_x, double b_y)
+double distancePoints(double aX, double aY, double bX, double bY)
 {
-  Point a = {a_x, a_y},
-        b = {b_x, b_y};
+  Point a = {aX, aY},
+        b = {bX, bY};
   return math_distancePoints(a, b);
 }
 
-double *midpointPoints(double a_x, double a_y, double b_x, double b_y)
+double *midpointPoints(double aX, double aY, double bX, double bY)
 {
-  Point a = {a_x, a_y},
-        b = {b_x, b_y},
+  Point a = {aX, aY},
+        b = {bX, bY},
         out = math_midpointPoints(a, b);
   double *result = malloc(sizeof(double) * 2);
   if (result != NULL)
@@ -227,30 +227,30 @@ double *midpointPoints(double a_x, double a_y, double b_x, double b_y)
   return result;
 }
 
-double slopeLine(double a_x, double a_y, double b_x, double b_y)
+double slopeLine(double aX, double aY, double bX, double bY)
 {
-  Point a = {a_x, a_y},
-        b = {b_x, b_y};
+  Point a = {aX, aY},
+        b = {bX, bY};
   return math_slopeLine(a, b);
 }
 
-double inclinationLine(double a_x, double a_y, double b_x, double b_y)
+double inclinationLine(double aX, double aY, double bX, double bY)
 {
-  Point a = {a_x, a_y},
-        b = {b_x, b_y};
+  Point a = {aX, aY},
+        b = {bX, bY};
   return math_inclinationLine(a, b);
 }
 
-double lineYIntercept(double a_x, double a_y, double b_x, double b_y)
+double lineYIntercept(double aX, double aY, double bX, double bY)
 {
-  Point a = {a_x, a_y},
-        b = {b_x, b_y};
+  Point a = {aX, aY},
+        b = {bX, bY};
   return math_lineYIntercept(a, b);
 }
 
-double distancePointLine(double inclination, double yIntercept, double p_x, double p_y)
+double distancePointLine(double inclination, double yIntercept, double pX, double pY)
 {
-  Point p = {p_x, p_y};
+  Point p = {pX, pY};
   return math_distancePointLine(inclination, yIntercept, p);
 }
 
