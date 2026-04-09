@@ -104,14 +104,14 @@ static inline double math_pyramidArea(double baseArea, double basePerimeter, dou
  * @return The surface area of the pyramid.
  */
 
-static inline double math_regPyramidArea(double baseSide, int nOfBaseSides, double heigth)
+static inline double math_regPyramidArea(double baseSide, int nOfBaseSides, double height)
 {
-  if (baseSide < 0 || nOfBaseSides < 0 || heigth < 0)
+  if (baseSide < 0 || nOfBaseSides < 0 || height < 0)
     return NAN;
   double baseArea = math_regPolygonArea(baseSide, nOfBaseSides),
          basePerimeter = baseSide * nOfBaseSides,
          apothen = baseSide / (2 * tan(M_PI / nOfBaseSides)),
-         slantHeight = math_hypotenuse(apothen, heigth),
+         slantHeight = math_hypotenuse(apothen, height),
          result = math_pyramidArea(baseArea, basePerimeter, slantHeight);
   return result;
 }

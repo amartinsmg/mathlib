@@ -158,8 +158,8 @@ int main(void)
     test(109, Math::roundTo(Math::triangleArea3(10, 8, 5), 5) == 19.81004);
     test(110, Math::squareArea(4) == 16);
     test(111, Math::squareArea(7) == 49);
-    test(112, Math::retangleArea(4, 6) == 24);
-    test(113, Math::retangleArea(3, 7) == 21);
+    test(112, Math::rectangleArea(4, 6) == 24);
+    test(113, Math::rectangleArea(3, 7) == 21);
     test(114, Math::rhombusArea(5, 6) == 15);
     test(115, Math::rhombusArea(7, 8) == 28);
     test(116, Math::parallelogramArea1(3, 5) == 15);

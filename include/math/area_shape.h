@@ -88,7 +88,7 @@ static inline double math_squareArea(double side)
  * @return The area of the rectangle.
  */
 
-static inline double math_retangleArea(double width, double length)
+static inline double math_rectangleArea(double width, double length)
 {
   if (width < 0 || length < 0)
     return NAN;

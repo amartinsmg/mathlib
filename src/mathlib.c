@@ -26,9 +26,9 @@ double squareArea(double side)
   return math_squareArea(side);
 }
 
-double retangleArea(double width, double length)
+double rectangleArea(double width, double length)
 {
-  return math_retangleArea(width, length);
+  return math_rectangleArea(width, length);
 }
 
 double rhombusArea(double largerDiagonal, double smallerDiagonal)
@@ -101,9 +101,9 @@ double pyramidArea(double baseArea, double basePerimeter, double slantHeight)
   return math_pyramidArea(baseArea, basePerimeter, slantHeight);
 }
 
-double regPyramidArea(double baseSide, int nOfBaseSides, double heigth)
+double regPyramidArea(double baseSide, int nOfBaseSides, double height)
 {
-  return math_regPyramidArea(baseSide, nOfBaseSides, heigth);
+  return math_regPyramidArea(baseSide, nOfBaseSides, height);
 }
 
 double cylinderArea(double baseRadius, double height)
