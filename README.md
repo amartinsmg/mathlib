@@ -1,4 +1,4 @@
-# mathlib
+# Mathlib
 
 This project consists of a small mathematical library developed in C, with support for C++. It provides a set of functions for basic calculations and some more advanced operations, including simple geometry and statistical routines. The goal is to offer a lightweight and practical solution for performing common mathematical tasks efficiently.
 
