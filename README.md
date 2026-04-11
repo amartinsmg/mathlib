@@ -1,6 +1,8 @@
-# Mathematical Algorithms
+# mathlib
 
 This project consists of a small mathematical library developed in C, with support for C++. It provides a set of functions for basic calculations and some more advanced operations, including simple geometry and statistical routines. The goal is to offer a lightweight and practical solution for performing common mathematical tasks efficiently.
+
+---
 
 ## Features
 
@@ -30,6 +32,8 @@ The project includes implementations of the following mathematical algorithms:
 
 The project aims to provide a comprehensive and efficient set of mathematical functions to assist in various calculations and analyses.
 
+---
+
 ## Getting Started
 
 To compile and run the test file, follow these steps:
@@ -37,30 +41,79 @@ To compile and run the test file, follow these steps:
 1. **Clone the repository:**
 
 ```sh
-git clone https://github.com/amartinsmg/MathAlgorithms.git
+git clone https://github.com/amartinsmg/mathlib.git
 ```
 
 2. **Change to the project directory:**
 
 ```sh
-cd MathAlgorithms
+cd mathlib
 ```
 
-3. **Build and run the tests:**
-   The following command uses the Makefile to compile the code and automatically execute the test suite:
+3. **Build the project:**
+
+```sh
+make 
+```
+
+This command compiles the shared library (`libmathlib.so`), which can be used in other applications.
+
+---
+
+## Running Tests
+
+To validate the implementation, run:
 
 ```sh
 make test
 ```
 
-## Usage
+The test suite executes all implemented algorithms and compares their outputs against precomputed expected values. This ensures that each function behaves correctly and helps prevent regressions when making changes to the codebase.
 
-The test program provided allows you to evaluate the correctness of the implemented mathematical algorithms. It calls each function and compares the results with pre-calculated values to validate the accuracy of the algorithms. By running the test program, you can ensure that the functions are functioning correctly and producing expected results.
+---
+
+## Using the Library
+
+After building the project, the shared library will be available at:
+
+```sh
+lib/libmathlib.so
+```
+
+You can link it in your own C/C++ programs:
+
+```sh
+gcc your_program.c -Llib -lmathlib -o your_program
+```
+
+At runtime, you may need to specify the library path:
+
+```sh
+export LD_LIBRARY_PATH=./lib:$LD_LIBRARY_PATH
+```
+
+The library is compiled with position-independent code (`-fPIC`), making it suitable for dynamic linking.
+
+---
 
 ## Contributing
 
-Contributions are welcome! If you find a bug or have a suggestion for an improvement, please open an issue or submit a pull request.
+Contributions are appreciated and welcome.
+
+If you encounter a bug, have a suggestion, or would like to improve the project, please open an issue to discuss your proposal before submitting changes. This helps ensure alignment and avoids duplicated work.
+
+When contributing, please:
+
+- Follow the existing code style and project structure
+- Keep changes focused and well-scoped
+- Include clear descriptions in commits and pull requests
+- Add or update tests when applicable
+
+Pull requests should include a concise explanation of the changes and their purpose.
+
+---
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License.
+See the [LICENSE](./LICENSE) file for details.
