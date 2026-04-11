@@ -74,9 +74,9 @@ int main(void)
     test(33, Math::mode(vecLf1) == std::vector<double>{2, 3}); // This was test 33, so the next one should be 34
     test(34, Math::lineYIntercept(a, b) == -2);
     test(35, Math::lineYIntercept(c, d) == 1);
-    out = Math::midpointPoints(a, b);
+    out = Math::midpoint(a, b);
     test(36, out.x == 1.5 && out.y == 2.5);
-    out = Math::midpointPoints(c, d);
+    out = Math::midpoint(c, d);
     test(37, out.x == 4 && out.y == 9);
     test(38, Math::isPrime(7919));
     test(39, !Math::isPrime(5329));

@@ -68,7 +68,7 @@ static inline double math_distancePoints(Point a, Point b)
  * @return The midpoint between the two points.
  */
 
-static inline Point math_midpointPoints(Point a, Point b)
+static inline Point math_midpoint(Point a, Point b)
 {
   Point result;
   double x[2] = {a.x, b.x},

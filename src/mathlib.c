@@ -213,11 +213,11 @@ double distancePoints(double aX, double aY, double bX, double bY)
   return math_distancePoints(a, b);
 }
 
-double *midpointPoints(double aX, double aY, double bX, double bY)
+double *midpoint(double aX, double aY, double bX, double bY)
 {
   Point a = {aX, aY},
         b = {bX, bY},
-        out = math_midpointPoints(a, b);
+        out = math_midpoint(a, b);
   double *result = malloc(sizeof(double) * 2);
   if (result != NULL)
   {

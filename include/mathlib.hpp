@@ -216,9 +216,9 @@ static inline double distancePoints(Point a, Point b)
   return math_distancePoints(a, b);
 }
 
-static inline Point midpointPoints(Point a, Point b)
+static inline Point midpoint(Point a, Point b)
 {
-  return math_midpointPoints(a, b);
+  return math_midpoint(a, b);
 }
 
 static inline double slopeLine(Point a, Point b)
