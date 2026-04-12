@@ -24,8 +24,8 @@ static inline double math_binominal(int trials, double successProb, int success)
       successProb < 0 || successProb > 1)
     return NAN;
   double result = math_combinationlf(trials, success) *
-           pow(successProb, success) *
-           pow((1 - successProb), (trials - success));
+                  pow(successProb, success) *
+                  pow((1 - successProb), (trials - success));
   return result;
 }
 
@@ -38,9 +38,9 @@ static inline double math_binominal(int trials, double successProb, int success)
  * @return The Poisson probability.
  */
 
-static inline double math_poisson(double lambda, unsigned x)
+static inline double math_poisson(double lambda, int x)
 {
-  if (lambda < 0)
+  if (lambda < 0 || x < 0)
     return NAN;
   double result = exp(-lambda) * pow(lambda, x) / math_factoriallf(x);
   return result;
