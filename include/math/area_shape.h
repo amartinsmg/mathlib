@@ -213,7 +213,7 @@ static inline double math_circleArea(double radius)
 
 static inline double math_circularSectorArea1(double angle, double radius)
 {
-  if (radius < 0 || angle < 0)
+  if (radius < 0 || angle < 0 || angle > 2 * M_PI)
     return NAN;
   double result = angle * pow(radius, 2) / 2;
   return result;
@@ -230,7 +230,7 @@ static inline double math_circularSectorArea1(double angle, double radius)
 
 static inline double math_circularSectorArea2(double arc, double radius)
 {
-  if (radius < 0 || arc < 0)
+  if (radius < 0 || arc < 0 || arc > M_PI * 2 * radius)
     return NAN;
   double result = arc * radius / 2;
   return result;
