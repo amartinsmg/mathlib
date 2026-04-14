@@ -14,7 +14,7 @@
  * @return The calculated value after simple growth.
  */
 
-static inline double math_simpGrowth(double initial, double rate, double interval)
+static inline double math_simp_growth(double initial, double rate, double interval)
 {
   if (interval < 0)
     return NAN;
@@ -32,7 +32,7 @@ static inline double math_simpGrowth(double initial, double rate, double interva
  * @return The calculated simple growth rate.
  */
 
-static inline double math_simpGrowthRate(double initial, double final, double interval)
+static inline double math_simp_growthRate(double initial, double final, double interval)
 {
   if (initial == 0 || interval <= 0)
     return NAN;
@@ -50,7 +50,7 @@ static inline double math_simpGrowthRate(double initial, double final, double in
  * @return The calculated value after compounded growth.
  */
 
-static inline double math_compGrowth(double initial, double rate, double interval)
+static inline double math_comp_growth(double initial, double rate, double interval)
 {
   if (interval < 0)
     return NAN;
@@ -68,11 +68,11 @@ static inline double math_compGrowth(double initial, double rate, double interva
  * @return The calculated compounded growth rate.
  */
 
-static inline double math_compGrowthRate(double initial, double final, double interval)
+static inline double math_comp_growthRate(double initial, double final, double interval)
 {
   if (initial == 0 || interval <= 0)
     return NAN;
-  double result = math_nthRoot((final / initial), interval) - 1;
+  double result = math_nth_root((final / initial), interval) - 1;
   return result;
 }
 
