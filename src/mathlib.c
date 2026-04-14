@@ -472,7 +472,7 @@ double prismVol(double baseArea, double height)
   return math_prism_vol(baseArea, height);
 }
 
-double regularPrism_vol(double baseSide, int nOfBaseSides, double height)
+double regularPrismVol(double baseSide, int nOfBaseSides, double height)
 {
   return math_reg_prism_vol(baseSide, nOfBaseSides, height);
 }
