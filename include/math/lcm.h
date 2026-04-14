@@ -1,8 +1,6 @@
 #ifndef LCM_H
 #define LCM_H
 
-#include <errno.h>
-#include <stdlib.h>
 #include "gcd.h"
 
 /**
