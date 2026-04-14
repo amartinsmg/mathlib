@@ -9,7 +9,7 @@ lib: lib-compile
 	gcc -shared -o lib/libmathlib.so lib/mathlib.o 
 
 lib-compile: dir-lib
-	gcc -c -fPIC -o lib/mathlib.o $(INCLUDE_FLAGS) src/mathlib.c  
+	gcc -c -O2 -fPIC -o lib/mathlib.o $(INCLUDE_FLAGS) src/mathlib.c  
 
 # Tests
 
