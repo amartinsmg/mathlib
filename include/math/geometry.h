@@ -1,7 +1,6 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
-#include <math.h>
 #include "area_surface.h"
 #include "statistics.h"
 #include "volume.h"
@@ -14,7 +13,7 @@
  * @return The angle converted to radians.
  */
 
-static inline double math_deg2rad(double degrees)
+static inline double math_deg_to_rad(double degrees)
 {
   double result = degrees / 180 * M_PI;
   return result;
@@ -28,7 +27,7 @@ static inline double math_deg2rad(double degrees)
  * @return The angle converted to degrees.
  */
 
-static inline double math_rad2deg(double radians)
+static inline double math_rad_to_deg(double radians)
 {
   double result = radians / M_PI * 180;
   return result;
@@ -53,7 +52,7 @@ typedef struct
  * @return The distance between the two points.
  */
 
-static inline double math_distancePoints(Point a, Point b)
+static inline double math_distance_points(Point a, Point b)
 {
   double result = sqrt(pow((b.x - a.x), 2) + pow((b.y - a.y), 2));
   return result;
@@ -87,7 +86,7 @@ static inline Point math_midpoint(Point a, Point b)
  * @return The slope of the line.
  */
 
-static inline double math_slopeLine(Point a, Point b)
+static inline double math_slope_line(Point a, Point b)
 {
   if (a.x == b.x)
     return NAN;
@@ -104,9 +103,9 @@ static inline double math_slopeLine(Point a, Point b)
  * @return The angle of incline of the line in radians.
  */
 
-static inline double math_inclinationLine(Point a, Point b)
+static inline double math_inclination_line(Point a, Point b)
 {
-  double result = atan(math_slopeLine(a, b));
+  double result = atan(math_slope_line(a, b));
   return result;
 }
 
@@ -119,11 +118,11 @@ static inline double math_inclinationLine(Point a, Point b)
  * @return The y-intercept of the line.
  */
 
-static inline double math_lineYIntercept(Point a, Point b)
+static inline double math_line_y_intercept(Point a, Point b)
 {
   if (a.x == b.x)
     return NAN;
-  double result = a.y - math_slopeLine(a, b) * a.x;
+  double result = a.y - math_slope_line(a, b) * a.x;
   return result;
 }
 
@@ -131,15 +130,15 @@ static inline double math_lineYIntercept(Point a, Point b)
  * @brief Calculates the distance between a point and a line.
  *
  * @param inclination The inclination (slope) of the line.
- * @param yIntercept The y-intercept of the line.
+ * @param y_intercept The y-intercept of the line.
  * @param p The point.
  *
  * @return The distance between the point and the line.
  */
 
-static inline double math_distancePointLine(double inclination, double yIntercept, Point p)
+static inline double math_distance_point_line(double inclination, double y_intercept, Point p)
 {
-  double result = fabs(inclination * p.x - p.y + yIntercept) /
+  double result = fabs(inclination * p.x - p.y + y_intercept) /
            sqrt(pow(inclination, 2) + 1);
   return result;
 }
@@ -152,7 +151,7 @@ static inline double math_distancePointLine(double inclination, double yIntercep
  * @return The perimeter of the circle.
  */
 
-static inline double math_circlePerimeter(double radius)
+static inline double math_circle_perimeter(double radius)
 {
   if (radius < 0)
     return NAN;
@@ -163,65 +162,65 @@ static inline double math_circlePerimeter(double radius)
 /**
  * @brief Calculates the number of diagonals in a polygon.
  *
- * @param nOfSides The number of sides of the polygon.
+ * @param n_of_sides The number of sides of the polygon.
  *
  * @return The number of diagonals in the polygon.
  */
 
-static inline int math_polygonDiagonals(int nOfSides)
+static inline int math_polygon_diagonals(int n_of_sides)
 {
-  if (nOfSides < 3)
+  if (n_of_sides < 3)
     return 0;
   int result;
-  result = nOfSides * (nOfSides - 3) / 2;
+  result = n_of_sides * (n_of_sides - 3) / 2;
   return result;
 }
 
 /**
  * @brief Calculates the sum of interior angles in a convex polygon.
  *
- * @param nOfSides The number of sides of the polygon.
+ * @param n_of_sides The number of sides of the polygon.
  *
  * @return The sum of interior angles in the convex polygon, in radians.
  */
 
-static inline double math_convexPolySumIntAng(double nOfSides)
+static inline double math_convex_poly_sum_i_ang(double n_of_sides)
 {
-  if (nOfSides < 3)
+  if (n_of_sides < 3)
     return NAN;
-  double result = (nOfSides - 2) * M_PI;
+  double result = (n_of_sides - 2) * M_PI;
   return result;
 }
 
 /**
  * @brief Calculates the measure of each interior angle in a regular polygon.
  *
- * @param nOfSides The number of sides of the polygon.
+ * @param n_of_sides The number of sides of the polygon.
  *
  * @return The measure of each interior angle in the regular polygon, in radians.
  */
 
-static inline double math_regPolygonIAng(int nOfSides)
+static inline double math_reg_polygon_i_ang(int n_of_sides)
 {
-  if (nOfSides < 3)
+  if (n_of_sides < 3)
     return NAN;
-  double result = math_convexPolySumIntAng(nOfSides) / nOfSides;
+  double result = math_convex_poly_sum_i_ang(n_of_sides) / n_of_sides;
   return result;
 }
 
 /**
  * @brief Calculates the measure of each exterior angle in a convex polygon.
  *
- * @param nOfSides The number of sides of the polygon.
+ * @param n_of_sides The number of sides of the polygon.
  *
  * @return The measure of each exterior angle in the convex polygon, in radians.
  */
 
-static inline double math_convexPolyExtAngle(int nOfSides)
+static inline double math_convex_poly_ext_ang(int n_of_sides)
 {
-  if (nOfSides < 3)
+  if (n_of_sides < 3)
     return NAN;
-  double result = 2 * M_PI / nOfSides;
+  double result = 2 * M_PI / n_of_sides;
   return result;
 }
 
