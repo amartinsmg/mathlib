@@ -34,7 +34,7 @@ static inline unsigned long long math_permutation(unsigned num)
  * floating-point approximation in exponential form.
  */
 
-static inline unsigned long long math_cyclePermutation(unsigned num)
+static inline unsigned long long math_cycle_permutation(unsigned num)
 {
   if (num <= 1)
     return 1;
@@ -117,7 +117,7 @@ static inline double math_permutationlf(unsigned num)
  * @return The cycle permutation of the number (double precision).
  */
 
-static inline double math_cyclePermutationlf(unsigned num)
+static inline double math_cycle_permutationlf(unsigned num)
 {
   if (num <= 1)
     return 1;
