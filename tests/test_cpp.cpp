@@ -241,13 +241,14 @@ int main(void)
     test(192, Math::roundTo(Math::sideTriangleLC(5, 7, Math::deg2rad(179)), 5) == 11.99956);
     test(193, Math::roundTo(Math::logarithm(1000, 10), 6) == 3);
 
-    std::cout << "Passed all tests successfully!\n";
+    std::cout << "Passed all tests successfully!" << std::endl
+              << std::endl;
 
     status = EXIT_SUCCESS;
   }
   catch (const std::exception &e)
   {
-    std::cerr << e.what() << '\n';
+    std::cerr << e.what() << std::endl;
   }
 
   return status;

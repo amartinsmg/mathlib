@@ -25,7 +25,7 @@ int main()
   ASSERT_TRUE(mode == 2);
   ASSERT_TRUE(math_gcd(12, 42) == 6);
 
-  printf("Sanity test passed!\n");
+  printf("Sanity test passed!\n\n");
 
   return EXIT_SUCCESS;
 }
