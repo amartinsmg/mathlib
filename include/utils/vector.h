@@ -14,6 +14,7 @@ typedef struct
   char *data;       /**< Pointer to the allocated memory buffer. */
   size_t data_size; /**< Size of each element in bytes. */
   size_t length;    /**< Number of elements currently in the vector. */
+  size_t capacity;
 } Vector;
 
 /**
@@ -43,16 +44,23 @@ static inline Vector vector_init(size_t data_size)
 
 static inline int vector_append(Vector *v, void *value)
 {
-  char *tmp = (char *)realloc(v->data, (v->length + 1) * v->data_size);
-  if (!tmp)
-    return -1;
-  v->data = tmp;
+  if (v->length == v->capacity)
+  {
+    size_t new_capacity = v->capacity ? v->capacity * 2 : 4;
+
+    char *tmp = (char *)realloc(v->data, new_capacity * v->data_size);
+    if (!tmp)
+      return -1;
+
+    v->capacity = new_capacity;
+    v->data = tmp;
+  }
 
   memcpy(v->data + v->length * v->data_size, value, v->data_size);
 
   v->length++;
 
-  return 1;
+  return 0;
 }
 
 /**
@@ -81,7 +89,6 @@ static inline void vector_free(Vector *v)
 
 static inline void *vector_get_values(Vector *v)
 {
-  size_t i, j;
   char *values = (char *)malloc(v->data_size * v->length);
 
   memcpy(values, v->data, v->length * v->data_size);
