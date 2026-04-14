@@ -48,18 +48,18 @@ static inline double math_triangle_area_2(double side_A, double side_B, double a
  *
  * @param side_A The length of side A of the triangle.
  * @param side_B The length of side B of the triangle.
- * @param sideC The length of side C of the triangle.
+ * @param side_C The length of side C of the triangle.
  *
  * @return The area of the triangle.
  */
 
 static inline double math_triangle_area_3(double side_A, double side_B, double sideC)
 {
-  if (side_A < 0 || side_B < 0 || sideC < 0)
+  if (side_A < 0 || side_B < 0 || side_C < 0)
     return NAN;
   double result, s;
-  s = (side_A + side_B + sideC) / 2;
-  result = sqrt(s * (s - side_A) * (s - side_B) * (s - sideC));
+  s = (side_A + side_B + side_C) / 2;
+  result = sqrt(s * (s - side_A) * (s - side_B) * (s - side_C));
   return result;
 }
 
