@@ -1,7 +1,6 @@
 #ifndef PRIME_FACTORIZATION_H
 #define PRIME_FACTORIZATION_H
 
-#include <stdlib.h>
 #include "vector.h"
 
 /**
@@ -14,7 +13,7 @@
  * @note It is the caller's responsibility to free the memory allocated for the array.
  */
 
-static inline Vector math_primeFactors(long long num)
+static inline Vector math_prime_factors(long long num)
 {
   long long i;
   Vector factors = vector_init(sizeof(long long));
