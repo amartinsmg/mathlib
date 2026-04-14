@@ -1,7 +1,6 @@
 #ifndef AREA_SURFACE_H
 #define AREA_SURFACE_H
 
-#include <math.h>
 #include "area_shape.h"
 
 /**
@@ -12,7 +11,7 @@
  * @return The surface area of the cube.
  */
 
-static inline double math_cubeArea(double side)
+static inline double math_cube_area(double side)
 {
   if (side < 0)
     return NAN;
@@ -30,7 +29,7 @@ static inline double math_cubeArea(double side)
  * @return The surface area of the cuboid.
  */
 
-static inline double math_cuboidArea(double width, double length, double height)
+static inline double math_cuboid_area(double width, double length, double height)
 {
   if (width < 0 || length < 0 || height < 0)
     return NAN;
@@ -41,112 +40,112 @@ static inline double math_cuboidArea(double width, double length, double height)
 /**
  * @brief Calculates the surface area of a prism.
  *
- * @param baseArea The area of the prism's base.
- * @param basePerimeter The perimeter of the prism's base.
+ * @param base_area The area of the prism's base.
+ * @param base_perimeter The perimeter of the prism's base.
  * @param height The height of the prism.
  *
  * @return The surface area of the prism.
  */
 
-static inline double math_prismArea(double baseArea, double basePerimeter, double height)
+static inline double math_prism_area(double base_area, double base_perimeter, double height)
 {
-  if (baseArea < 0 || basePerimeter < 0 || height < 0)
+  if (base_area < 0 || base_perimeter < 0 || height < 0)
     return NAN;
-  double result = 2 * baseArea + basePerimeter * height;
+  double result = 2 * base_area + base_perimeter * height;
   return result;
 }
 
 /**
  * @brief Calculates the surface area of a regular prism.
  *
- * @param baseSide The length of the base side of the prism.
- * @param nOfBaseSides The number of sides in the base of the prism.
+ * @param base_side The length of the base side of the prism.
+ * @param n_of_base_sides The number of sides in the base of the prism.
  * @param height The height of the prism.
  *
  * @return The surface area of the prism.
  */
 
-static inline double math_regularPrismArea(double baseSide, int nOfBaseSides, double height)
+static inline double math_reg_prism_area(double base_side, int n_of_base_sides, double height)
 {
-  if (baseSide < 0 || nOfBaseSides < 0 || height < 0)
+  if (base_side < 0 || n_of_base_sides < 0 || height < 0)
     return NAN;
-  double baseArea = math_regPolygonArea(baseSide, nOfBaseSides),
-         basePerimeter = baseSide * nOfBaseSides,
-         result = math_prismArea(baseArea, basePerimeter, height);
+  double base_area = math_reg_polygon_area(base_side, n_of_base_sides),
+         base_perimeter = base_side * n_of_base_sides,
+         result = math_prism_area(base_area, base_perimeter, height);
   return result;
 }
 
 /**
  * @brief Calculates the surface area of a pyramid.
  *
- * @param baseArea The area of the pyramid's base.
- * @param basePerimeter The perimeter of the pyramid's base.
- * @param slantHeight The slant height of the pyramid.
+ * @param base_area The area of the pyramid's base.
+ * @param base_perimeter The perimeter of the pyramid's base.
+ * @param slant_height The slant height of the pyramid.
  *
  * @return The surface area of the pyramid.
  */
 
-static inline double math_pyramidArea(double baseArea, double basePerimeter, double slantHeight)
+static inline double math_pyramid_area(double base_area, double base_perimeter, double slant_height)
 {
-  if (baseArea < 0 || basePerimeter < 0 || slantHeight < 0)
+  if (base_area < 0 || base_perimeter < 0 || slant_height < 0)
     return NAN;
-  double result = baseArea + basePerimeter * slantHeight / 2;
+  double result = base_area + base_perimeter * slant_height / 2;
   return result;
 }
 
 /**
  * @brief Calculates the surface area of a regular pyramid.
  *
- * @param baseSide The length of the base side of the pyramid.
- * @param nOfBaseSides The number of sides in the base of the pyramid.
+ * @param base_side The length of the base side of the pyramid.
+ * @param n_of_base_sides The number of sides in the base of the pyramid.
  * @param height The height of the pyramid.
  *
  * @return The surface area of the pyramid.
  */
 
-static inline double math_regPyramidArea(double baseSide, int nOfBaseSides, double height)
+static inline double math_reg_pyramid_area(double base_side, int n_of_base_sides, double height)
 {
-  if (baseSide < 0 || nOfBaseSides < 0 || height < 0)
+  if (base_side < 0 || n_of_base_sides < 0 || height < 0)
     return NAN;
-  double baseArea = math_regPolygonArea(baseSide, nOfBaseSides),
-         basePerimeter = baseSide * nOfBaseSides,
-         apothen = baseSide / (2 * tan(M_PI / nOfBaseSides)),
-         slantHeight = math_hypotenuse(apothen, height),
-         result = math_pyramidArea(baseArea, basePerimeter, slantHeight);
+  double base_area = math_reg_polygon_area(base_side, n_of_base_sides),
+         base_perimeter = base_side * n_of_base_sides,
+         apothen = base_side / (2 * tan(M_PI / n_of_base_sides)),
+         slant_height = math_hypotenuse(apothen, height),
+         result = math_pyramid_area(base_area, base_perimeter, slant_height);
   return result;
 }
 
 /**
  * @brief Calculates the surface area of a cylinder.
  *
- * @param baseRadius The radius of the cylinder's base.
+ * @param base_radius The radius of the cylinder's base.
  * @param height The height of the cylinder.
  *
  * @return The surface area of the cylinder.
  */
 
-static inline double math_cylinderArea(double baseRadius, double height)
+static inline double math_cylinder_area(double base_radius, double height)
 {
-  if (baseRadius < 0 || height < 0)
+  if (base_radius < 0 || height < 0)
     return NAN;
-  double result = 2 * M_PI * baseRadius * (baseRadius + height);
+  double result = 2 * M_PI * base_radius * (base_radius + height);
   return result;
 }
 
 /**
  * @brief Calculates the surface area of a cone.
  *
- * @param baseRadius The radius of the cone's base.
+ * @param base_radius The radius of the cone's base.
  * @param height The height of the cone.
  *
  * @return The surface area of the cone.
  */
 
-static inline double math_coneArea(double baseRadius, double height)
+static inline double math_cone_area(double base_radius, double height)
 {
-  if (baseRadius < 0 || height < 0)
+  if (base_radius < 0 || height < 0)
     return NAN;
-  double result = math_circleArea(baseRadius) + M_PI * baseRadius * math_hypotenuse(height, baseRadius);
+  double result = math_circle_area(base_radius) + M_PI * base_radius * math_hypotenuse(height, base_radius);
   return result;
 }
 
@@ -158,7 +157,7 @@ static inline double math_coneArea(double baseRadius, double height)
  * @return The surface area of the sphere.
  */
 
-static inline double math_sphereArea(double radius)
+static inline double math_sphere_area(double radius)
 {
   if (radius < 0)
     return NAN;
