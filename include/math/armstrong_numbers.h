@@ -12,7 +12,7 @@
  * @return True if the number is an Armstrong number, false otherwise.
 */
 
-static inline bool math_isArmstrong(long long num)
+static inline bool math_is_armstrong(long long num)
 {
   int i,
       k = floor(log10(num) + 1);

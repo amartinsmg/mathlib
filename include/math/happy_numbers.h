@@ -1,8 +1,8 @@
 #ifndef HAPPY_NUMBERS_H
 #define HAPPY_NUMBERS_H
 
-#include <stdbool.h>
 #include "set.h"
+#include <stdbool.h>
 
 /**
  * @brief Checks whether the given number is a happy number.
@@ -12,12 +12,11 @@
  * @return True if the number is a happy number, false otherwise.
  */
 
-static inline bool math_isHappy(long long num)
+static inline bool math_is_happy(long long num)
 {
-  long long sum;
-  Set numSet = {0};
-  int i, remainder;
-  set_add_value(&numSet, num);
+  long long sum, remainder;
+  Set num_set = {0};
+  set_add_value(&num_set, num);
   while (true)
   {
     sum = 0;
@@ -29,15 +28,15 @@ static inline bool math_isHappy(long long num)
     }
     if (sum == 1)
     {
-      set_free(&numSet);
+      set_free(&num_set);
       return true;
     }
-    if (set_contains(&numSet, sum))
+    if (set_contains(&num_set, sum))
     {
-      set_free(&numSet);
+      set_free(&num_set);
       return false;
     }
-    set_add_value(&numSet, sum);
+    set_add_value(&num_set, sum);
     num = sum;
   }
 }
