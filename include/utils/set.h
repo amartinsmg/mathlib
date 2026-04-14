@@ -36,7 +36,6 @@ typedef struct
  */
 static inline int set_add_value(Set *set, long long value)
 {
-  size_t i;
   SetNode *current = set->head;
 
   while (current != NULL)
