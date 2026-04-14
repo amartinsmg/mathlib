@@ -53,7 +53,7 @@ static inline double math_triangle_area_2(double side_A, double side_B, double a
  * @return The area of the triangle.
  */
 
-static inline double math_triangle_area_3(double side_A, double side_B, double sideC)
+static inline double math_triangle_area_3(double side_A, double side_B, double side_C)
 {
   if (side_A < 0 || side_B < 0 || side_C < 0)
     return NAN;
