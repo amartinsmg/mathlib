@@ -10,7 +10,7 @@
  * @return The calculated result.
  */
 
-static inline double math_nPercentOfX(double x, double n)
+static inline double math_n_percent_of_x(double x, double n)
 {
   if (n == 0)
     return 0;
@@ -27,7 +27,7 @@ static inline double math_nPercentOfX(double x, double n)
  * @return The calculated percentage.
  */
 
-static inline double math_nIsWhatPercentOfX(double x, double n)
+static inline double math_n_is_what_percent_of_x(double x, double n)
 {
   if (x == 0)
     return 0;
