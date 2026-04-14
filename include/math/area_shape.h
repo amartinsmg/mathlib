@@ -17,7 +17,7 @@
  * @return The area of the triangle.
  */
 
-static inline double math_triangleArea1(double base, double height)
+static inline double math_triangle_area_1(double base, double height)
 {
   if (base < 0 || height <= 0)
     return NAN;
@@ -28,38 +28,38 @@ static inline double math_triangleArea1(double base, double height)
 /**
  * @brief Calculate the area of a triangle given two sides and an angle between them.
  *
- * @param sideA The length of side A of the triangle.
- * @param sideB The length of side B of the triangle.
- * @param angleGama The angle between sides A and B, in radians.
+ * @param side_A The length of side A of the triangle.
+ * @param side_B The length of side B of the triangle.
+ * @param angle_gama The angle between sides A and B, in radians.
  *
  * @return The area of the triangle.
  */
 
-static inline double math_triangleArea2(double sideA, double sideB, double angleGama)
+static inline double math_triangle_area_2(double side_A, double side_B, double angle_gama)
 {
-  if (sideA < 0 || sideB < 0 || angleGama < 0 || angleGama > M_PI)
+  if (side_A < 0 || side_B < 0 || angle_gama < 0 || angle_gama > M_PI)
     return NAN;
-  double result = sideA * sideB * sin(angleGama) / 2;
+  double result = side_A * side_B * sin(angle_gama) / 2;
   return result;
 }
 
 /**
  * @brief Calculate the area of a triangle given three sides.
  *
- * @param sideA The length of side A of the triangle.
- * @param sideB The length of side B of the triangle.
+ * @param side_A The length of side A of the triangle.
+ * @param side_B The length of side B of the triangle.
  * @param sideC The length of side C of the triangle.
  *
  * @return The area of the triangle.
  */
 
-static inline double math_triangleArea3(double sideA, double sideB, double sideC)
+static inline double math_triangle_area_3(double side_A, double side_B, double sideC)
 {
-  if (sideA < 0 || sideB < 0 || sideC < 0)
+  if (side_A < 0 || side_B < 0 || sideC < 0)
     return NAN;
   double result, s;
-  s = (sideA + sideB + sideC) / 2;
-  result = sqrt(s * (s - sideA) * (s - sideB) * (s - sideC));
+  s = (side_A + side_B + sideC) / 2;
+  result = sqrt(s * (s - side_A) * (s - side_B) * (s - sideC));
   return result;
 }
 
@@ -71,7 +71,7 @@ static inline double math_triangleArea3(double sideA, double sideB, double sideC
  * @return The area of the square.
  */
 
-static inline double math_squareArea(double side)
+static inline double math_square_area(double side)
 {
   if (side < 0)
     return NAN;
@@ -88,7 +88,7 @@ static inline double math_squareArea(double side)
  * @return The area of the rectangle.
  */
 
-static inline double math_rectangleArea(double width, double length)
+static inline double math_rectangle_area(double width, double length)
 {
   if (width < 0 || length < 0)
     return NAN;
@@ -99,17 +99,17 @@ static inline double math_rectangleArea(double width, double length)
 /**
  * @brief Calculate the area of a rhombus given the lengths of the larger diagonal and smaller diagonal.
  *
- * @param largerDiagonal The length of the larger diagonal of the rhombus.
- * @param smallerDiagonal The length of the smaller diagonal of the rhombus.
+ * @param larger_diagonal The length of the larger diagonal of the rhombus.
+ * @param smaller_diagonal The length of the smaller diagonal of the rhombus.
  *
  * @return The area of the rhombus.
  */
 
-static inline double math_rhombusArea(double largerDiagonal, double smallerDiagonal)
+static inline double math_rhombus_area(double larger_diagonal, double smaller_diagonal)
 {
-  if (largerDiagonal < 0 || smallerDiagonal < 0)
+  if (larger_diagonal < 0 || smaller_diagonal < 0)
     return NAN;
-  double result = largerDiagonal * smallerDiagonal / 2;
+  double result = larger_diagonal * smaller_diagonal / 2;
   return result;
 }
 
@@ -122,7 +122,7 @@ static inline double math_rhombusArea(double largerDiagonal, double smallerDiago
  *  @return The area of the parallelogram.
  */
 
-static inline double math_parallelogramArea1(double base, double height)
+static inline double math_parallelogram_area_1(double base, double height)
 {
   if (base < 0 || height < 0)
     return NAN;
@@ -133,36 +133,36 @@ static inline double math_parallelogramArea1(double base, double height)
 /**
  * @brief Calculate the area of a parallelogram given the lengths of two sides and the angle between them.
  *
- * @param sideA The length of one side of the parallelogram.
- * @param sideB The length of the adjacent side of the parallelogram.
- * @param angleBetweenAB The angle between sideA and sideB, in radians.
+ * @param side_A The length of one side of the parallelogram.
+ * @param side_B The length of the adjacent side of the parallelogram.
+ * @param angle_between_A_B The angle between side_A and side_B, in radians.
  *
  * @return The area of the parallelogram.
  */
 
-static inline double math_parallelogramArea2(double sideA, double sideB, double angleBeetweenAB)
+static inline double math_parallelogram_area_2(double side_A, double side_B, double angle_between_A_B)
 {
-  if (sideA < 0 || sideB < 0 || angleBeetweenAB < 0 || angleBeetweenAB > M_PI)
+  if (side_A < 0 || side_B < 0 || angle_between_A_B < 0 || angle_between_A_B > M_PI)
     return NAN;
-  double result = sideA * sideB * sin(angleBeetweenAB);
+  double result = side_A * side_B * sin(angle_between_A_B);
   return result;
 }
 
 /**
  * @brief Calculate the area of a trapezoid given the lengths of the larger base, smaller base, and height.
  *
- * @param largerBase The length of the larger base of the trapezoid.
- * @param smallerBase The length of the smaller base of the trapezoid.
+ * @param larger_base The length of the larger base of the trapezoid.
+ * @param smaller_base The length of the smaller base of the trapezoid.
  * @param height The height of the trapezoid.
  *
  * @return The area of the trapezoid.
  */
 
-static inline double math_trapezoidArea(double largerBase, double smallerBase, double height)
+static inline double math_trapezoid_area(double larger_base, double smaller_base, double height)
 {
-  if (largerBase < 0 || smallerBase < 0 || height < 0)
+  if (larger_base < 0 || smaller_base < 0 || height < 0)
     return NAN;
-  double result = (largerBase + smallerBase) * height / 2;
+  double result = (larger_base + smaller_base) * height / 2;
   return result;
 }
 
@@ -170,18 +170,18 @@ static inline double math_trapezoidArea(double largerBase, double smallerBase, d
  *  @brief Calculate the area of a regular polygon.
  *
  *  @param side The length of one side of the polygon.
- *  @param nOfSides The number of sides of the polygon.
+ *  @param n_of_sides The number of sides of the polygon.
  *
  *  @return The area of the regular polygon.
  */
 
-static inline double math_regPolygonArea(double side, int nOfSides)
+static inline double math_reg_polygon_area(double side, int n_of_sides)
 {
-  if (side < 0 || nOfSides < 3)
+  if (side < 0 || n_of_sides < 3)
     return NAN;
   double apothen, perimeter, result;
-  apothen = side / (2 * tan(M_PI / nOfSides));
-  perimeter = side * nOfSides;
+  apothen = side / (2 * tan(M_PI / n_of_sides));
+  perimeter = side * n_of_sides;
   result = perimeter * apothen / 2;
   return result;
 }
@@ -194,7 +194,7 @@ static inline double math_regPolygonArea(double side, int nOfSides)
  * @return The area of the circle.
  */
 
-static inline double math_circleArea(double radius)
+static inline double math_circle_area(double radius)
 {
   if (radius < 0)
     return NAN;
@@ -211,7 +211,7 @@ static inline double math_circleArea(double radius)
  * @return The area of the circular sector.
  */
 
-static inline double math_circularSectorArea1(double angle, double radius)
+static inline double math_circular_sector_area_1(double angle, double radius)
 {
   if (radius < 0 || angle < 0 || angle > 2 * M_PI)
     return NAN;
@@ -228,7 +228,7 @@ static inline double math_circularSectorArea1(double angle, double radius)
  * @return The area of the circular sector.
  */
 
-static inline double math_circularSectorArea2(double arc, double radius)
+static inline double math_circular_sector_area_2(double arc, double radius)
 {
   if (radius < 0 || arc < 0 || arc > M_PI * 2 * radius)
     return NAN;
@@ -239,17 +239,17 @@ static inline double math_circularSectorArea2(double arc, double radius)
 /**
  * @brief Calculate the area of an ellipse given the semi-major axis and semi-minor axis.
  *
- * @param semiMajorAxis The length of the semi-major axis of the ellipse.
- * @param semiMinorAxis The length of the semi-minor axis of the ellipse.
+ * @param semi_major_axis The length of the semi-major axis of the ellipse.
+ * @param semi_minor_axis The length of the semi-minor axis of the ellipse.
  *
  * @return The area of the ellipse.
  */
 
-static inline double math_ellipseArea(double semiMajorAxis, double semiMinorAxis)
+static inline double math_ellipse_area(double semi_major_axis, double semi_minor_axis)
 {
-  if (semiMajorAxis < 0 || semiMinorAxis < 0)
+  if (semi_major_axis < 0 || semi_minor_axis < 0)
     return NAN;
-  double result = M_PI * semiMajorAxis * semiMinorAxis;
+  double result = M_PI * semi_major_axis * semi_minor_axis;
   return result;
 }
 
