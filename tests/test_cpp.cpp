@@ -1,8 +1,8 @@
+#include "mathlib.hpp"
 #include <iostream>
 #include <cstdlib>
 #include <cstring>
 #include <vector>
-#include <mathlib.hpp>
 
 void test(int code, bool condition)
 {
@@ -19,7 +19,6 @@ void test(int code, bool condition)
 int main(void)
 {
   char str[100];
-  size_t i;
   int status = EXIT_FAILURE;
   Point out,
       a = {1, 1},
