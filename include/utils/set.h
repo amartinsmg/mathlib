@@ -1,123 +1,126 @@
 #ifndef SET_H
 #define SET_H
 
+#include <stddef.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
-
-/**
- * @brief Structure representing a node in the set's linked list.
- */
-typedef struct SetNode_s
-{
-  long long data;         /**< The data stored in the node. */
-  struct SetNode_s *next; /**< Pointer to the next node. */
-} SetNode;
 
 /**
  * @brief Structure representing a set of unique values.
  */
+
 typedef struct
 {
-  SetNode *head; /**< Pointer to the head of the linked list. */
-  size_t length; /**< The number of elements in the set. */
+  char *data;       /**< Pointer to the allocated memory buffer. */
+  size_t data_size; /**< Size of each element in bytes. */
+  size_t length;    /**< Number of elements currently in the set. */
+  size_t capacity;  /**< Total number of elements the set can hold before reallocating. */
 } Set;
+
+/**
+ * @brief Initializes a new set.
+ *
+ * @param data_size The size of each element in bytes.
+ *
+ * @return An initialized Set structure with zero length.
+ */
+
+static inline Set set_init(size_t data_size)
+{
+  Set s = {0};
+  s.data_size = data_size;
+  return s;
+}
+
+
+/**
+ * @brief Checks if a value is present in the set.
+ *
+ * @param s Pointer to the Set structure.
+ * @param value Pointer to the value to check for.
+ *
+ * @return True if the value is found, false otherwise.
+ */
+
+static inline bool set_contains(Set *s, void *value)
+{
+  size_t i;
+
+  for (i = 0; i < s->length; i++)
+  {
+    if (!memcmp(s->data + i * s->data_size, value, s->data_size))
+      return true;
+  }
+
+  return false;
+}
 
 /**
  * @brief Adds a value to the set.
  *
- * Checks if the value already exists in the set. If not, allocates a new node
- * and adds it to the beginning of the list.
+ * Checks if the value already exists in the set. If not, grows the internal
+ * buffer if necessary and appends the new value.
  *
  * @param set Pointer to the Set structure.
- * @param value The value to add.
+ * @param value Pointer to the value to add.
  *
- * @return 1 if the value was added, 0 if the value already exists,
- * or -1 if memory allocation failed.
+ * @return 1 if the value was added, 0 if it already exists, or -1 if memory allocation failed.
  */
-static inline int set_add_value(Set *set, long long value)
-{
-  SetNode *current = set->head;
 
-  while (current != NULL)
+static inline int set_add_value(Set *set, void *value)
+{
+  if (set_contains(set, value))
+    return 0;
+
+  if (set->length == set->capacity)
   {
-    if (current->data == value)
-      return 0;
-    current = current->next;
+    size_t new_capacity = set->capacity ? set->capacity * 2 : 4;
+
+    char *tmp = (char *)realloc(set->data, new_capacity * set->data_size);
+    if (!tmp)
+      return -1;
+
+    set->capacity = new_capacity;
+    set->data = tmp;
   }
 
-  SetNode *new_node = (SetNode *)malloc(sizeof(*new_node));
-  if (!new_node)
-    return -1;
-  new_node->data = value;
-  new_node->next = set->head;
-  set->head = new_node;
+  memcpy(set->data + set->length * set->data_size, value, set->data_size);
+
   set->length++;
 
   return 1;
 }
 
 /**
- * @brief Checks if a value is present in the set.
+ * @brief Frees the memory allocated for the set.
  *
- * @param set Pointer to the Set structure.
- * @param value The value to check for.
- *
- * @return True if the value is found, false otherwise.
- */
-
-static inline bool set_contains(Set *set, long long value)
-{
-  SetNode *current = set->head;
-  while (current != NULL)
-  {
-    if (current->data == value)
-      return true;
-    current = current->next;
-  }
-  return false;
-}
-
-/**
- * @brief Frees the memory allocated for the set's nodes.
- *
- * Iterates through the linked list and frees each node.
- *
- * @param set Pointer to the Set structure.
+ * @param set Pointer to the Set structure to be cleared.
  */
 
 static inline void set_free(Set *set)
 {
-  SetNode *current = set->head;
-  while (current != NULL)
-  {
-    SetNode *next = current->next;
-    free(current);
-    current = next;
-  }
-  set->head = NULL;
+  free(set->data);
   set->length = 0;
+  set->capacity = 0;
 }
 
 /**
  * @brief Retrieves the values stored in the set as an array.
  *
- * @param set Pointer to the Set structure.
+ * @param s Pointer to the Set structure.
  *
  * @return A dynamically allocated array containing the values in the set.
  *
  * @note It is the caller's responsibility to free the allocated memory.
  */
 
-static inline long long *set_get_values(Set *set)
+static inline void *set_get_values(Set *s)
 {
-  size_t i;
-  SetNode *current = set->head;
-  long long *values = (long long *)malloc(sizeof(*values) * set->length);
-  for (i = 0; i < set->length; i++)
-  {
-    values[i] = current->data;
-    current = current->next;
-  }
+  char *values = (char *)malloc(s->data_size * s->length);
+
+  memcpy(values, s->data, s->length * s->data_size);
+
   return values;
 }
 
