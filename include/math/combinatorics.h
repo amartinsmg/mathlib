@@ -2,9 +2,6 @@
 #define COMBINATORICS_H
 
 #include "factorial.h"
-#include <errno.h>
-#include <stdio.h>
-#include <math.h>
 
 /**
  * @brief Calculate the cycle permutation of a number.
