@@ -29,7 +29,7 @@ static inline double math_logarithm(double num, double base)
  * @return The nth root of the radicand.
  */
 
-static inline double math_nthRoot(double radicand, double degree)
+static inline double math_nth_root(double radicand, double degree)
 {
   if (degree == 0)
     return NAN;
@@ -41,15 +41,15 @@ static inline double math_nthRoot(double radicand, double degree)
  * @brief Round a number to a specified number of decimal places.
  *
  * @param num The number to be rounded.
- * @param decimalPlaces The number of decimal places to round to.
+ * @param decimal_places The number of decimal places to round to.
  *
  * @return The rounded number.
  */
 
-static inline double math_roundTo(double num, unsigned decimalPlaces)
+static inline double math_round_to(double num, unsigned decimal_places)
 {
-  double result, base10 = pow(10, decimalPlaces);
-  result = round(num * base10) / base10;
+  double result, base_10 = pow(10, decimal_places);
+  result = round(num * base_10) / base_10;
   return result;
 }
 
