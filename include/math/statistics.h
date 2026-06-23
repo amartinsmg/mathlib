@@ -262,7 +262,11 @@ static inline double math_range(const double *arr, size_t length)
 
 static inline double math_midrange(const double *arr, size_t length)
 {
-  double result = math_range(arr, length) / 2;
+  if (length == 0 || arr == NULL)
+    return NAN;
+  double minValue = math_min(arr, length),
+         maxValue = math_max(arr, length),
+ result = (maxValue + minValue) / 2;
   return result;
 }
 
