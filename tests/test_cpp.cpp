@@ -59,8 +59,8 @@ int main(void)
     test(20, Math::max(vecLf2) == 73);
     test(21, Math::range(vecLf1) == 9);
     test(22, Math::range(vecLf2) == 71);
-    test(23, Math::midrange(vecLf1) == 4.5);
-    test(24, Math::midrange(vecLf2) == 35.5);
+    test(23, Math::midrange(vecLf1) == 6.5);
+    test(24, Math::midrange(vecLf2) == 37.5);
     test(25, Math::roundTo(Math::variance(vecLf1), 6) == 8.4375);
     test(26, Math::roundTo(Math::variance(vecLf2), 6) == 596.775510);
     test(27, Math::roundTo(Math::sampleVariance(vecLf1), 6) == 9.642857);
@@ -70,7 +70,7 @@ int main(void)
     test(31, Math::roundTo(Math::sampleStdDev(vecLf1), 6) == 3.105295);
     test(32, Math::roundTo(Math::sampleStdDev(vecLf2), 6) == 26.386324);
     vecLf1[3] = 3;
-    test(33, Math::mode(vecLf1) == std::vector<double>{2, 3}); // This was test 33, so the next one should be 34
+    test(33, Math::mode(vecLf1) == std::vector<double>{2, 3});
     test(34, Math::lineYIntercept(a, b) == -2);
     test(35, Math::lineYIntercept(c, d) == 1);
     out = Math::midpoint(a, b);
