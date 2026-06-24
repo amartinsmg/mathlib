@@ -16,8 +16,8 @@ static inline long long math_lcm(long long x, long long y)
 {
   if (x == 0 || y == 0)
     return 0;
-  long long product = (long long) x * (long long) y;
-  long long result = llabs(product / math_gcd(x, y));
+  long long result = llabs(x / math_gcd(x, y) * y);
+
   return result;
 }
 
