@@ -191,7 +191,7 @@ double factoriallf(unsigned num)
   return math_factoriallf(num);
 }
 
-int gcd(int x, int y)
+long long gcd(long long x, long long y)
 {
   return math_gcd(x, y);
 }
@@ -304,7 +304,7 @@ bool isHappy(long long num)
   return math_is_happy(num);
 }
 
-long long lcm(int x, int y)
+long long lcm(long long x, long long y)
 {
   return math_lcm(x, y);
 }
