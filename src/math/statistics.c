@@ -100,6 +100,14 @@ typedef struct {
   size_t frequency;
 } freq_t;
 
+/**
+ * @brief Computes the frequencies of unique values in an array.
+ *
+ * @param arr The input array of doubles.
+ * @param length The length of the input array.
+ * @return A Vector containing freq_t structures representing unique values and their frequencies.
+ */
+
 static Vector get_frequencies(const double *arr, size_t length) {
   double *sorted_arr = sort(arr, length);
   Vector frequencies = vector_init(sizeof(freq_t));
@@ -138,8 +146,8 @@ double *mode(const double *arr, size_t length, size_t *size) {
 
   double *result = NULL;
 
-  Vector frequencies_vector = get_frequencies(arr, length);
-  freq_t *frequencies = (freq_t *)vector_get_values(&frequencies_vector);
+  Vector value_count = get_frequencies(arr, length);
+  freq_t *frequencies = (freq_t *)vector_get_values(&value_count);
 
   if (frequencies != NULL) {
     size_t i;
@@ -147,14 +155,14 @@ double *mode(const double *arr, size_t length, size_t *size) {
     size_t max_freq = 0;
     int status = 0;
 
-    for (i = 0; i < frequencies_vector.length; i++) {
+    for (i = 0; i < value_count.length; i++) {
       size_t tmp_freq = frequencies[i].frequency;
       min_freq = tmp_freq < min_freq ? tmp_freq : min_freq;
       max_freq = tmp_freq > max_freq ? tmp_freq : max_freq;
     }
 
     if (max_freq > min_freq)
-      for (i = 0; i < frequencies_vector.length; i++) {
+      for (i = 0; i < value_count.length; i++) {
         freq_t tmp = frequencies[i];
         if (tmp.frequency == max_freq)
           if (vector_append(&modes, &tmp.value) != 0) {
@@ -173,7 +181,7 @@ double *mode(const double *arr, size_t length, size_t *size) {
     free(frequencies);
   }
 
-  vector_free(&frequencies_vector);
+  vector_free(&value_count);
 
   vector_free(&modes);
 

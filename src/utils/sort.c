@@ -3,6 +3,14 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+/**
+ * @brief Pipeline function for the merge sort algorithm.
+ * @param src The source array to be sorted.
+ * @param target The target array where the sorted elements will be placed.
+ * @param length The length of the source array.
+ * @param index The current index in the merge sort process.
+ */
+
 static void mergesort_pipeline(double *src, double *target, size_t length,
                                size_t index) {
   size_t tgt_index = 0;
@@ -13,7 +21,7 @@ static void mergesort_pipeline(double *src, double *target, size_t length,
     double *right = (double *)(left + half);
     size_t l_index = 0;
     size_t r_index = 0;
-    for (size_t k = 0; k < pow_2_i && tgt_index < length; k++)
+    for (size_t k = 0; k < pow_2_i && tgt_index < length; k++) {
       if (l_index >= half)
         target[tgt_index++] = right[r_index++];
       else if (r_index >= half || j + half + r_index >= length)
@@ -21,6 +29,7 @@ static void mergesort_pipeline(double *src, double *target, size_t length,
       else
         target[tgt_index++] =
             left[l_index] < right[r_index] ? left[l_index++] : right[r_index++];
+    }
   }
 }
 
