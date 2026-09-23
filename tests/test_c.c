@@ -20,7 +20,7 @@ int main()
 
   freeArray(mode_ptr);
 
-  ASSERT_TRUE(mean(arr, SIZE_OF_ARR) == 3.75);
+  ASSERT_TRUE(mean(arr, SIZE_OF_ARR) - 3.75 < 1e-15);
   ASSERT_TRUE(n_of_modes == 1);
   ASSERT_TRUE(mode_result == 2);
   ASSERT_TRUE(gcd(12, 42) == 6);

@@ -3,6 +3,27 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+static void mergesort_pipeline(double *src, double *target, size_t length,
+                               size_t index) {
+  size_t tgt_index = 0;
+  size_t pow_2_i = 1 << index;
+  size_t half = pow_2_i / 2;
+  for (size_t j = 0; j < length; j += pow_2_i) {
+    double *left = (double *)(src + j);
+    double *right = (double *)(left + half);
+    size_t l_index = 0;
+    size_t r_index = 0;
+    for (size_t k = 0; k < pow_2_i && tgt_index < length; k++)
+      if (l_index >= half)
+        target[tgt_index++] = right[r_index++];
+      else if (r_index >= half || j + half + r_index >= length)
+        target[tgt_index++] = left[l_index++];
+      else
+        target[tgt_index++] =
+            left[l_index] < right[r_index] ? left[l_index++] : right[r_index++];
+  }
+}
+
 double *sort(const double *arr, size_t length) {
   if (length == 0)
     return NULL;
@@ -18,43 +39,18 @@ double *sort(const double *arr, size_t length) {
     return NULL;
   }
 
-  double *src;
-  double *target;
-  double *left;
-  double *right;
   double *result;
   double *unused;
   size_t log2_length = (size_t)ceil(log2((double)length));
-  size_t i;
-  size_t j;
-  size_t k;
-  size_t half;
-  size_t target_i;
-  size_t left_i;
-  size_t right_i;
-  size_t pow_2_i;
 
-  for (i = 0; i < length; i++)
+  for (size_t i = 0; i < length; i++)
     buffer_1[i] = arr[i];
 
-  for (i = 1; i <= log2_length; i++) {
-    src = i % 2 ? buffer_1 : buffer_2, target = !(i % 2) ? buffer_1 : buffer_2;
-    target_i = 0;
-    pow_2_i = 1 << i;
-    half = pow_2_i / 2;
-    for (j = 0; j < length; j += pow_2_i) {
-      left = (double *)(src + j);
-      right = (double *)(left + half);
-      left_i = right_i = 0;
-      for (k = 0; k < pow_2_i && target_i < length; k++)
-        if (left_i >= half)
-          target[target_i++] = right[right_i++];
-        else if (right_i >= half || j + half + right_i >= length)
-          target[target_i++] = left[left_i++];
-        else
-          target[target_i++] =
-              left[left_i] < right[right_i] ? left[left_i++] : right[right_i++];
-    }
+  for (size_t i = 1; i <= log2_length; i++) {
+    if (i % 2)
+      mergesort_pipeline(buffer_1, buffer_2, length, i);
+    else
+      mergesort_pipeline(buffer_2, buffer_1, length, i);
   }
 
   result = log2_length % 2 ? buffer_2 : buffer_1;

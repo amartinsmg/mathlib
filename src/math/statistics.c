@@ -1,6 +1,7 @@
 #include "internal/mathlib_c.h"
 #include "utils/sort.h"
 #include "utils/vector.h"
+#include <stddef.h>
 #include <stdlib.h>
 
 double mean(const double *arr, size_t length) {
@@ -12,9 +13,9 @@ double mean(const double *arr, size_t length) {
   size_t i;
 
   for (i = 0; i < length; i++)
-    sum += arr[i];
+    sum += (arr[i] - sum) / (double)(i + 1);
 
-  result = sum / length;
+  result = sum;
   return result;
 }
 
@@ -49,10 +50,10 @@ double geometricMean(const double *arr, size_t length) {
   for (i = 0; i < length; i++) {
     if (arr[i] <= 0)
       return NAN;
-    product *= arr[i];
+    product *= nthRoot(arr[i], length);
   }
 
-  result = nthRoot(product, length);
+  result = product;
   return result;
 }
 
@@ -97,7 +98,36 @@ double median(const double *arr, size_t length) {
 typedef struct {
   double value;
   size_t frequency;
-} Freq;
+} freq_t;
+
+static Vector get_frequencies(const double *arr, size_t length) {
+  double *sorted_arr = sort(arr, length);
+  Vector frequencies = vector_init(sizeof(freq_t));
+
+  if (sorted_arr != NULL) {
+    size_t i;
+
+    freq_t tmp = {.value = sorted_arr[0], .frequency = 1};
+
+    for (i = 1; i < length; i++) {
+      if (sorted_arr[i] != tmp.value || i == length - 1) {
+        if (vector_append(&frequencies, &tmp)) {
+          vector_free(&frequencies);
+          break;
+        }
+        tmp.value = sorted_arr[i];
+        tmp.frequency = 1;
+      } else {
+        tmp.frequency += 1;
+      }
+    }
+  }
+
+  if (sorted_arr != NULL)
+    free(sorted_arr);
+
+  return frequencies;
+}
 
 double *mode(const double *arr, size_t length, size_t *size) {
 
@@ -108,39 +138,26 @@ double *mode(const double *arr, size_t length, size_t *size) {
 
   double *result = NULL;
 
-  double *sorted_arr = sort(arr, length);
-  Freq *frequencies = (Freq *)malloc(sizeof(*frequencies) * length);
+  Vector frequencies_vector = get_frequencies(arr, length);
+  freq_t *frequencies = (freq_t *)vector_get_values(&frequencies_vector);
 
-  if (sorted_arr != NULL && frequencies != NULL) {
+  if (frequencies != NULL) {
     size_t i;
     size_t min_freq = __UINT32_MAX__;
     size_t max_freq = 0;
-    size_t freq_len = 0;
     int status = 0;
 
-    frequencies[0].value = sorted_arr[0];
-    frequencies[0].frequency = 1;
-    freq_len++;
-
-    for (i = 1; i < length; i++)
-      if (sorted_arr[i] == frequencies[freq_len - 1].value)
-        frequencies[freq_len - 1].frequency++;
-      else {
-        frequencies[freq_len].value = sorted_arr[i];
-        frequencies[freq_len++].frequency = 1;
-      }
-
-    for (i = 0; i < freq_len; i++) {
-      min_freq = frequencies[i].frequency < min_freq ? frequencies[i].frequency
-                                                     : min_freq;
-      max_freq = frequencies[i].frequency > max_freq ? frequencies[i].frequency
-                                                     : max_freq;
+    for (i = 0; i < frequencies_vector.length; i++) {
+      size_t tmp_freq = frequencies[i].frequency;
+      min_freq = tmp_freq < min_freq ? tmp_freq : min_freq;
+      max_freq = tmp_freq > max_freq ? tmp_freq : max_freq;
     }
 
     if (max_freq > min_freq)
-      for (i = 0; i < freq_len; i++) {
-        if (frequencies[i].frequency == max_freq)
-          if (vector_append(&modes, &frequencies[i].value) != 0) {
+      for (i = 0; i < frequencies_vector.length; i++) {
+        freq_t tmp = frequencies[i];
+        if (tmp.frequency == max_freq)
+          if (vector_append(&modes, &tmp.value) != 0) {
             status = -1;
             break;
           }
@@ -149,16 +166,14 @@ double *mode(const double *arr, size_t length, size_t *size) {
     if (status == 0) {
       result = (double *)vector_get_values(&modes);
       *size = modes.length;
-    }else {
+    } else {
       *size = 0;
     }
+
+    free(frequencies);
   }
 
-  if (sorted_arr != NULL)
-    free(sorted_arr);
-
-  if (frequencies != NULL)
-    free(frequencies);
+  vector_free(&frequencies_vector);
 
   vector_free(&modes);
 
